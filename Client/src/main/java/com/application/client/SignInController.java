@@ -1,16 +1,11 @@
 package com.application.client;
 
 import com.application.utils.Utility;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
-
 import java.io.IOException;
 
-public class SignInController {
+public class SignInController extends Controller {
 
     public TextField usernameTextField;
     public PasswordField passwordTextField;
