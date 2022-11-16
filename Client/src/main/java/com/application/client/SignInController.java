@@ -3,6 +3,7 @@ package com.application.client;
 import com.application.utils.Utility;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+
 import java.io.IOException;
 
 public class SignInController extends Controller {
@@ -19,7 +20,7 @@ public class SignInController extends Controller {
         Utility.changeScene(usernameTextField, "sign-up-activity.fxml");
     }
 
-    public void onAboutUsListener() {
-
+    public void onAboutUsListener() throws IOException {
+        Utility.changeScene(usernameTextField, "about-us-activity.fxml");
     }
 }

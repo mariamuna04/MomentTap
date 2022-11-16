@@ -21,7 +21,6 @@ public class Utility {
         try {
             controller.init();
         } catch (Exception e) {
-            // FOR DEVs
             System.out.println(e.getMessage());
         }
 
