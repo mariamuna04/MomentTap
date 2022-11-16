@@ -64,23 +64,23 @@
                      </HBox.margin>
                   </HBox>
                   <HBox prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
-                  <HBox alignment="CENTER" maxHeight="32.0" minHeight="32.0" prefHeight="32.0" style="-fx-background-color: #fff;">
+                  <HBox alignment="CENTER" maxHeight="36.0" maxWidth="32.0" minHeight="32.0" minWidth="32.0" prefHeight="36.0" prefWidth="32.0" style="-fx-background-color: #fff; -fx-background-radius: 8 0 0 8;">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
                      <children>
-                        <ImageView fitHeight="28.0" fitWidth="28.0" pickOnBounds="true">
+                        <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true">
                            <image>
-                              <Image url="@../../../../../../../../../Downloads/search_FILL0_wght400_GRAD0_opsz48.png" />
+                              <Image url="@../../../fxml-css/search_FILL0_wght200_GRAD0_opsz48.png" />
                            </image>
                         </ImageView>
                      </children>
                   </HBox>
-                  <TextField maxHeight="36.0" maxWidth="300.0" minHeight="36.0" minWidth="300.0" prefHeight="36.0" prefWidth="300.0" />
+                  <TextField maxHeight="36.0" maxWidth="300.0" minHeight="36.0" minWidth="300.0" prefHeight="36.0" prefWidth="300.0" promptText="Search Anything" style="-fx-background-color: #fff; -fx-background-radius: 0 8 8 0;" />
                   <HBox prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
                   <HBox alignment="CENTER" maxWidth="200.0" minWidth="200.0" prefHeight="100.0" prefWidth="200.0" spacing="12.0">
                      <children>
-                        <Label text="account name">
+                        <Label text="account_name">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -96,11 +96,11 @@
             </HBox>
             <VBox alignment="CENTER" style="-fx-background-color: #f6f3ee; -fx-background-radius: 0 20 20 0;" GridPane.columnSpan="6" GridPane.rowIndex="2" GridPane.rowSpan="2147483647">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="84.0" prefWidth="180.0" text="Button" />
-                  <Button mnemonicParsing="false" prefHeight="84.0" prefWidth="180.0" text="Button" />
-                  <Button mnemonicParsing="false" prefHeight="84.0" prefWidth="180.0" text="Button" />
-                  <Button mnemonicParsing="false" prefHeight="84.0" prefWidth="180.0" text="Button" />
-                  <Button mnemonicParsing="false" prefHeight="84.0" prefWidth="180.0" text="Button" />
+                  <Button alignment="CENTER" mnemonicParsing="false" text="Button" VBox.vgrow="ALWAYS" />
+                  <Button alignment="CENTER" mnemonicParsing="false" text="Button" VBox.vgrow="ALWAYS" />
+                  <Button alignment="CENTER" mnemonicParsing="false" text="Button" VBox.vgrow="ALWAYS" />
+                  <Button alignment="CENTER" mnemonicParsing="false" text="Button" VBox.vgrow="ALWAYS" />
+                  <Button alignment="CENTER" mnemonicParsing="false" text="Button" VBox.vgrow="ALWAYS" />
                </children>
                <GridPane.margin>
                   <Insets bottom="-3.0" left="-3.0" />
