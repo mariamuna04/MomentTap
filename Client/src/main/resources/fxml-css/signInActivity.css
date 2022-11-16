@@ -1,0 +1,54 @@
+.textField {
+    -fx-background-color: rgba(255, 255, 255, 0.7);
+    -fx-background-radius: 6px;
+    -fx-border-radius: 8px;
+    -fx-text-fill: #000000;
+}
+
+.textField:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.85);
+    -fx-background-radius: 8px;
+
+}
+
+.signInButton {
+    -fx-background-color: rgba(84, 119, 148, 0.75);
+    -fx-background-radius: 6px;
+    -fx-border-radius: 8px;
+    -fx-text-fill: #FFF;
+    cursor: pointer;
+    -fx-transition: -fx-background-color 2s, -fx-background-radius 2s, transform 2s;
+}
+
+.signInButton:hover {
+    -fx-background-color: rgba(84, 119, 148, 1);
+    -fx-background-radius: 8px;
+}
+
+.signUpButton {
+    -fx-background-color: rgba(194, 201, 205, 0.75);
+    -fx-background-radius: 6px;
+    -fx-border-radius: 8px;
+    -fx-text-fill: #000;
+    cursor: pointer;
+    transition: -fx-background-color 2s, -fx-background-radius 2s, transform 2s;
+}
+
+.signUpButton:hover {
+    -fx-background-color: rgba(194, 201, 205, 1);
+    -fx-background-radius: 8px;
+}
+
+.contactUsButton {
+    -fx-background-color: rgba(194, 201, 205, 0);
+    -fx-background-radius: 6px;
+    -fx-border-radius: 8px;
+    -fx-text-fill: #000;
+    cursor: hand;
+    transition: -fx-background-color 2s, -fx-background-radius 2s, transform 2s;
+}
+
+.contactUsButton:hover {
+    -fx-background-color: rgba(194, 201, 205, 0.6);
+    -fx-background-radius: 8px;
+}

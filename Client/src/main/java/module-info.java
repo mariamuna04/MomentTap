@@ -3,6 +3,6 @@ module com.application.clirnt {
     requires javafx.fxml;
 
 
-    opens com.application.clirnt to javafx.fxml;
-    exports com.application.clirnt;
+    opens com.application.client to javafx.fxml;
+    exports com.application.client;
 }
