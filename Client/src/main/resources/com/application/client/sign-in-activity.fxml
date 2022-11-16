@@ -17,7 +17,8 @@
 <?import javafx.scene.text.Text?>
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
-      prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+      prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1"
+fx:controller="com.application.client.SignInController">
     <children>
         <ImageView fitHeight="400.0" fitWidth="600.0" pickOnBounds="true">
             <image>
@@ -50,8 +51,8 @@
                 </Text>
                 <VBox alignment="CENTER" spacing="15.0">
                     <children>
-                        <TextField alignment="CENTER" maxHeight="35.0" minHeight="35.0" prefHeight="35.0"
-                                   promptText="Email or username" styleClass="textField"
+                        <TextField fx:id="usernameTextField" alignment="CENTER" maxHeight="35.0" minHeight="35.0"
+                                   prefHeight="35.0" promptText="Email or username" styleClass="textField"
                                    stylesheets="@../../../fxml-css/signInActivity.css">
                             <font>
                                 <Font name="Arial" size="14.0"/>
@@ -65,8 +66,8 @@
                                 </DropShadow>
                             </effect>
                         </TextField>
-                        <PasswordField alignment="CENTER" maxHeight="35.0" minHeight="35.0" prefHeight="35.0"
-                                       promptText="Password" styleClass="textField"
+                        <PasswordField fx:id="passwordTextField" alignment="CENTER" maxHeight="35.0" minHeight="35.0"
+                                       prefHeight="35.0" promptText="Password" styleClass="textField"
                                        stylesheets="@../../../fxml-css/signInActivity.css">
                             <font>
                                 <Font name="Arial" size="14.0"/>
@@ -93,10 +94,9 @@
                         <HBox alignment="CENTER" spacing="10.0">
                             <children>
                                 <Button maxHeight="30.0" maxWidth="1.7976931348623157E308" minHeight="30.0"
-                                        mnemonicParsing="false" prefHeight="30.0" prefWidth="125.0"
-                                        styleClass="signInButton"
-                                        stylesheets="@../../../fxml-css/signInActivity.css"
-                                        text="Sign In">
+                                        mnemonicParsing="false" onAction="#onSignInListener" prefHeight="30.0"
+                                        prefWidth="125.0" styleClass="signInButton"
+                                        stylesheets="@../../../fxml-css/signInActivity.css" text="Sign In">
                                     <cursor>
                                         <Cursor fx:constant="HAND"/>
                                     </cursor>
@@ -105,10 +105,9 @@
                                     </font>
                                 </Button>
                                 <Button maxHeight="30.0" maxWidth="1.7976931348623157E308" minHeight="30.0"
-                                        mnemonicParsing="false" prefHeight="30.0" prefWidth="125.0"
-                                        styleClass="signUpButton"
-                                        stylesheets="@../../../fxml-css/signInActivity.css"
-                                        text="Sign Up">
+                                        mnemonicParsing="false" onAction="#onSignIUpListener" prefHeight="30.0"
+                                        prefWidth="125.0" styleClass="signUpButton"
+                                        stylesheets="@../../../fxml-css/signInActivity.css" text="Sign Up">
                                     <cursor>
                                         <Cursor fx:constant="HAND"/>
                                     </cursor>
@@ -118,8 +117,8 @@
                         <HBox alignment="CENTER" spacing="10.0">
                             <children>
                                 <Button maxHeight="30.0" maxWidth="-Infinity" minHeight="30.0" minWidth="260.0"
-                                        mnemonicParsing="false" prefHeight="30.0" styleClass="contactUsButton"
-                                        stylesheets="@../../../fxml-css/signInActivity.css"
+                                        mnemonicParsing="false" onAction="#onAboutUsListener" prefHeight="30.0"
+                                        styleClass="contactUsButton" stylesheets="@../../../fxml-css/signInActivity.css"
                                         text="About Us" textFill="#4d4d4d">
                                     <cursor>
                                         <Cursor fx:constant="HAND"/>
