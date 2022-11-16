@@ -1,7 +1,5 @@
 package com.application.client;
 
-// Project: uiu-canteen-management-system
-// Created by tinykishore in IntelliJ IDEA on Monday, 12 September 2022
 
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -9,7 +7,7 @@ import javafx.stage.Stage;
 public class Controller extends Application {
     @Override
     public void start(Stage stage) {
-
+        
     }
 
     @Override
