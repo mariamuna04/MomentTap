@@ -1,5 +1,7 @@
 package com.application.client;
 
+import com.application.database.Database;
+import com.application.security.Authentication;
 import com.application.utils.Utility;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
@@ -10,11 +12,23 @@ import java.io.IOException;
 public class SignInController extends Controller {
     @FXML
     private TextField usernameTextField;
-    @FXML private PasswordField passwordTextField;
+    @FXML
+    private PasswordField passwordTextField;
 
     public void onSignInListener() {
-        System.out.println("Username: " + usernameTextField.getText());
-        System.out.println("Password: " + passwordTextField.getText());
+        String email = usernameTextField.getText();
+        String password = passwordTextField.getText();
+        boolean isAuth = Authentication.authenticate(email, password);
+
+        if (isAuth) {
+            System.out.println("Authenticated");
+        } else {
+            System.out.println("Not Authenticated");
+        }
+
+
+
+
     }
 
     public void onSignIUpListener() throws Exception {
