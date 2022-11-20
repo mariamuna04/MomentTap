@@ -15,10 +15,7 @@ public class Database {
     private static void establishConnection() {
 
         try {
-            System.out.println("yay");
             connection = DriverManager.getConnection(DATABASE_URL, DATABASE_USER, DATABASE_PASSWORD);
-            System.out.println(connection.toString());
-            System.out.println("nay");
         } catch (SQLException e) {
             // FOR DEVELOPERS
             System.err.println(e.getMessage());
