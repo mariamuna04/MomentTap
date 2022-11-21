@@ -1,13 +1,12 @@
+// Created by Maria Muna on Nov 16 2022 13:54
+
 package com.application.client;
 
-import com.application.database.Database;
 import com.application.security.Authentication;
 import com.application.utils.Utility;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-
-import java.io.IOException;
 
 public class SignInController extends Controller {
     @FXML
@@ -25,8 +24,6 @@ public class SignInController extends Controller {
         } else {
             System.out.println("Not Authenticated");
         }
-
-
 
 
     }

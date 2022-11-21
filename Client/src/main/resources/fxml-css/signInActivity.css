@@ -8,7 +8,6 @@
 .textField:hover {
     -fx-background-color: rgba(255, 255, 255, 0.85);
     -fx-background-radius: 8px;
-
 }
 
 .signInButton {
@@ -45,7 +44,6 @@
     -fx-border-radius: 8px;
     -fx-text-fill: #000;
     cursor: hand;
-    transition: -fx-background-color 2s, -fx-background-radius 2s, transform 2s;
 }
 
 .contactUsButton:hover {

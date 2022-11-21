@@ -1,3 +1,5 @@
+// Created by Maria Muna on Nov 16 2022 16:31
+
 package com.application.client;
 
 import com.application.utils.Utility;
@@ -5,7 +7,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
-import java.io.IOException;
 
 public class SignUpController extends Controller {
     @FXML
@@ -20,6 +21,6 @@ public class SignUpController extends Controller {
     }
 
     public void onSignInAction() throws Exception {
-        Utility.changeScene(nameTextField, "sign-in-activity.fxml");
+        Utility.changeScene(nameTextField, "signInActivity.fxml");
     }
 }
