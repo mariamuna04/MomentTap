@@ -14,7 +14,7 @@ public class SignInController extends Controller {
     @FXML
     private PasswordField passwordTextField;
 
-    public void onSignInListener() {
+    public void onSignInListener() throws Exception {
         String email = usernameTextField.getText();
         String password = passwordTextField.getText();
         boolean isAuth = Authentication.authenticate(email, password);
@@ -25,6 +25,8 @@ public class SignInController extends Controller {
             System.out.println("Not Authenticated");
         }
 
+
+        Utility.changeScene(usernameTextField, "home-activity.fxml");
 
     }
 

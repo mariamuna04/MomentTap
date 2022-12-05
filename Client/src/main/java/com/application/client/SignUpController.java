@@ -7,6 +7,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
+import java.io.DataOutputStream;
+import java.net.Socket;
+
 
 public class SignUpController extends Controller {
     @FXML
@@ -17,7 +20,22 @@ public class SignUpController extends Controller {
     private PasswordField passwordTextField;
 
     public void onSignUpAction() {
+        // TODO: Send data to Server
+        Socket socket = null;
+        try {
+            socket = new Socket("localhost", 8080);
 
+            DataOutputStream dataOutputStream = new DataOutputStream(socket.getOutputStream());
+            dataOutputStream.writeUTF(nameTextField.getText());
+            dataOutputStream.writeUTF(emailTextField.getText());
+            dataOutputStream.writeUTF(passwordTextField.getText());
+
+            System.out.println("Data Sent");
+
+
+        } catch (Exception e) {
+            // error
+        }
     }
 
     public void onSignInAction() throws Exception {

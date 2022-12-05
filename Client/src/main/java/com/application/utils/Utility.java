@@ -2,7 +2,6 @@
 
 package com.application.utils;
 
-import com.application.client.Client;
 import com.application.client.Controller;
 import javafx.animation.FadeTransition;
 import javafx.fxml.FXMLLoader;
@@ -30,5 +29,4 @@ public class Utility {
         // Set Scene
         currentStage.setScene(scene);
     }
-
 }
