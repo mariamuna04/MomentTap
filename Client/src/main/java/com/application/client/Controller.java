@@ -1,6 +1,6 @@
 // Created by Kishorè Shanto on Nov 16 2022 16:15
 
-package com.application.utils;
+package com.application.client;
 
 import javafx.application.Application;
 import javafx.stage.Stage;

@@ -2,8 +2,6 @@
 
 package com.application.client;
 
-import com.application.utils.Controller;
-
 /**
  * This Controller handles the Home Activity.
  * @author Kishorè Shanto

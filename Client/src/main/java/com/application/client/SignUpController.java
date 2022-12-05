@@ -2,7 +2,6 @@
 
 package com.application.client;
 
-import com.application.utils.Controller;
 import com.application.utils.Utility;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
