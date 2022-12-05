@@ -2,7 +2,6 @@
 
 package com.application.utils;
 
-import com.application.client.Controller;
 import javafx.animation.FadeTransition;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;

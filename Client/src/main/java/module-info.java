@@ -8,4 +8,6 @@ module com.application.client {
 
     opens com.application.client to javafx.fxml;
     exports com.application.client;
+    exports com.application.utils;
+    opens com.application.utils to javafx.fxml;
 }

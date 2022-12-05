@@ -1,3 +1,5 @@
+// Created by Kishorè Shanto on Dec 4 2022 21:15
+
 import java.io.DataInputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -30,10 +32,9 @@ public class Server {
 
 
             try {
-
                 connection = DriverManager.getConnection(DATABASE_URL, DATABASE_USER, DATABASE_PASSWORD);
-                connection.createStatement().executeQuery("INSERT INTO users (name, email, password) VALUES ('" + name + "', '" + email + "', '" + password + "')");
-
+                connection.createStatement()
+                        .executeQuery("INSERT INTO users (name, email, password) VALUES ('" + name + "', '" + email + "', '" + password + "')");
             } catch (SQLException e) {
                 // FOR DEVELOPERS
                 System.err.println(e.getMessage());
