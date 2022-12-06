@@ -3,7 +3,7 @@
 // Necessary Modules For Client Application
 module com.application.client {
     requires javafx.controls;
-    requires javafx.graphics;
+//    requires javafx.graphics;
     requires javafx.fxml;
     requires java.sql;
 
