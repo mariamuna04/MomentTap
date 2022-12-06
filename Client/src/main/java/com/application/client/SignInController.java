@@ -21,12 +21,12 @@ public class SignInController extends Controller {
 
         if (isAuth) {
             System.out.println("Authenticated");
+            Utility.changeScene(usernameTextField, "home-activity.fxml");
         } else {
             System.out.println("Not Authenticated");
         }
 
 
-        Utility.changeScene(usernameTextField, "home-activity.fxml");
 
     }
 

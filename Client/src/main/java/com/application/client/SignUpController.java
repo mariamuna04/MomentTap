@@ -12,6 +12,7 @@ import java.net.Socket;
 
 
 public class SignUpController extends Controller {
+    private static final int SIGN_UP_REQUEST = 10;
     @FXML
     private TextField nameTextField;
     @FXML
@@ -26,15 +27,18 @@ public class SignUpController extends Controller {
             socket = new Socket("localhost", 8080);
 
             DataOutputStream dataOutputStream = new DataOutputStream(socket.getOutputStream());
+            dataOutputStream.writeInt(SIGN_UP_REQUEST);
             dataOutputStream.writeUTF(nameTextField.getText());
             dataOutputStream.writeUTF(emailTextField.getText());
             dataOutputStream.writeUTF(passwordTextField.getText());
 
             System.out.println("Data Sent");
 
+            Utility.changeScene(nameTextField, "sign-in-activity.fxml");
+
 
         } catch (Exception e) {
-            // error
+            System.err.println("Server is not running");
         }
     }
 
