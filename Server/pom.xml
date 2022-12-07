@@ -19,7 +19,7 @@
         <!-- JDBC Driver (MariaDB v3.1.0) -->
         <dependency>
             <groupId>org.mariadb.jdbc</groupId>
-            <artifactId>mariadb-java-client</artifactId>
+            <artifactId>mariadb-java-user</artifactId>
             <version>3.1.0</version>
         </dependency>
 

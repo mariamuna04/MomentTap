@@ -22,7 +22,7 @@ public class Database {
         }
     }
 
-    public static void queryForUserSignIn(String email, String password) {
+    public static void findUser(String email, String password) {
         try {
             establishConnection();
             resultSet = connection.createStatement().executeQuery("SELECT * FROM users WHERE email = '" + email + "' AND password = '" + password + "'");
@@ -31,7 +31,7 @@ public class Database {
         }
     }
 
-    public static void queryForUserSignUp(String name, String email, String password) {
+    public static void addUser(String name, String email, String password) {
         try {
             establishConnection();
             // Verify PK
