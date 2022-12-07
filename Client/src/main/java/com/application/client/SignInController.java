@@ -3,6 +3,7 @@
 package com.application.client;
 
 import com.application.security.Authentication;
+import com.application.utils.NetworkRequest;
 import com.application.utils.Utility;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
@@ -15,10 +16,6 @@ import java.net.Socket;
 public class SignInController extends Controller {
     @FXML
     private TextField usernameTextField;
-
-    private static final int SIGN_IN_REQUEST = 20;
-
-    private static final int USER_FOUND_FROM_DATABASE = 30;
     @FXML
     private PasswordField passwordTextField;
 
@@ -28,13 +25,13 @@ public class SignInController extends Controller {
 
         Socket socket = new Socket("localhost", 8080);
         DataOutputStream dataOutputStream = new DataOutputStream(socket.getOutputStream());
-        dataOutputStream.writeInt(SIGN_IN_REQUEST);
+        dataOutputStream.writeInt(NetworkRequest.SIGN_IN_REQUEST);
         dataOutputStream.writeUTF(email);
         dataOutputStream.writeUTF(password);
 
         DataInputStream dataInputStream = new DataInputStream(socket.getInputStream());
         int response = dataInputStream.readInt();
-        if(response == USER_FOUND_FROM_DATABASE) {
+        if(response == NetworkRequest.USER_FOUND_FROM_DATABASE) {
             Utility.changeScene(usernameTextField, "home-activity.fxml");
         } else {
 //            Utility.showAlert("Error", "User Not Found");
