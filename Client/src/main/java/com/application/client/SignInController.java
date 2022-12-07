@@ -2,7 +2,6 @@
 
 package com.application.client;
 
-import com.application.security.Authentication;
 import com.application.utils.NetworkRequest;
 import com.application.utils.Utility;
 import javafx.fxml.FXML;

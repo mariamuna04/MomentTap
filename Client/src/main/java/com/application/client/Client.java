@@ -10,10 +10,16 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 /**
- * Entry point of the Client Application. This class is responsible for loading the initial GUI.
- * @author Kishorè Shanto
+ * Entry point of the Client Application. This class is responsible for loading the initial GUI
  */
 public class Client extends Application {
+
+    /**
+     * Start the GUI
+     * @param stage the primary stage for this application, onto which
+     * the application scene can be set.
+     * @throws IOException
+     */
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("sign-in-activity.fxml"));
@@ -24,6 +30,10 @@ public class Client extends Application {
         stage.show();
     }
 
+    /**
+     * The application initialization method. This method is called automatically
+     * @param args Command line arguments
+     */
     public static void main(String[] args) {
         launch(args);
     }

@@ -8,12 +8,11 @@ import javafx.stage.Stage;
 /**
  * Parent class that extends the JavaFX Application class. Other controller classes inherit this class to control
  * GUI.
- * @author Kishorè Shanto
  */
 public class Controller extends Application {
 
     /**
-     * DO NOT EDIT THIS METHOD
+     * <strong>DO NOT EDIT THIS METHOD</strong> <br>
      *
      * This method is called when the application should stop, and provides a
      * convenient place to prepare for application exit and destroy resources.

@@ -11,22 +11,23 @@ public class Server {
 
         while (true) {
             Socket socket = Connection.clientRequestAccept();
+            assert socket != null;
             User user = new User(socket);
 
-            if (user.request == NetworkRequest.SIGN_UP_REQUEST) {
+            if (user.getRequest() == NetworkRequest.SIGN_UP_REQUEST) {
 
-                Database.addUser(user.name, user.email, user.password);
+                Database.addUser(user.getName(), user.getEmail(), user.getPassword());
 
-            } else if (user.request == NetworkRequest.SIGN_IN_REQUEST) {
+            } else if (user.getRequest() == NetworkRequest.SIGN_IN_REQUEST) {
 
-                Database.findUser(user.email, user.password);
+                Database.findUser(user.getEmail(), user.getPassword());
 
                 if (Database.resultSet.next()) {
                     System.out.println("User Found"); // TODO: pop up dialogue box
-                    user.dataOutputStream.writeInt(NetworkRequest.USER_FOUND_FROM_DATABASE);
+                    user.getDataOutputStream().writeInt(NetworkRequest.USER_FOUND_FROM_DATABASE);
                 } else {
                     System.out.println("User Not Found"); // TODO: pop up dialogue box
-                    user.dataOutputStream.writeInt(NetworkRequest.USER_NOT_FOUND_FROM_DATABASE);
+                    user.getDataOutputStream().writeInt(NetworkRequest.USER_NOT_FOUND_FROM_DATABASE);
                 }
             }
 
