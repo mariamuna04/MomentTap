@@ -25,7 +25,9 @@ public class SignInController extends Controller {
 
         Socket socket = new Socket("localhost", 8080);
         DataOutputStream dataOutputStream = new DataOutputStream(socket.getOutputStream());
+
         dataOutputStream.writeInt(NetworkRequest.SIGN_IN_REQUEST);
+        dataOutputStream.writeUTF("");
         dataOutputStream.writeUTF(email);
         dataOutputStream.writeUTF(password);
 

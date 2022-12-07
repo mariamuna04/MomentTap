@@ -1,56 +1,44 @@
 // Created by Kishorè Shanto on Dec 4 2022 21:15
 
 import com.server.utils.NetworkRequest;
+import org.checkerframework.checker.units.qual.C;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
-import java.net.ServerSocket;
 import java.net.Socket;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 
 public class Server {
+    public static void main(String[] args) throws Exception {
 
+        Connection.establish();
 
-    public static void main(String[] args) {
-        ArrayList<Socket> sockets = new ArrayList<>();
-        // Create a Server
-        ServerSocket serverSocket = null;
-        try {
-            serverSocket = new ServerSocket(8080);
-            while (true) {
-                Socket socket = serverSocket.accept();
-                sockets.add(socket);
-                DataInputStream dataInputStream = new DataInputStream(socket.getInputStream());
-                int request = dataInputStream.readInt();
-                if(request == NetworkRequest.SIGN_UP_REQUEST) {
-                    String name = dataInputStream.readUTF();
-                    String email = dataInputStream.readUTF();
-                    String password = dataInputStream.readUTF();
-                    System.out.println(name + " " + email + " " + password);
-                    Database.queryForUserSignUp(name, email, password);
-                } else if(request == NetworkRequest.SIGN_IN_REQUEST) {
-                    String email = dataInputStream.readUTF();
-                    String password = dataInputStream.readUTF();
-                    Database.queryForUserSignIn(email, password);
-                    if(Database.resultSet.next()) {
-                        System.out.println("User Found");
-                        DataOutputStream dataOutputStream = new DataOutputStream(socket.getOutputStream());
-                        dataOutputStream.writeInt(NetworkRequest.USER_FOUND_FROM_DATABASE);
-                    } else {
-                        System.out.println("User Not Found");
-                    }
+        while (true) {
+            Socket socket = Connection.clientRequestAccept();
+            System.out.printf("success");
+            User user = new User(socket);
+
+            if (user.request == NetworkRequest.SIGN_UP_REQUEST) {
+                // Debug
+                System.out.println(user.name + " " + user.email + " " + user.password);
+
+                Database.queryForUserSignUp(user.name, user.email, user.password);
+
+            } else if (user.request == NetworkRequest.SIGN_IN_REQUEST) {
+
+                Database.queryForUserSignIn(user.email, user.password);
+
+                if (Database.resultSet.next()) {
+                    System.out.println("User Found");
+                    user.dataOutputStream.writeInt(NetworkRequest.USER_FOUND_FROM_DATABASE);
+                } else {
+                    System.out.println("User Not Found");
+                    user.dataOutputStream.writeInt(NetworkRequest.USER_NOT_FOUND_FROM_DATABASE);
                 }
-
-
-                System.out.println("Client Connected");
             }
-        } catch (Exception e) {
-            // error
-        }
 
+
+            System.out.println("Client Connected");
+        }
     }
+
 }

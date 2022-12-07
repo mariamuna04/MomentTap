@@ -47,6 +47,16 @@ public class Database {
         }
     }
 
-
-
+    public static String queryForName(String email) {
+        try {
+            establishConnection();
+            resultSet = connection.createStatement().executeQuery("SELECT name FROM users WHERE email = '" + email + "'");
+            if(resultSet.next()) {
+                return resultSet.getString("name");
+            }
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+        return null;
+    }
 }
