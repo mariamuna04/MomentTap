@@ -230,7 +230,8 @@
                 <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="15.0"
                       GridPane.columnSpan="2147483647" GridPane.rowIndex="1">
                     <children>
-                        <Button mnemonicParsing="false" prefHeight="32.0" prefWidth="150.0" text="create event"/>
+                        <Button mnemonicParsing="false" prefHeight="32.0" prefWidth="150.0" text="create event"
+                        fx:id="create_event_button" onAction="#onCreateEventButton"/>
                         <Button mnemonicParsing="false" prefHeight="32.0" prefWidth="150.0" text="delete event"/>
                     </children>
                     <GridPane.margin>
