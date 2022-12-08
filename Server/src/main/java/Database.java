@@ -5,7 +5,6 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-
 /**
  * This class is responsible for connecting to the database and executing queries.
  * Everything in this class is static because we only need one instance of the database
@@ -14,31 +13,43 @@ import java.sql.SQLException;
  */
 public class Database {
 
-    /** The connection URL to the database */
+    /**
+     * The connection URL to the database
+     */
     private static final String DATABASE_URL = "jdbc:mariadb://localhost:3306/cse2118";
 
-    /** The username and password to connect to the database. Change if needed. */
+    /**
+     * The username and password to connect to the database. Change if needed.
+     */
     private static final String DATABASE_USER = "root";
     private static final String DATABASE_PASSWORD = "";
 
-    /** The ResultSet variable which stores only one query result at a time */
+    /**
+     * The ResultSet variable which stores only one query result at a time
+     */
     // WARNING
     //  If ResultSet holds one query result a a time,
     //  there will be a problem if multiple queries are executed at the same time.
     // TODO: Fix this problem
     public static ResultSet resultSet;
 
-    /** The connection object to the database */
+    /**
+     * The connection object to the database
+     */
     private static Connection connection = null;
 
 
     /**
      * Establish a connection to the database. This method is called when any query is executed.
      * If the connection is already established, it will not establish a new connection.
-     * WARNING
-     *  This method is not thread safe. If multiple threads try to establish a connection
-     *  at the same time, there will be a problem.
      */
+    // WARNING
+    //  1. This method is not thread safe. If multiple threads try to establish a connection
+    //  at the same time, there will be a problem. Every method suffers from this problem.
+    //  2. Make all query methods synchronized (maybe this will fix the problem partially, but best way is to
+    //  use a thread pool).
+    //  3. Close the connection after each query, or make the connection auto closable.
+    //  TODO: Fix this problem
     private static void establishConnection() {
         try {
             connection = DriverManager.getConnection(DATABASE_URL, DATABASE_USER, DATABASE_PASSWORD);
@@ -62,7 +73,7 @@ public class Database {
             establishConnection();
             // Verify PK
             resultSet = connection.createStatement().executeQuery("SELECT * FROM users WHERE email = '" + email + "'");
-            if(resultSet.next()) {
+            if (resultSet.next()) {
                 System.out.println("Email Already Exists");
             } else {
                 connection.createStatement().executeUpdate("INSERT INTO users (name, email, password) VALUES ('" + name + "', '" + email + "', '" + password + "')");
@@ -77,7 +88,7 @@ public class Database {
         try {
             establishConnection();
             resultSet = connection.createStatement().executeQuery("SELECT name FROM users WHERE email = '" + email + "'");
-            if(resultSet.next()) {
+            if (resultSet.next()) {
                 return resultSet.getString("name");
             }
         } catch (Exception e) {
@@ -85,4 +96,6 @@ public class Database {
         }
         return null;
     }
+
+
 }

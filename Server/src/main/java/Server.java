@@ -4,6 +4,10 @@ import com.server.utils.NetworkRequest;
 
 import java.net.Socket;
 
+/**
+ * This is the entry point of Server application. It starts the server and accept socket requests using
+ * {@link Connection} class.
+ */
 public class Server {
     public static void main(String[] args) throws Exception {
 
@@ -14,11 +18,9 @@ public class Server {
             assert socket != null;
             User user = new User(socket);
 
-            if (user.getRequest() == NetworkRequest.SIGN_UP_REQUEST) {
-
+            if (user.getRequest() == NetworkRequest.SIGN_UP_REQUEST)
                 Database.addUser(user.getName(), user.getEmail(), user.getPassword());
-
-            } else if (user.getRequest() == NetworkRequest.SIGN_IN_REQUEST) {
+            else if (user.getRequest() == NetworkRequest.SIGN_IN_REQUEST) {
 
                 Database.findUser(user.getEmail(), user.getPassword());
 
