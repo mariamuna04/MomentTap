@@ -17,9 +17,10 @@
 
     <dependencies>
         <!-- JDBC Driver (MariaDB v3.1.0) -->
+        <!-- https://mvnrepository./artifact/org.mariadb.jdbc/mariadb-java-client -->
         <dependency>
             <groupId>org.mariadb.jdbc</groupId>
-            <artifactId>mariadb-java-user</artifactId>
+            <artifactId>mariadb-java-client</artifactId>
             <version>3.1.0</version>
         </dependency>
 

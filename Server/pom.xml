@@ -17,13 +17,15 @@
 
     <dependencies>
         <!-- JDBC Driver (MariaDB v3.1.0) -->
+        <!-- https://mvnrepository.com/artifact/org.mariadb.jdbc/mariadb-java-client -->
         <dependency>
             <groupId>org.mariadb.jdbc</groupId>
-            <artifactId>mariadb-java-user</artifactId>
+            <artifactId>mariadb-java-client</artifactId>
             <version>3.1.0</version>
         </dependency>
 
-        <!-- For remove the stupid Simple Logging Facade warning  -->
+
+        <!-- For remove the stupid Simple Logging Facade  -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
