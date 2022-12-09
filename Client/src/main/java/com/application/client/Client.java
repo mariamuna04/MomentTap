@@ -2,6 +2,7 @@
 
 package com.application.client;
 
+import com.application.controllers.Controller;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -22,7 +23,7 @@ public class Client extends Application {
      */
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("sign-in-activity.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Controller.class.getResource("sign-in-activity.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         // TODO: Add Application Name
         stage.setTitle("Application Name");

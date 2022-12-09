@@ -1,7 +1,8 @@
 // Created by Maria Muna on Nov 16 2022 16:31
 
-package com.application.client;
+package com.application.controllers;
 
+import com.application.controllers.Controller;
 import com.application.utils.NetworkRequest;
 import com.application.utils.Utility;
 import javafx.fxml.FXML;

@@ -1,5 +1,6 @@
-package com.application.client;
+package com.application.controllers;
 
+import com.application.client.Event;
 import javafx.event.ActionEvent;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;

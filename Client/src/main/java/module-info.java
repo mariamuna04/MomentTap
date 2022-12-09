@@ -11,4 +11,6 @@ module com.application.client {
     exports com.application.client;
     exports com.application.utils;
     opens com.application.utils to javafx.fxml;
+    exports com.application.controllers;
+    opens com.application.controllers to javafx.fxml;
 }
