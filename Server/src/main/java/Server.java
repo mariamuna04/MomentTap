@@ -27,6 +27,11 @@ public class Server {
                 if (Database.resultSet.next()) {
                     System.out.println("User Found"); // TODO: pop up dialogue box
                     user.getDataOutputStream().writeInt(NetworkRequest.USER_FOUND_FROM_DATABASE);
+                    user.getDataOutputStream().writeUTF(Database.resultSet.getString("name"));
+                    user.getDataOutputStream().writeUTF(Database.resultSet.getString("email"));
+                    Event event = (Event) user.getObjectInputStream().readObject();
+                    Database.addEvent(event);
+
                 } else {
                     System.out.println("User Not Found"); // TODO: pop up dialogue box
                     user.getDataOutputStream().writeInt(NetworkRequest.USER_NOT_FOUND_FROM_DATABASE);

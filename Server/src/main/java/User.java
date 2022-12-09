@@ -2,9 +2,7 @@
 
 import org.checkerframework.checker.nullness.qual.NonNull;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.net.Socket;
 
 /**
@@ -36,6 +34,10 @@ public class User {
     private final DataOutputStream dataOutputStream;
 
 
+    private final ObjectInputStream objectInputStream;
+    private final ObjectOutputStream objectOutputStream;
+
+
     /**
      * Constructor of the class. Takes a socket as a parameter and initializes the input and output streams.
      * Then initialize (see: {@link #initializeUserVariables()} ) other fields through the input stream.
@@ -51,6 +53,9 @@ public class User {
         // initialize input and output streams
         this.dataInputStream = new DataInputStream(socket.getInputStream());
         this.dataOutputStream = new DataOutputStream(socket.getOutputStream());
+        this.objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
+        this.objectInputStream = new ObjectInputStream(socket.getInputStream());
+
 
         // initialize other fields
         initializeUserVariables();
@@ -84,6 +89,13 @@ public class User {
 
     public DataOutputStream getDataOutputStream() {
         return dataOutputStream;
+    }
+    public ObjectInputStream getObjectInputStream() {
+        return objectInputStream;
+    }
+
+    public ObjectOutputStream getObjectOutputStream() {
+        return objectOutputStream;
     }
 
     /**

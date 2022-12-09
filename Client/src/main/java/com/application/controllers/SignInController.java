@@ -2,6 +2,8 @@
 
 package com.application.controllers;
 
+import com.application.client.User;
+import com.application.connection.Connection;
 import com.application.controllers.Controller;
 import com.application.utils.NetworkRequest;
 import com.application.utils.Utility;
@@ -20,21 +22,25 @@ public class SignInController extends Controller {
     private PasswordField passwordTextField;
 
     public void onSignInListener() throws Exception {
-        String email = usernameTextField.getText();
+        String _email_ = usernameTextField.getText();
         String password = passwordTextField.getText();
 
-        Socket socket = new Socket("localhost", 8080);
-        DataOutputStream dataOutputStream = new DataOutputStream(socket.getOutputStream());
+        Connection.setConnection();
 
-        dataOutputStream.writeInt(NetworkRequest.SIGN_IN_REQUEST);
-        dataOutputStream.writeUTF("");
-        dataOutputStream.writeUTF(email);
-        dataOutputStream.writeUTF(password);
+        Connection.dataOutputStream.writeInt(NetworkRequest.SIGN_IN_REQUEST);
+        Connection.dataOutputStream.writeUTF("");
+        Connection.dataOutputStream.writeUTF(_email_);
+        Connection.dataOutputStream.writeUTF(password);
 
-        DataInputStream dataInputStream = new DataInputStream(socket.getInputStream());
-        int response = dataInputStream.readInt();
+        int response = Connection.dataInputStream.readInt();
+
         if(response == NetworkRequest.USER_FOUND_FROM_DATABASE) {
+            String name = Connection.dataInputStream.readUTF();
+            String email = Connection.dataInputStream.readUTF();
+            User.setUser(name, email);
+
             Utility.changeScene(usernameTextField, "home-activity.fxml");
+
         } else {
 //            Utility.showAlert("Error", "User Not Found");
             System.err.println("User Not Found");

@@ -1,6 +1,8 @@
 package com.application.controllers;
 
 import com.application.client.Event;
+import com.application.client.User;
+import com.application.connection.Connection;
 import javafx.event.ActionEvent;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
@@ -14,7 +16,7 @@ public class CreateEventController {
     public TextField create_event_start_time;
     public TextField create_event_end_time;
 
-    public void onCreateButtonListener(ActionEvent actionEvent) {
+    public void onCreateButtonListener(ActionEvent actionEvent) throws Exception {
         String event_name = create_event_name.getText();
         String event_category = create_event_category.getText();
         String event_description = create_event_description.getText();
@@ -22,10 +24,12 @@ public class CreateEventController {
         String event_start_time = create_event_start_time.getText();
         String event_end_time = create_event_end_time.getText();
 
-        Event event = new Event("emailnaiii", event_name, event_description,event_date,
+        Event event = new Event(User.getEmail(), event_name, event_description,event_date,
                 Integer.parseInt(event_start_time), Integer.parseInt(event_end_time), event_category);
 
-        System.out.println(event);
+        Connection.objectOutputStream.writeObject(event);
+        Connection.objectOutputStream.flush();
+
     }
 
     public void onCancelButtonListener(ActionEvent actionEvent) {

@@ -98,4 +98,28 @@ public class Database {
     }
 
 
+    public static void addEvent(Event event){
+        String email = event.getUser_email();
+        String name = event.getEvent_name();
+        String description = event.getEvent_description();
+        String category = event.getEvent_category();
+        String date = event.getEvent_date();
+        int start_time = event.getEvent_start_time();
+        int end_time = event.getEvent_end_time();
+
+        // add event to database
+        try {
+            establishConnection();
+            connection.createStatement().executeUpdate("INSERT INTO events (user_email, event_name, " +
+                    "event_description,  event_category, event_date, event_start_time, event_end_time) VALUES " +
+                    "('" + email + "', '" + name + "', '" + description + "', '" + category + "', '" + date +
+                    "', '" + start_time + "', '" + end_time + "')");
+
+            System.out.println("Event Created");
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+    }
+
+
 }
