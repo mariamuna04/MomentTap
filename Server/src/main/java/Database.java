@@ -1,5 +1,7 @@
 // Created by Kishorè Shanto on Nov 20 2022 23:08
 
+import com.application.client.Event;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -115,7 +117,7 @@ public class Database {
                     "('" + email + "', '" + name + "', '" + description + "', '" + category + "', '" + date +
                     "', '" + start_time + "', '" + end_time + "')");
 
-            System.out.println("Event Created");
+            System.out.println("com.application.client.Event Created");
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }

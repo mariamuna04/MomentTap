@@ -1,5 +1,6 @@
 // Created by Kishorè Shanto on Dec 4 2022 21:15
 
+import com.application.client.Event;
 import com.server.utils.NetworkRequest;
 
 import java.net.Socket;
@@ -30,6 +31,10 @@ public class Server {
                     user.getDataOutputStream().writeUTF(Database.resultSet.getString("name"));
                     user.getDataOutputStream().writeUTF(Database.resultSet.getString("email"));
                     Event event = (Event) user.getObjectInputStream().readObject();
+                    System.out.println(event.getEvent_name());
+                    System.out.println(event.getEvent_description());
+                    System.out.println(event.getEvent_category());
+                    System.out.println(event.getEvent_date());
                     Database.addEvent(event);
 
                 } else {

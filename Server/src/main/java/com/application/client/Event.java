@@ -1,3 +1,5 @@
+package com.application.client;
+
 import java.io.Serializable;
 
 public class Event implements Serializable {

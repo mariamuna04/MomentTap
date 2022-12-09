@@ -28,7 +28,6 @@ public class CreateEventController {
                 Integer.parseInt(event_start_time), Integer.parseInt(event_end_time), event_category);
 
         Connection.objectOutputStream.writeObject(event);
-        Connection.objectOutputStream.flush();
 
     }
 

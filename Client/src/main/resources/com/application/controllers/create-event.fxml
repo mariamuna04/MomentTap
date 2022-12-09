@@ -16,7 +16,7 @@
       <Insets bottom="18.0" left="18.0" right="18.0" top="18.0" />
    </padding>
    <children>
-      <Label text="Create an Event">
+      <Label text="Create an com.application.client.Event">
          <font>
             <Font size="26.0" />
          </font>
