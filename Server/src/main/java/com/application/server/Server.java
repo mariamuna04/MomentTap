@@ -19,47 +19,58 @@ public class Server {
         while (true) {
             Socket socket = Connection.clientRequestAccept();
             System.out.println("Client Connected");
+
+            // ----------------------------------------------------------------
             assert socket != null;
             User user = new User(socket);
 
-            if (user.getRequest() == NetworkRequestCodes.SIGN_UP_REQUEST)
-                Database.addUser(user.getName(), user.getEmail(), user.getPassword());
-            else if (user.getRequest() == NetworkRequestCodes.SIGN_IN_REQUEST) {
 
-                Database.findUser(user.getEmail(), user.getPassword());
+            new Thread(() -> {
+                try {
 
-                if (Database.resultSet.next()) {
-                    System.out.println("User Found"); // TODO: pop up dialogue box
-                    user.getDataOutputStream().writeInt(NetworkRequestCodes.USER_FOUND_FROM_DATABASE);
-                    user.getDataOutputStream().writeUTF(Database.resultSet.getString("name"));
-                    user.getDataOutputStream().writeUTF(Database.resultSet.getString("email"));
+                    if (user.getRequest() == NetworkRequestCodes.SIGN_UP_REQUEST) {
+                        Database.addUser(user.getName(), user.getEmail(), user.getPassword());
+                        user.sendRequestCode(NetworkRequestCodes.USER_ADDED_TO_DATABASE);
+                    } else if (user.getRequest() == NetworkRequestCodes.SIGN_IN_REQUEST) {
 
-                    System.out.println("Waiting for event");
-                    int r = user.receiveRequestCode();
-                    System.out.println("Request code received: " + r);
+                        Database.findUser(user.getEmail(), user.getPassword());
+
+                        if (Database.resultSet.next()) {
+                            System.out.println("User Found"); // TODO: pop up dialogue box
+                            user.getDataOutputStream().writeInt(NetworkRequestCodes.USER_FOUND_FROM_DATABASE);
+                            user.getDataOutputStream().writeUTF(Database.resultSet.getString("name"));
+                            user.getDataOutputStream().writeUTF(Database.resultSet.getString("email"));
+
+                            while (true) {
+                                int r = user.receiveRequestCode();
+
+                                if (r == NetworkRequestCodes.CREATE_EVENT) {
+                                    Event event = (Event) user.getObjectInputStream().readObject();
+                                    Database.addEvent(event);
+
+                                } else if (r == NetworkRequestCodes.DELETE_EVENT) {
+                                    String name = user.receiveString();
+                                    String date = user.receiveString();
+                                    Database.deleteEvent(user.getEmail(),name, date);
+                                } else if(r == NetworkRequestCodes.LOG_OUT) {
+                                    break;
+                                    // do nothing
+                                }
+                            }
 
 
-                    if(r == NetworkRequestCodes.CREATE_EVENT){
-                        Event event = (Event) user.getObjectInputStream().readObject();
-                        System.out.println(event.getEvent_name());
-                        System.out.println(event.getEvent_description());
-                        System.out.println(event.getEvent_category());
-                        System.out.println(event.getEvent_date());
-                        Database.addEvent(event);
-                    } else if(r == NetworkRequestCodes.DELETE_EVENT){
-                        String name = user.receiveString();
-                        String date = user.receiveString();
-                        Database.deleteEvent(name, date);
+                        } else {
+                            System.out.println("com.application.server.User Not Found"); // TODO: pop up dialogue box
+                            user.getDataOutputStream().writeInt(NetworkRequestCodes.USER_NOT_FOUND_FROM_DATABASE);
+                        }
                     } else {
-                        // do nothing
+                        System.err.println("Invalid Request");
                     }
 
-
-                } else {
-                    System.out.println("com.application.server.User Not Found"); // TODO: pop up dialogue box
-                    user.getDataOutputStream().writeInt(NetworkRequestCodes.USER_NOT_FOUND_FROM_DATABASE);
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-            }
+            }).start();
 
 
             System.out.println("Client Connected");

@@ -2,6 +2,7 @@
 
 package com.application.controllers;
 
+import com.application.client.Sequence;
 import com.application.utility.NetworkRequestCodes;
 import com.application.utility.Utility;
 import javafx.fxml.FXML;
@@ -21,28 +22,13 @@ public class SignUpController extends Controller {
     @FXML
     private PasswordField passwordTextField;
 
-    public void onSignUpAction() {
-        // TODO: Send data to Server
-        Socket socket = null;
-        try {
-            socket = new Socket("localhost", 8080);
-
-            DataOutputStream dataOutputStream = new DataOutputStream(socket.getOutputStream());
-            dataOutputStream.writeInt(NetworkRequestCodes.SIGN_UP_REQUEST);
-            dataOutputStream.writeUTF(nameTextField.getText());
-            dataOutputStream.writeUTF(emailTextField.getText());
-            dataOutputStream.writeUTF(passwordTextField.getText());
-
-            System.out.println("Data Sent");
-
-            Utility.changeScene(nameTextField, "sign-in-activity.fxml");
-
-
-        } catch (Exception e) {
-            System.err.println("Server is not running");
+    public void onSignUpAction() throws Exception {
+        if(Sequence.signUpSequence(nameTextField.getText(), emailTextField.getText(), passwordTextField.getText())) {
+                Utility.changeScene(nameTextField, "sign-in-activity.fxml");
+        } else {
+            // GUI Dialog box
         }
     }
-
     public void onSignInAction() throws Exception {
         Utility.changeScene(nameTextField, "sign-in-activity.fxml");
     }

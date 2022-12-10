@@ -16,7 +16,7 @@ public class SignInController extends Controller {
 
     public void onSignInListener() throws Exception {
         if(Sequence.signInSequence(usernameTextField.getText(), passwordTextField.getText())) {
-            Utility.changeScene(usernameTextField, "home.fxml");
+            Utility.changeScene(usernameTextField, "home-activity.fxml");
         } else {
             // GUI Dialog box
         }

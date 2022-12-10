@@ -123,11 +123,11 @@ public class Database {
         }
     }
 
-    public static void deleteEvent(String name, String date){
+    public static void deleteEvent(String email, String name, String date){
         // delete event from database
         try {
             establishConnection();
-            connection.createStatement().executeUpdate("DELETE FROM events WHERE event_name = '" + name + "' AND event_date = '" + date + "'");
+            connection.createStatement().executeUpdate("DELETE FROM events WHERE user_email = '" + email + "' AND event_name = '" + name + "' AND event_date = '" + date + "'");
             System.out.println("Event Deleted");
         } catch (Exception e) {
             System.err.println(e.getMessage());

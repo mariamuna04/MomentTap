@@ -15,4 +15,5 @@ public class NetworkRequestCodes {
     public static final int DELETE_EVENT = 44;
 
 
+    public static final int USER_ADDED_TO_DATABASE = 45;
 }

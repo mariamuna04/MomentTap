@@ -29,4 +29,22 @@ public class Sequence {
         }
     }
 
+    public static boolean signUpSequence(String _name_, String _email_, String _password_) {
+        Connection.setConnection();
+
+        Connection.sendRequestCode(NetworkRequestCodes.SIGN_UP_REQUEST);
+        Connection.sendString(_name_);
+        Connection.sendString(_email_);
+        Connection.sendString(_password_);
+
+        int response = Connection.receiveRequestCode();
+
+        if (response == NetworkRequestCodes.USER_ADDED_TO_DATABASE) {
+            return true;
+        } else {
+            System.err.println("User Not Added");
+            return false;
+        }
+    }
+
 }
