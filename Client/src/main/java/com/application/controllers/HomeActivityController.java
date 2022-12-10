@@ -24,5 +24,15 @@ public class HomeActivityController extends Controller {
         stage.show();
 
     }
+
+    public void onDeleteEventButton() throws Exception {
+        Stage stage = new Stage();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("delete-event.fxml"));
+
+        Scene scene = new Scene(fxmlLoader.load());
+
+        stage.setScene(scene);
+        stage.show();
+    }
 }
 

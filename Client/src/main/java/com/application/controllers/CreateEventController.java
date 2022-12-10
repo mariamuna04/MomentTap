@@ -1,8 +1,9 @@
 package com.application.controllers;
 
-import com.application.client.Event;
+import com.application.serialShared.Event;
 import com.application.client.User;
 import com.application.connection.Connection;
+import com.application.utility.NetworkRequestCodes;
 import javafx.event.ActionEvent;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
@@ -27,7 +28,8 @@ public class CreateEventController {
         Event event = new Event(User.getEmail(), event_name, event_description,event_date,
                 Integer.parseInt(event_start_time), Integer.parseInt(event_end_time), event_category);
 
-        Connection.objectOutputStream.writeObject(event);
+        Connection.sendRequestCode(NetworkRequestCodes.CREATE_EVENT);
+        Connection.sendObject(event);
 
     }
 

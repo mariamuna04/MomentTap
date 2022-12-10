@@ -4,16 +4,11 @@ package com.application.controllers;
 
 import com.application.client.User;
 import com.application.connection.Connection;
-import com.application.controllers.Controller;
-import com.application.utils.NetworkRequest;
-import com.application.utils.Utility;
+import com.application.utility.NetworkRequestCodes;
+import com.application.utility.Utility;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.net.Socket;
 
 public class SignInController extends Controller {
     @FXML
@@ -23,20 +18,20 @@ public class SignInController extends Controller {
 
     public void onSignInListener() throws Exception {
         String _email_ = usernameTextField.getText();
-        String password = passwordTextField.getText();
+        String _password_ = passwordTextField.getText();
 
         Connection.setConnection();
 
-        Connection.dataOutputStream.writeInt(NetworkRequest.SIGN_IN_REQUEST);
-        Connection.dataOutputStream.writeUTF("");
-        Connection.dataOutputStream.writeUTF(_email_);
-        Connection.dataOutputStream.writeUTF(password);
+        Connection.sendRequestCode(NetworkRequestCodes.SIGN_IN_REQUEST);
+        Connection.sendString("");
+        Connection.sendString(_email_);
+        Connection.sendString(_password_);
 
-        int response = Connection.dataInputStream.readInt();
+        int response = Connection.receiveRequestCode();
 
-        if(response == NetworkRequest.USER_FOUND_FROM_DATABASE) {
-            String name = Connection.dataInputStream.readUTF();
-            String email = Connection.dataInputStream.readUTF();
+        if(response == NetworkRequestCodes.USER_FOUND_FROM_DATABASE) {
+            String name = Connection.receiveString();
+            String email = Connection.receiveString();
             User.setUser(name, email);
 
             Utility.changeScene(usernameTextField, "home-activity.fxml");

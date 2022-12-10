@@ -9,8 +9,10 @@ module com.application.client {
 
     opens com.application.client to javafx.fxml;
     exports com.application.client;
-    exports com.application.utils;
-    opens com.application.utils to javafx.fxml;
+    exports com.application.utility;
+    opens com.application.utility to javafx.fxml;
     exports com.application.controllers;
     opens com.application.controllers to javafx.fxml;
+    exports com.application.serialShared;
+    opens com.application.serialShared to javafx.fxml;
 }

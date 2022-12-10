@@ -1,6 +1,6 @@
-// Created by Kishorè Shanto on Nov 20 2022 23:08
+package com.application.database;// Created by Kishorè Shanto on Nov 20 2022 23:08
 
-import com.application.client.Event;
+import com.application.serialShared.Event;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -117,11 +117,21 @@ public class Database {
                     "('" + email + "', '" + name + "', '" + description + "', '" + category + "', '" + date +
                     "', '" + start_time + "', '" + end_time + "')");
 
-            System.out.println("com.application.client.Event Created");
+            System.out.println("Event Created");
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
     }
 
+    public static void deleteEvent(String name, String date){
+        // delete event from database
+        try {
+            establishConnection();
+            connection.createStatement().executeUpdate("DELETE FROM events WHERE event_name = '" + name + "' AND event_date = '" + date + "'");
+            System.out.println("Event Deleted");
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+    }
 
 }

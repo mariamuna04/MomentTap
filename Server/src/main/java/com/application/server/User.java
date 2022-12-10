@@ -1,5 +1,6 @@
-// Created by Kishorè Shanto on 12/5/22 at 19:23
+package com.application.server;// Created by Kishorè Shanto on 12/5/22 at 19:23
 
+import com.application.database.Database;
 import org.checkerframework.checker.nullness.qual.NonNull;
 
 import java.io.*;
@@ -23,17 +24,11 @@ public class User {
     /** Holds the password of the user */
     private String password;
 
-    /** Socket of the user */
-    // TODO: Redundant Socket variable, remove it
-    private final Socket socket;
 
     /** Input stream of the user */
     private final DataInputStream dataInputStream;
-
     /** Output stream of the user */
     private final DataOutputStream dataOutputStream;
-
-
     private final ObjectInputStream objectInputStream;
     private final ObjectOutputStream objectOutputStream;
 
@@ -47,18 +42,65 @@ public class User {
      *
      */
     public User(@NonNull Socket socket) throws IOException {
-        // redundant socket variable
-        this.socket = socket;
-
         // initialize input and output streams
         this.dataInputStream = new DataInputStream(socket.getInputStream());
         this.dataOutputStream = new DataOutputStream(socket.getOutputStream());
         this.objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
         this.objectInputStream = new ObjectInputStream(socket.getInputStream());
 
-
         // initialize other fields
         initializeUserVariables();
+    }
+
+    public void sendRequestCode(int code) {
+        try {
+            dataOutputStream.writeInt(code);
+        } catch (Exception e) {
+            System.err.println("Server is not running");
+        }
+    }
+
+    public int receiveRequestCode() {
+        try {
+            return dataInputStream.readInt();
+        } catch (Exception e) {
+            System.err.println("Server is not running");
+        }
+        return -1;
+    }
+
+    public void sendString(String string) {
+        try {
+            dataOutputStream.writeUTF(string);
+        } catch (Exception e) {
+            System.err.println("Server is not running");
+        }
+    }
+
+    public String receiveString() {
+        try {
+            return dataInputStream.readUTF();
+        } catch (Exception e) {
+            System.err.println("Server is not running");
+        }
+        return null;
+    }
+
+    public void sendObject(Object object) {
+        try {
+            objectOutputStream.writeObject(object);
+        } catch (Exception e) {
+            System.err.println("Server is not running");
+        }
+    }
+
+    public Object receiveObject() {
+        try {
+            return objectInputStream.readObject();
+        } catch (Exception e) {
+            System.err.println("Server is not running");
+        }
+        return null;
     }
 
     /**

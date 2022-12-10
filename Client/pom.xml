@@ -5,9 +5,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.application</groupId>
-    <artifactId>User</artifactId>
+    <artifactId>com.application.server.User</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>User</name>
+    <name>com.application.server.User</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -37,6 +37,8 @@
             <artifactId>javafx-fxml</artifactId>
             <version>19-ea+7</version>
         </dependency>
+
+
     </dependencies>
 
     <build>
@@ -59,7 +61,7 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>com.application.user.User</mainClass>
+                            <mainClass>com.application.user.com.application.server.User</mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
                             <jlinkImageName>app</jlinkImageName>

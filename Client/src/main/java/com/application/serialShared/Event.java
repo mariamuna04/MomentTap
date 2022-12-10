@@ -1,4 +1,4 @@
-package com.application.client;
+package com.application.serialShared;
 
 import java.io.Serializable;
 

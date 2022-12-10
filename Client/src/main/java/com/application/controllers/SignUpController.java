@@ -2,9 +2,8 @@
 
 package com.application.controllers;
 
-import com.application.controllers.Controller;
-import com.application.utils.NetworkRequest;
-import com.application.utils.Utility;
+import com.application.utility.NetworkRequestCodes;
+import com.application.utility.Utility;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -28,7 +27,7 @@ public class SignUpController extends Controller {
             socket = new Socket("localhost", 8080);
 
             DataOutputStream dataOutputStream = new DataOutputStream(socket.getOutputStream());
-            dataOutputStream.writeInt(NetworkRequest.SIGN_UP_REQUEST);
+            dataOutputStream.writeInt(NetworkRequestCodes.SIGN_UP_REQUEST);
             dataOutputStream.writeUTF(nameTextField.getText());
             dataOutputStream.writeUTF(emailTextField.getText());
             dataOutputStream.writeUTF(passwordTextField.getText());
