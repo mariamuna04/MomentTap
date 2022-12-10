@@ -10,6 +10,7 @@ import javafx.scene.control.TextField;
 
 import java.io.DataOutputStream;
 import java.net.Socket;
+import java.util.ArrayList;
 
 
 public class SignUpController extends Controller {

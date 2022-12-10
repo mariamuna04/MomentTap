@@ -2,9 +2,7 @@
 
 package com.application.controllers;
 
-import com.application.client.User;
-import com.application.connection.Connection;
-import com.application.utility.NetworkRequestCodes;
+import com.application.client.Sequence;
 import com.application.utility.Utility;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
@@ -17,31 +15,11 @@ public class SignInController extends Controller {
     private PasswordField passwordTextField;
 
     public void onSignInListener() throws Exception {
-        String _email_ = usernameTextField.getText();
-        String _password_ = passwordTextField.getText();
-
-        Connection.setConnection();
-
-        Connection.sendRequestCode(NetworkRequestCodes.SIGN_IN_REQUEST);
-        Connection.sendString("");
-        Connection.sendString(_email_);
-        Connection.sendString(_password_);
-
-        int response = Connection.receiveRequestCode();
-
-        if(response == NetworkRequestCodes.USER_FOUND_FROM_DATABASE) {
-            String name = Connection.receiveString();
-            String email = Connection.receiveString();
-            User.setUser(name, email);
-
-            Utility.changeScene(usernameTextField, "home-activity.fxml");
-
+        if(Sequence.signInSequence(usernameTextField.getText(), passwordTextField.getText())) {
+            Utility.changeScene(usernameTextField, "home.fxml");
         } else {
-//            Utility.showAlert("Error", "User Not Found");
-            System.err.println("User Not Found");
-
+            // GUI Dialog box
         }
-
     }
 
     public void onSignIUpListener() throws Exception {

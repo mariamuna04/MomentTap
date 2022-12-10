@@ -29,7 +29,7 @@ public class Server {
                 Database.findUser(user.getEmail(), user.getPassword());
 
                 if (Database.resultSet.next()) {
-                    System.out.println("com.application.server.User Found"); // TODO: pop up dialogue box
+                    System.out.println("User Found"); // TODO: pop up dialogue box
                     user.getDataOutputStream().writeInt(NetworkRequestCodes.USER_FOUND_FROM_DATABASE);
                     user.getDataOutputStream().writeUTF(Database.resultSet.getString("name"));
                     user.getDataOutputStream().writeUTF(Database.resultSet.getString("email"));
