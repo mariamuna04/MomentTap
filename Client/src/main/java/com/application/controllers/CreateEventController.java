@@ -31,6 +31,7 @@ public class CreateEventController {
         Connection.sendRequestCode(NetworkRequestCodes.CREATE_EVENT);
         Connection.sendObject(event);
 
+
     }
 
     public void onCancelButtonListener(ActionEvent actionEvent) {

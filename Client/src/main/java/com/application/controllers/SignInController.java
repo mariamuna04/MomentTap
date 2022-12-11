@@ -3,6 +3,7 @@
 package com.application.controllers;
 
 import com.application.client.Sequence;
+import com.application.utility.DialogBox;
 import com.application.utility.Utility;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
@@ -16,6 +17,7 @@ public class SignInController extends Controller {
 
     public void onSignInListener() throws Exception {
         if(Sequence.signInSequence(usernameTextField.getText(), passwordTextField.getText())) {
+            DialogBox.showDialogue("Success", "You have successfully signed in.", DialogBox.SUCCESS_DIALOG_BOX);
             Utility.changeScene(usernameTextField, "home-activity.fxml");
         } else {
             // GUI Dialog box
