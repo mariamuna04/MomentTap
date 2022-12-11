@@ -3,11 +3,13 @@ package com.application.controllers;
 import com.application.serialShared.Event;
 import com.application.client.User;
 import com.application.connection.Connection;
+import com.application.utility.DialogBox;
 import com.application.utility.NetworkRequestCodes;
 import javafx.event.ActionEvent;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 public class CreateEventController {
     public TextField create_event_name;
@@ -31,10 +33,22 @@ public class CreateEventController {
         Connection.sendRequestCode(NetworkRequestCodes.CREATE_EVENT);
         Connection.sendObject(event);
 
-
+        int response = Connection.receiveRequestCode();
+        if(response == NetworkRequestCodes.CREATE_EVENT_CONFIRMATION) {
+            DialogBox.showDialogue("Success", "Event created successfully.", DialogBox.SUCCESS_DIALOG_BOX);
+            Stage s = (Stage) create_event_name.getScene().getWindow();
+            s.close();
+        }
+        else {
+            DialogBox.showDialogue("Error", "Event creation failed.", DialogBox.ERROR_DIALOG_BOX);
+            Stage s = (Stage) create_event_name.getScene().getWindow();
+            s.close();
+        }
     }
 
     public void onCancelButtonListener(ActionEvent actionEvent) {
+        Stage s = (Stage) create_event_name.getScene().getWindow();
+        s.close();
 
     }
 }

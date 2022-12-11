@@ -20,7 +20,7 @@ public class SignInController extends Controller {
             DialogBox.showDialogue("Success", "You have successfully signed in.", DialogBox.SUCCESS_DIALOG_BOX);
             Utility.changeScene(usernameTextField, "home-activity.fxml");
         } else {
-            // GUI Dialog box
+            DialogBox.showDialogue("Error", "Invalid username or password.", DialogBox.ERROR_DIALOG_BOX);
         }
     }
 

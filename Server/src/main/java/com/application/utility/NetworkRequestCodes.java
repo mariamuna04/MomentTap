@@ -17,5 +17,9 @@ public class NetworkRequestCodes {
 
     public static final int LOG_OUT = 50;
 
+    public static final int CREATE_EVENT_CONFIRMATION = 60;
+
+    public static final int DELETE_EVENT_CONFIRMATION = 70;
+
 
 }

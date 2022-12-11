@@ -46,10 +46,12 @@ public class Server {
                                 if (r == NetworkRequestCodes.CREATE_EVENT) {
                                     Event event = (Event) user.getObjectInputStream().readObject();
                                     Database.addEvent(event);
+                                    user.sendRequestCode(NetworkRequestCodes.CREATE_EVENT_CONFIRMATION);
                                 } else if (r == NetworkRequestCodes.DELETE_EVENT) {
                                     String name = user.receiveString();
                                     String date = user.receiveString();
                                     Database.deleteEvent(user.getEmail(),name, date);
+                                    user.sendRequestCode(NetworkRequestCodes.DELETE_EVENT_CONFIRMATION);
                                 } else if(r == NetworkRequestCodes.LOG_OUT) {
                                     user.closeConnection();
                                     System.out.println("Client Disconnected");
