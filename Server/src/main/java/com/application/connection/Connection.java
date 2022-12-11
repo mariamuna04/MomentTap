@@ -31,6 +31,7 @@ public class Connection {
         try {
             serverSocket = new ServerSocket(PORT);
         } catch (Exception e) {
+
         }
     }
 
@@ -41,6 +42,7 @@ public class Connection {
         try {
             serverSocket.close();
         } catch (Exception e) {
+
         }
     }
 

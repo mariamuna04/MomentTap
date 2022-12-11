@@ -16,4 +16,6 @@ public class NetworkRequestCodes {
 
 
     public static final int USER_ADDED_TO_DATABASE = 45;
+
+    public static final int LOG_OUT = 50;
 }

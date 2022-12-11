@@ -7,6 +7,7 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 public class Connection {
+
     public static final String HOST = "localhost";
     public static final int PORT = 8080;
 

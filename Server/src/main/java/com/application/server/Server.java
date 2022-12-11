@@ -43,24 +43,23 @@ public class Server {
 
                             while (true) {
                                 int r = user.receiveRequestCode();
-
                                 if (r == NetworkRequestCodes.CREATE_EVENT) {
                                     Event event = (Event) user.getObjectInputStream().readObject();
                                     Database.addEvent(event);
-
                                 } else if (r == NetworkRequestCodes.DELETE_EVENT) {
                                     String name = user.receiveString();
                                     String date = user.receiveString();
                                     Database.deleteEvent(user.getEmail(),name, date);
                                 } else if(r == NetworkRequestCodes.LOG_OUT) {
+                                    user.closeConnection();
+                                    System.out.println("Client Disconnected");
                                     break;
-                                    // do nothing
                                 }
                             }
 
 
                         } else {
-                            System.out.println("com.application.server.User Not Found"); // TODO: pop up dialogue box
+                            System.out.println("User Not Found"); // TODO: pop up dialogue box
                             user.getDataOutputStream().writeInt(NetworkRequestCodes.USER_NOT_FOUND_FROM_DATABASE);
                         }
                     } else {

@@ -12,22 +12,35 @@ import java.net.Socket;
  * in a separate thread.
  */
 public class User {
-    /** Specify what type of request the user is making */
+    /**
+     * Specify what type of request the user is making
+     */
     private int request;
 
-    /** Holds the name of the user */
+    /**
+     * Holds the name of the user
+     */
     private String name;
 
-    /** Holds the email of the user */
+    /**
+     * Holds the email of the user
+     */
     private String email;
 
-    /** Holds the password of the user */
+    /**
+     * Holds the password of the user
+     */
     private String password;
 
+    private final Socket socket;
 
-    /** Input stream of the user */
+    /**
+     * Input stream of the user
+     */
     private final DataInputStream dataInputStream;
-    /** Output stream of the user */
+    /**
+     * Output stream of the user
+     */
     private final DataOutputStream dataOutputStream;
     private final ObjectInputStream objectInputStream;
     private final ObjectOutputStream objectOutputStream;
@@ -36,20 +49,29 @@ public class User {
     /**
      * Constructor of the class. Takes a socket as a parameter and initializes the input and output streams.
      * Then initialize (see: {@link #initializeUserVariables()} ) other fields through the input stream.
+     *
      * @param socket Socket of the user
      * @throws IOException If there is an error while initializing the input and output streams
-     *
-     *
      */
     public User(@NonNull Socket socket) throws IOException {
         // initialize input and output streams
-        this.dataInputStream = new DataInputStream(socket.getInputStream());
-        this.dataOutputStream = new DataOutputStream(socket.getOutputStream());
-        this.objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
-        this.objectInputStream = new ObjectInputStream(socket.getInputStream());
+        this.socket = socket;
+        this.dataInputStream = new DataInputStream(this.socket.getInputStream());
+        this.dataOutputStream = new DataOutputStream(this.socket.getOutputStream());
+        this.objectOutputStream = new ObjectOutputStream(this.socket.getOutputStream());
+        this.objectInputStream = new ObjectInputStream(this.socket.getInputStream());
 
         // initialize other fields
         initializeUserVariables();
+    }
+
+    public void closeConnection() throws IOException{
+        this.dataInputStream.close();
+        this.dataOutputStream.close();
+        this.objectOutputStream.close();
+        this.objectInputStream.close();
+        socket.close();
+
     }
 
     public void sendRequestCode(int code) {
@@ -107,6 +129,7 @@ public class User {
      * Getter method for variables
      * {@link #request}, {@link #name}, {@link #email}, {@link #password}.
      * {@link #dataInputStream}, {@link #dataOutputStream}
+     *
      * @return The value of the variable
      */
     public int getRequest() {
@@ -132,6 +155,7 @@ public class User {
     public DataOutputStream getDataOutputStream() {
         return dataOutputStream;
     }
+
     public ObjectInputStream getObjectInputStream() {
         return objectInputStream;
     }
@@ -155,7 +179,7 @@ public class User {
 
             // If name is set to an empty string, fetch name from database
             // This happens when the user is signing in because there is no need to send name
-            if (name.equals("")) this .name = Database.queryForName(this.email);
+            if (name.equals("")) this.name = Database.queryForName(this.email);
 
         } catch (IOException e) {
             e.printStackTrace();
