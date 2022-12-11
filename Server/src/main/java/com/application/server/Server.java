@@ -56,6 +56,18 @@ public class Server {
                                     user.closeConnection();
                                     System.out.println("Client Disconnected");
                                     break;
+                                } else if(r == NetworkRequestCodes.SEARCH_EVENT) {
+                                    String keyword = user.receiveString();
+                                    Database.searchEvent(keyword);
+                                    if(Database.resultSet.next()) {
+                                        user.sendRequestCode(NetworkRequestCodes.SEARCH_EVENT_CONFIRMATION);
+                                        user.sendObject(Database.resultSet);
+                                        System.out.println("Event Found");
+                                    } else {
+                                        user.sendRequestCode(NetworkRequestCodes.SEARCH_EVENT_CONFIRMATION);
+                                        user.sendObject(null);
+                                        System.out.println("Event Not Found");
+                                    }
                                 }
                             }
 

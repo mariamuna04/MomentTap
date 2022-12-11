@@ -80,7 +80,7 @@
                     </children>
                 </HBox>
                 <TextField maxHeight="36.0" maxWidth="250.0" minHeight="36.0" minWidth="250.0" prefHeight="36.0"
-                           prefWidth="250.0" promptText="Search Anything"
+                           prefWidth="250.0" promptText="Search Anything" fx:id="searchField"
                            style="-fx-background-color: #fff; -fx-background-radius: 0 0 0 0;">
                     <font>
                         <Font name="Arial" size="13.0"/>
@@ -89,7 +89,7 @@
                 <Button maxHeight="35.0" maxWidth="60.0" minHeight="35.0" minWidth="60.0" mnemonicParsing="false"
                         prefHeight="35.0" prefWidth="60.0"
                         style="-fx-background-radius: 0 8 8 0; -fx-background-color: #fff; -fx-border-radius: 0;"
-                        text="Search" textFill="#547794">
+                        text="Search" textFill="#547794" onAction="#onSearchButton">
                     <HBox.margin>
                         <Insets top="-1.0"/>
                     </HBox.margin>

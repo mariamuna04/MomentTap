@@ -84,12 +84,13 @@ public class Connection {
         }
     }
 
-    public static void receiveObject(){
+    public static Object receiveObject() {
         try {
-            objectInputStream.readObject();
+            return objectInputStream.readObject();
         } catch (Exception e) {
             System.err.println("Server is not running");
         }
+        return null;
     }
 
 }

@@ -100,7 +100,7 @@ public class Database {
     }
 
 
-    public static void addEvent(Event event){
+    public static void addEvent(Event event) {
         String email = event.getUser_email();
         String name = event.getEvent_name();
         String description = event.getEvent_description();
@@ -123,7 +123,7 @@ public class Database {
         }
     }
 
-    public static void deleteEvent(String email, String name, String date){
+    public static void deleteEvent(String email, String name, String date) {
         // delete event from database
         try {
             establishConnection();
@@ -132,6 +132,26 @@ public class Database {
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
+    }
+
+    public static void searchEvent(String keyword) {
+
+        try {
+            establishConnection();
+            if (keyword.matches("[0-9]+")) {
+
+                int integer_keyword = Integer.parseInt(keyword);
+
+                resultSet = connection.createStatement().executeQuery("SELECT * FROM events WHERE event_name LIKE '%" + keyword + "%' OR event_description LIKE '%" + keyword + "%' OR event_category LIKE '%" + keyword + "%' OR event_date LIKE '%" + keyword + "%' OR (event_start_time <= " + integer_keyword + " AND event_end_time >= " + integer_keyword + ")");
+
+            } else {
+
+                resultSet = connection.createStatement().executeQuery("SELECT * FROM events WHERE event_name LIKE '%" + keyword + "%' OR event_description LIKE '%" + keyword + "%' OR event_category LIKE '%" + keyword + "%' OR event_date LIKE '%" + keyword + "%'");
+            }
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+
     }
 
 }

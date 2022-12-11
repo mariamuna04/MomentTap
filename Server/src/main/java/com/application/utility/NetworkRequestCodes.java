@@ -21,5 +21,10 @@ public class NetworkRequestCodes {
 
     public static final int DELETE_EVENT_CONFIRMATION = 70;
 
+    public static final int SEARCH_EVENT = 90;
+
+    public static final int SEARCH_EVENT_CONFIRMATION = 80;
+
+
 
 }
