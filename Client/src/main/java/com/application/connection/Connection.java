@@ -26,7 +26,7 @@ public class Connection {
             objectInputStream = new ObjectInputStream(socket.getInputStream());
             objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
         } catch (Exception e) {
-            System.err.println("Server is not running");
+            System.err.println("Error in Connection.setConnection()");
         }
     }
 
@@ -38,7 +38,7 @@ public class Connection {
             objectOutputStream.close();
             socket.close();
         } catch (Exception e) {
-            System.err.println("Server is not running");
+            System.err.println("Error in Connection.unsetConnection()");
         }
     }
 
@@ -46,7 +46,7 @@ public class Connection {
         try {
             dataOutputStream.writeInt(code);
         } catch (Exception e) {
-            System.err.println("Server is not running");
+            System.err.println("Error in Connection.sendRequestCode()");
         }
     }
 
@@ -54,16 +54,16 @@ public class Connection {
         try {
             return dataInputStream.readInt();
         } catch (Exception e) {
-            System.err.println("Server is not running");
+            System.err.println("Error in Connection.receiveRequestCode()");
+            return -1;
         }
-        return -1;
     }
 
     public static void sendString(String string) {
         try {
             dataOutputStream.writeUTF(string);
         } catch (Exception e) {
-            System.err.println("Server is not running");
+            System.err.println("Error in Connection.sendString()");
         }
     }
 
@@ -71,16 +71,16 @@ public class Connection {
         try {
             return dataInputStream.readUTF();
         } catch (Exception e) {
-            System.err.println("Server is not running");
+            System.err.println("Error in Connection.receiveString()");
+            return null;
         }
-        return null;
     }
 
     public static void sendObject(Object object) {
         try {
             objectOutputStream.writeObject(object);
         } catch (Exception e) {
-            System.err.println("Server is not running");
+            System.err.println("Error in Connection.sendObject()");
         }
     }
 
@@ -88,9 +88,9 @@ public class Connection {
         try {
             return objectInputStream.readObject();
         } catch (Exception e) {
-            System.err.println("Server is not running");
+            System.err.println("Error in Connection.receiveObject()");
+            return null;
         }
-        return null;
     }
 
 }

@@ -13,7 +13,7 @@ public class Controller extends Application {
 
     /**
      * <strong>DO NOT EDIT THIS METHOD</strong> <br>
-     *
+     * <p>
      * This method is called when the application should stop, and provides a
      * convenient place to prepare for application exit and destroy resources.
      *
@@ -22,9 +22,9 @@ public class Controller extends Application {
      * </p>
      *
      * @param stage the primary stage for this application, onto which
-     * the application scene can be set.
-     * Applications may create other stages, if needed, but they will not be
-     * primary stages.
+     *              the application scene can be set.
+     *              Applications may create other stages, if needed, but they will not be
+     *              primary stages.
      */
     @Override
     public void start(Stage stage) {
@@ -36,6 +36,7 @@ public class Controller extends Application {
      * after the Application class is loaded and constructed. An application may
      * override this method to perform initialization prior to the actual starting
      * of the application.
+     *
      * @throws Exception
      */
     @Override
@@ -48,6 +49,7 @@ public class Controller extends Application {
      * has stopped, and its primary stage has been removed from the screen. An
      * application may override this method to perform any necessary cleanup
      * operations.
+     *
      * @throws Exception
      */
     @Override

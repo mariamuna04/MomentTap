@@ -30,4 +30,21 @@ public class Utility {
         currentStage.setScene(scene);
     }
 
+    public static void createStage(String fxml) {
+        try {
+            Stage stage = new Stage();
+            FXMLLoader fxmlLoader = new FXMLLoader(Controller.class.getResource(fxml));
+            Scene scene = new Scene(fxmlLoader.load());
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void deleteStage(Node node) {
+        Stage currentStage = (Stage) node.getScene().getWindow();
+        currentStage.close();
+    }
+
 }

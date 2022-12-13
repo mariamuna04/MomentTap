@@ -28,30 +28,25 @@ public class DialogBox {
 
         if (type == ERROR_DIALOG_BOX) {
             dialogBox.setTitle("Error");
-            ((ImageView) root.lookup("#imageViewID")).setImage(
-                    new Image("file:Client/src/main/resources/img/error.png"));
+            ((ImageView) root.lookup("#imageViewID")).setImage(new Image("file:Client/src/main/resources/img/error.png"));
             dialogBox.getIcons().add(new Image("file:Client/src/main/resources/img/error.png"));
         } else if (type == INFORMATION_DIALOG_BOX) {
             dialogBox.setTitle("Information");
-            ((ImageView) root.lookup("#imageViewID")).setImage(
-                    new Image("file:Client/src/main/resources/img/information.png"));
+            ((ImageView) root.lookup("#imageViewID")).setImage(new Image("file:Client/src/main/resources/img/information.png"));
             dialogBox.getIcons().add(new Image("file:Client/src/main/resources/img/information.png"));
         } else if (type == WARNING_DIALOG_BOX) {
             dialogBox.setTitle("Warning");
 
-            ((ImageView) root.lookup("#imageViewID")).setImage(
-                    new Image("file:Client/src/main/resources/img/warning.png"));
+            ((ImageView) root.lookup("#imageViewID")).setImage(new Image("file:Client/src/main/resources/img/warning.png"));
             dialogBox.getIcons().add(new Image("file:Client/src/main/resources/img/warning.png"));
         } else if (type == SUCCESS_DIALOG_BOX) {
             dialogBox.setTitle("Success");
 
-            ((ImageView) root.lookup("#imageViewID")).setImage(
-                    new Image("file:Client/src/main/resources/img/success.png"));
+            ((ImageView) root.lookup("#imageViewID")).setImage(new Image("file:Client/src/main/resources/img/success.png"));
             dialogBox.getIcons().add(new Image("file:Client/src/main/resources/img/success.png"));
         }
 
         Scene scene = new Scene(root);
-        // dialogBox.getIcons().add(new Image("file:canteen-client/src/main/resources/img/error.png"));
         dialogBox.centerOnScreen();
         dialogBox.setAlwaysOnTop(true);
         dialogBox.setScene(scene);

@@ -2,52 +2,44 @@
 
 package com.application.controllers;
 
-import com.application.connection.Connection;
+import com.application.client.Sequence;
 import com.application.utility.DialogBox;
-import com.application.utility.NetworkRequestCodes;
-import javafx.event.ActionEvent;
+import com.application.utility.Utility;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 public class DeleteEventController {
 
     @FXML
-    private
-    VBox parent;
+    private VBox parent;
     @FXML
     private TextField create_event_name;
     @FXML
     private DatePicker create_event_date;
 
-    public void onDeleteButtonListener(ActionEvent actionEvent) throws Exception {
+    public void onDeleteButtonListener() throws Exception {
         String event_name = create_event_name.getText();
         String event_date = create_event_date.getValue().toString();
 
-        Connection.sendRequestCode(NetworkRequestCodes.DELETE_EVENT);
-        Connection.sendString(event_name);
-        Connection.sendString(event_date);
+        try {
+            if (Sequence.deleteEventSequence(event_name, event_date)) {
+                DialogBox.showDialogue("Success", "Event deleted successfully", DialogBox.SUCCESS_DIALOG_BOX);
+                Utility.deleteStage(parent);
 
-        int response = Connection.receiveRequestCode();
-
-        if (response == NetworkRequestCodes.DELETE_EVENT_CONFIRMATION) {
-            DialogBox.showDialogue("Success", "Event deleted successfully.", DialogBox.SUCCESS_DIALOG_BOX);
-            Stage s = (Stage) create_event_name.getScene().getWindow();
-            s.close();
-
-        } else {
-            DialogBox.showDialogue("Error", "Event deletion failed.", DialogBox.ERROR_DIALOG_BOX);
-            Stage s = (Stage) create_event_name.getScene().getWindow();
-            s.close();
+            } else {
+                DialogBox.showDialogue("Error", "Event deletion failed", DialogBox.ERROR_DIALOG_BOX);
+                Utility.deleteStage(parent);
+            }
+        } catch (Exception e) {
+            DialogBox.showDialogue("Error", "Something went wrong", DialogBox.ERROR_DIALOG_BOX);
         }
 
 
     }
 
-    public void onCancelButtonListener(ActionEvent actionEvent) {
-        Stage s = (Stage) create_event_name.getScene().getWindow();
-        s.close();
+    public void onCancelButtonListener() {
+        Utility.deleteStage(parent);
     }
 }

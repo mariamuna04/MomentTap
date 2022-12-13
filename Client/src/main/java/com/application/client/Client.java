@@ -17,8 +17,9 @@ public class Client extends Application {
 
     /**
      * Start the GUI
+     *
      * @param stage the primary stage for this application, onto which
-     * the application scene can be set.
+     *              the application scene can be set.
      * @throws IOException
      */
     @Override
@@ -33,6 +34,7 @@ public class Client extends Application {
 
     /**
      * The application initialization method. This method is called automatically
+     *
      * @param args Command line arguments
      */
     public static void main(String[] args) {

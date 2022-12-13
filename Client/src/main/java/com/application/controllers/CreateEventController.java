@@ -1,54 +1,43 @@
 package com.application.controllers;
 
-import com.application.serialShared.Event;
+import com.application.client.Sequence;
 import com.application.client.User;
-import com.application.connection.Connection;
+import com.application.serialShared.Event;
 import com.application.utility.DialogBox;
-import com.application.utility.NetworkRequestCodes;
-import javafx.event.ActionEvent;
+import com.application.utility.Utility;
+import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 
 public class CreateEventController {
-    public TextField create_event_name;
-    public TextField create_event_category;
-    public TextArea create_event_description;
-    public DatePicker create_event_date;
-    public TextField create_event_start_time;
-    public TextField create_event_end_time;
+    @FXML
+    private TextField create_event_name;
+    @FXML
+    private TextField create_event_category;
+    @FXML
+    private TextArea create_event_description;
+    @FXML
+    private DatePicker create_event_date;
+    @FXML
+    private TextField create_event_start_time;
+    @FXML
+    private TextField create_event_end_time;
 
-    public void onCreateButtonListener(ActionEvent actionEvent) throws Exception {
-        String event_name = create_event_name.getText();
-        String event_category = create_event_category.getText();
-        String event_description = create_event_description.getText();
-        String event_date = create_event_date.getValue().toString();
-        String event_start_time = create_event_start_time.getText();
-        String event_end_time = create_event_end_time.getText();
+    public void onCreateButtonListener() throws Exception {
 
-        Event event = new Event(User.getEmail(), event_name, event_description,event_date,
-                Integer.parseInt(event_start_time), Integer.parseInt(event_end_time), event_category);
+        Event event = new Event(User.getEmail(), create_event_name.getText(), create_event_description.getText(), create_event_category.getText(), create_event_date.getValue().toString(), Integer.parseInt(create_event_start_time.getText()), Integer.parseInt(create_event_end_time.getText()));
 
-        Connection.sendRequestCode(NetworkRequestCodes.CREATE_EVENT);
-        Connection.sendObject(event);
-
-        int response = Connection.receiveRequestCode();
-        if(response == NetworkRequestCodes.CREATE_EVENT_CONFIRMATION) {
+        if (Sequence.createEventSequence(event)) {
             DialogBox.showDialogue("Success", "Event created successfully.", DialogBox.SUCCESS_DIALOG_BOX);
-            Stage s = (Stage) create_event_name.getScene().getWindow();
-            s.close();
-        }
-        else {
+            Utility.deleteStage(create_event_category);
+        } else {
             DialogBox.showDialogue("Error", "Event creation failed.", DialogBox.ERROR_DIALOG_BOX);
-            Stage s = (Stage) create_event_name.getScene().getWindow();
-            s.close();
+            Utility.deleteStage(create_event_category);
         }
     }
 
-    public void onCancelButtonListener(ActionEvent actionEvent) {
-        Stage s = (Stage) create_event_name.getScene().getWindow();
-        s.close();
-
+    public void onCancelButtonListener() {
+        Utility.deleteStage(create_event_category);
     }
 }

@@ -16,7 +16,7 @@ public class SignInController extends Controller {
     private PasswordField passwordTextField;
 
     public void onSignInListener() throws Exception {
-        if(Sequence.signInSequence(usernameTextField.getText(), passwordTextField.getText())) {
+        if (Sequence.signInSequence(usernameTextField.getText(), passwordTextField.getText())) {
             DialogBox.showDialogue("Success", "You have successfully signed in.", DialogBox.SUCCESS_DIALOG_BOX);
             Utility.changeScene(usernameTextField, "home-activity.fxml");
         } else {

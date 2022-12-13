@@ -3,15 +3,10 @@
 package com.application.controllers;
 
 import com.application.client.Sequence;
-import com.application.utility.NetworkRequestCodes;
 import com.application.utility.Utility;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-
-import java.io.DataOutputStream;
-import java.net.Socket;
-import java.util.ArrayList;
 
 
 public class SignUpController extends Controller {
@@ -23,12 +18,13 @@ public class SignUpController extends Controller {
     private PasswordField passwordTextField;
 
     public void onSignUpAction() throws Exception {
-        if(Sequence.signUpSequence(nameTextField.getText(), emailTextField.getText(), passwordTextField.getText())) {
-                Utility.changeScene(nameTextField, "sign-in-activity.fxml");
+        if (Sequence.signUpSequence(nameTextField.getText(), emailTextField.getText(), passwordTextField.getText())) {
+            Utility.changeScene(nameTextField, "sign-in-activity.fxml");
         } else {
             // GUI Dialog box
         }
     }
+
     public void onSignInAction() throws Exception {
         Utility.changeScene(nameTextField, "sign-in-activity.fxml");
     }

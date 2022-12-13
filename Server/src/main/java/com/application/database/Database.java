@@ -101,13 +101,13 @@ public class Database {
 
 
     public static void addEvent(Event event) {
-        String email = event.getUser_email();
-        String name = event.getEvent_name();
-        String description = event.getEvent_description();
-        String category = event.getEvent_category();
-        String date = event.getEvent_date();
-        int start_time = event.getEvent_start_time();
-        int end_time = event.getEvent_end_time();
+        String email = event.user_email();
+        String name = event.event_name();
+        String description = event.event_description();
+        String category = event.event_category();
+        String date = event.event_date();
+        int start_time = event.event_start_time();
+        int end_time = event.event_end_time();
 
         // add event to database
         try {
