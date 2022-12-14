@@ -20,7 +20,6 @@ public class SignInController extends Controller {
 
     public void onSignInListener() throws Exception {
         if (Sequence.signInSequence(emailTextField.getText(), passwordTextField.getText())) {
-            DialogBox.showDialogue("Success", "You have successfully signed in.", DialogBox.SUCCESS_DIALOG_BOX);
             Utility.changeScene(parent, "home-activity.fxml");
         } else
             DialogBox.showDialogue("Error", "Invalid username or password.", DialogBox.ERROR_DIALOG_BOX);

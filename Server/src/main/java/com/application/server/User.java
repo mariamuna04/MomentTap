@@ -1,4 +1,6 @@
-package com.application.server;// Created by Kishorè Shanto on 12/5/22 at 19:23
+// Created by Kishorè Shanto on 12/5/22 at 19:23
+
+package com.application.server;
 
 import com.application.database.Database;
 import org.checkerframework.checker.nullness.qual.NonNull;
@@ -78,7 +80,7 @@ public class User {
         try {
             dataOutputStream.writeInt(code);
         } catch (Exception e) {
-            System.err.println("Server is not running");
+            System.err.println("Error in sendRequestCode");
         }
     }
 
@@ -86,16 +88,17 @@ public class User {
         try {
             return dataInputStream.readInt();
         } catch (Exception e) {
-            System.err.println("Server is not running");
+            System.err.println("Error in receiveRequestCode");
+            return -1;
         }
-        return -1;
     }
 
     public void sendString(String string) {
         try {
             dataOutputStream.writeUTF(string);
         } catch (Exception e) {
-            System.err.println("Server is not running");
+            System.err.println("Error in sendString");
+
         }
     }
 

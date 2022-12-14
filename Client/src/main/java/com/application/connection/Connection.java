@@ -153,4 +153,23 @@ public class Connection {
         }
     }
 
+    public static Socket getSocket() {
+        return socket;
+    }
+
+    public static DataInputStream getDataInputStream() {
+        return dataInputStream;
+    }
+
+    public static DataOutputStream getDataOutputStream() {
+        return dataOutputStream;
+    }
+
+    public static ObjectInputStream getObjectInputStream() {
+        return objectInputStream;
+    }
+
+    public static ObjectOutputStream getObjectOutputStream() {
+        return objectOutputStream;
+    }
 }

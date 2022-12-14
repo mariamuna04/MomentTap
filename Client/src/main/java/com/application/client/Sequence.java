@@ -6,6 +6,8 @@ import com.application.connection.Connection;
 import com.application.serialShared.Event;
 import com.application.utility.NetworkRequestCodes;
 
+import java.io.IOException;
+
 /**
  * This class contains each activity sequence of the client application. Each method is a sequence of activities
  * that are executed in a specific order. Each method is called from the Controller class.
@@ -18,9 +20,9 @@ public class Sequence {
      * to the server to check if the user exists in the database. If the user exists, it will receive a response
      * from the server and the user will be redirected to the home-activity.fxml file. If the user does not exist,
      * the user will be redirected to the sign-up-activity.fxml file.
-     * @param _email_ user email
-     * @param _password_ user password
      *
+     * @param _email_    user email
+     * @param _password_ user password
      * @return true if the user exists in the database, false otherwise
      */
     public static boolean signInSequence(String _email_, String _password_) {
@@ -44,8 +46,9 @@ public class Sequence {
      * The method first attempts to connect to the server. If the connection is successful, it sends a request
      * to the server to add the user to the database. If the user is successfully added to the database, it will
      * receive a response from the server and the user will be redirected to the sign-in-activity.fxml file.
-     * @param _name_ Name of the user
-     * @param _email_ Email of the user
+     *
+     * @param _name_     Name of the user
+     * @param _email_    Email of the user
      * @param _password_ Password of the user
      * @return true if the user is successfully added to the database, false otherwise
      */
@@ -63,6 +66,7 @@ public class Sequence {
      * This method is called when the user clicks on the "Sign Out" button in the home-activity.fxml file.
      * This method send a request to the server to sign out the user. If the user is successfully signed out,
      * it will receive a response from the server and the user will be redirected to the sign-in-activity.fxml file.
+     *
      * @return true if the user is successfully signed out, false otherwise
      */
     public static boolean signOutSequence() {
@@ -80,6 +84,7 @@ public class Sequence {
      * This method send a request to the server to add an event to the database. If the event is successfully
      * added to the database, it will receive a response from the server and the user will be redirected to the
      * home-activity.fxml file.
+     *
      * @param event Event (as object) to be added to the database
      * @return true if the event is successfully added to the database, false otherwise
      */
@@ -95,6 +100,7 @@ public class Sequence {
      * This method send a request to the server to delete an event from the database. If the event is successfully
      * deleted from the database, it will receive a response from the server and the user will be redirected to the
      * home-activity.fxml file.
+     *
      * @param event_name Name of the event to be deleted from the database
      * @param event_date Date of the event to be deleted from the database
      * @return true if the event is successfully deleted from the database, false otherwise
@@ -113,4 +119,25 @@ public class Sequence {
     }
 
 
+    public static void searchSequence(String keyword) {
+        try {
+            Connection.sendRequestCode(NetworkRequestCodes.SEARCH_EVENT_REQUEST);
+            Connection.sendPrimitiveObject(keyword);
+            int response = Connection.receiveRequestCode();
+            if (response == NetworkRequestCodes.SEARCH_EVENT_SUCCESSFUL) {
+                int size = Connection.getDataInputStream().readInt();
+                for (int i = 0; i < size; i++) {
+                    String name = Connection.getDataInputStream().readUTF();
+                    String description = Connection.getDataInputStream().readUTF();
+                    String category = Connection.getDataInputStream().readUTF();
+                    String date = Connection.getDataInputStream().readUTF();
+                    int start_time = Connection.getDataInputStream().readInt();
+                    int end_time = Connection.getDataInputStream().readInt();
+                    System.out.println(name + " " + description + " " + category + " " + date + " " + start_time + " " + end_time);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

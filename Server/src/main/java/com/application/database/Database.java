@@ -45,8 +45,10 @@ public class Database {
     private static void establishConnection() {
         try {
             connection = DriverManager.getConnection(DATABASE_URL, DATABASE_USER, DATABASE_PASSWORD);
+            System.out.println("Database Connected");
         } catch (SQLException e) {
-            System.err.println(e.getMessage());
+            System.err.println("Error while connecting to database");
+            System.err.println("Possible reasons: Database is not running, or the database URL, Auth is incorrect");
         }
     }
 
@@ -55,8 +57,10 @@ public class Database {
         try {
             establishConnection();
             resultSet = connection.createStatement().executeQuery("SELECT * FROM users WHERE email = '" + email + "' AND password = '" + password + "'");
+            System.out.println("Query Executed: findUser");
         } catch (Exception e) {
-            System.err.println(e.getMessage());
+            System.err.println("Error while executing query: findUser");
+            System.err.println("Possible reasons: Database is not running, or SQL syntax is incorrect");
         }
     }
 
@@ -64,7 +68,6 @@ public class Database {
     public static void addUser(String name, String email, String password) {
         try {
             establishConnection();
-            // Verify PK
             resultSet = connection.createStatement().executeQuery("SELECT * FROM users WHERE email = '" + email + "'");
             if (resultSet.next()) {
                 System.out.println("Email Already Exists");
@@ -105,10 +108,7 @@ public class Database {
         // add event to database
         try {
             establishConnection();
-            connection.createStatement().executeUpdate("INSERT INTO events (user_email, event_name, " +
-                    "event_description,  event_category, event_date, event_start_time, event_end_time) VALUES " +
-                    "('" + email + "', '" + name + "', '" + description + "', '" + category + "', '" + date +
-                    "', '" + start_time + "', '" + end_time + "')");
+            connection.createStatement().executeUpdate("INSERT INTO events (user_email, event_name, " + "event_description,  event_category, event_date, event_start_time, event_end_time) VALUES " + "('" + email + "', '" + name + "', '" + description + "', '" + category + "', '" + date + "', '" + start_time + "', '" + end_time + "')");
 
             System.out.println("Event Created");
         } catch (Exception e) {
@@ -130,23 +130,16 @@ public class Database {
 
     @DatabaseQuery
     public static void searchEvent(String keyword) {
-
         try {
             establishConnection();
             if (keyword.matches("[0-9]+")) {
-
                 int integer_keyword = Integer.parseInt(keyword);
-
                 resultSet = connection.createStatement().executeQuery("SELECT * FROM events WHERE event_name LIKE '%" + keyword + "%' OR event_description LIKE '%" + keyword + "%' OR event_category LIKE '%" + keyword + "%' OR event_date LIKE '%" + keyword + "%' OR (event_start_time <= " + integer_keyword + " AND event_end_time >= " + integer_keyword + ")");
-
             } else {
-
                 resultSet = connection.createStatement().executeQuery("SELECT * FROM events WHERE event_name LIKE '%" + keyword + "%' OR event_description LIKE '%" + keyword + "%' OR event_category LIKE '%" + keyword + "%' OR event_date LIKE '%" + keyword + "%'");
             }
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
-
     }
-
 }

@@ -34,7 +34,7 @@ public class HomeActivityController extends Controller {
     }
 
     public void onSearchButton() {
-
+        Sequence.searchSequence(searchField.getText());
     }
 }
 
