@@ -2,28 +2,27 @@
 
 package com.application.controllers;
 
+import com.application.utility.Utility;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 public class DialogBoxController extends Controller {
 
     @FXML
     private VBox parent;
     @FXML
-    private ImageView imageViewID;
-    @FXML
     private Label heading;
     @FXML
     private Label subtitle;
 
     public void onOKButtonClick() {
+        clear();
+        Utility.deleteStage(parent);
+    }
+
+    private void clear() {
         heading.setText("");
         subtitle.setText("");
-        Stage currentStage = (Stage) parent.getScene().getWindow();
-        currentStage.close();
-
     }
 }

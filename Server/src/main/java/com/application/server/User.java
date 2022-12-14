@@ -65,7 +65,7 @@ public class User {
         initializeUserVariables();
     }
 
-    public void closeConnection() throws IOException{
+    public void closeConnection() throws IOException {
         this.dataInputStream.close();
         this.dataOutputStream.close();
         this.objectOutputStream.close();
@@ -103,7 +103,7 @@ public class User {
         try {
             return dataInputStream.readUTF();
         } catch (Exception e) {
-            System.err.println("Server is not running");
+            System.err.println("receiveString: Server is not running");
         }
         return null;
     }
@@ -112,7 +112,7 @@ public class User {
         try {
             objectOutputStream.writeObject(object);
         } catch (Exception e) {
-            System.err.println("Server is not running");
+            System.err.println("sendObject: " + e.getMessage());
         }
     }
 
@@ -120,7 +120,7 @@ public class User {
         try {
             return objectInputStream.readObject();
         } catch (Exception e) {
-            System.err.println("Server is not running");
+            System.err.println("Received object is null");
         }
         return null;
     }

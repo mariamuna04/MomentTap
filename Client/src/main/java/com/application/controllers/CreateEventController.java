@@ -9,35 +9,38 @@ import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
 
-public class CreateEventController {
+public class CreateEventController extends Controller {
     @FXML
-    private TextField create_event_name;
+    private VBox parent;
     @FXML
-    private TextField create_event_category;
+    private TextField event_name;
     @FXML
-    private TextArea create_event_description;
+    private TextField event_category;
     @FXML
-    private DatePicker create_event_date;
+    private TextArea event_description;
     @FXML
-    private TextField create_event_start_time;
+    private DatePicker event_date;
     @FXML
-    private TextField create_event_end_time;
+    private TextField event_start_time;
+    @FXML
+    private TextField event_end_time;
 
     public void onCreateButtonListener() throws Exception {
 
-        Event event = new Event(User.getEmail(), create_event_name.getText(), create_event_description.getText(), create_event_category.getText(), create_event_date.getValue().toString(), Integer.parseInt(create_event_start_time.getText()), Integer.parseInt(create_event_end_time.getText()));
+        Event event = new Event(User.getEmail(), event_name.getText(), event_description.getText(), event_category.getText(), event_date.getValue().toString(), Integer.parseInt(event_start_time.getText()), Integer.parseInt(event_end_time.getText()));
 
         if (Sequence.createEventSequence(event)) {
             DialogBox.showDialogue("Success", "Event created successfully.", DialogBox.SUCCESS_DIALOG_BOX);
-            Utility.deleteStage(create_event_category);
+            Utility.deleteStage(parent);
         } else {
             DialogBox.showDialogue("Error", "Event creation failed.", DialogBox.ERROR_DIALOG_BOX);
-            Utility.deleteStage(create_event_category);
+            Utility.deleteStage(event_category);
         }
     }
 
     public void onCancelButtonListener() {
-        Utility.deleteStage(create_event_category);
+        Utility.deleteStage(parent);
     }
 }

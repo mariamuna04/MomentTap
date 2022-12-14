@@ -10,18 +10,18 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 
-public class DeleteEventController {
+public class DeleteEventController extends Controller {
 
     @FXML
     private VBox parent;
     @FXML
-    private TextField create_event_name;
+    private TextField event_name;
     @FXML
-    private DatePicker create_event_date;
+    private DatePicker event_date;
 
     public void onDeleteButtonListener() throws Exception {
-        String event_name = create_event_name.getText();
-        String event_date = create_event_date.getValue().toString();
+        String event_name = this.event_name.getText();
+        String event_date = this.event_date.getValue().toString();
 
         try {
             if (Sequence.deleteEventSequence(event_name, event_date)) {

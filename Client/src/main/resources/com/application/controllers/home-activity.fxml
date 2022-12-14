@@ -53,7 +53,7 @@
                     <children>
                         <ImageView fitHeight="40.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@../../../fxml-images/Component 1.png"/>
+                                <Image url="@../../../fxml-images/brand-logo.png"/>
                             </image>
                         </ImageView>
                     </children>
@@ -71,7 +71,7 @@
                     <children>
                         <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true">
                             <image>
-                                <Image url="@../../../fxml-css/search_FILL0_wght200_GRAD0_opsz48.png"/>
+                                <Image url="@../../../fxml-css/search-icon.png"/>
                             </image>
                             <HBox.margin>
                                 <Insets top="2.0"/>

@@ -1,4 +1,5 @@
-package com.application.database;// Created by Kishorè Shanto on Nov 20 2022 23:08
+// Created by Kishorè Shanto on Nov 20 2022 23:08
+package com.application.database;
 
 import com.application.serialShared.Event;
 
@@ -29,10 +30,6 @@ public class Database {
     /**
      * The ResultSet variable which stores only one query result at a time
      */
-    // WARNING
-    //  If ResultSet holds one query result a a time,
-    //  there will be a problem if multiple queries are executed at the same time.
-    // TODO: Fix this problem
     public static ResultSet resultSet;
 
     /**
@@ -45,22 +42,15 @@ public class Database {
      * Establish a connection to the database. This method is called when any query is executed.
      * If the connection is already established, it will not establish a new connection.
      */
-    // WARNING
-    //  1. This method is not thread safe. If multiple threads try to establish a connection
-    //  at the same time, there will be a problem. Every method suffers from this problem.
-    //  2. Make all query methods synchronized (maybe this will fix the problem partially, but best way is to
-    //  use a thread pool).
-    //  3. Close the connection after each query, or make the connection auto closable.
-    //  TODO: Fix this problem
     private static void establishConnection() {
         try {
             connection = DriverManager.getConnection(DATABASE_URL, DATABASE_USER, DATABASE_PASSWORD);
         } catch (SQLException e) {
-            // FOR DEVELOPERS
             System.err.println(e.getMessage());
         }
     }
 
+    @DatabaseQuery
     public static void findUser(String email, String password) {
         try {
             establishConnection();
@@ -70,6 +60,7 @@ public class Database {
         }
     }
 
+    @DatabaseQuery
     public static void addUser(String name, String email, String password) {
         try {
             establishConnection();
@@ -86,6 +77,7 @@ public class Database {
         }
     }
 
+    @DatabaseQuery
     public static String queryForName(String email) {
         try {
             establishConnection();
@@ -100,6 +92,7 @@ public class Database {
     }
 
 
+    @DatabaseQuery
     public static void addEvent(Event event) {
         String email = event.user_email();
         String name = event.event_name();
@@ -123,6 +116,7 @@ public class Database {
         }
     }
 
+    @DatabaseQuery
     public static void deleteEvent(String email, String name, String date) {
         // delete event from database
         try {
@@ -134,6 +128,7 @@ public class Database {
         }
     }
 
+    @DatabaseQuery
     public static void searchEvent(String keyword) {
 
         try {

@@ -6,53 +6,110 @@ import com.application.connection.Connection;
 import com.application.serialShared.Event;
 import com.application.utility.NetworkRequestCodes;
 
+/**
+ * This class contains each activity sequence of the client application. Each method is a sequence of activities
+ * that are executed in a specific order. Each method is called from the Controller class.
+ */
 public class Sequence {
 
+    /**
+     * This method is called when the user clicks on the "Sign In" button in the sign-in-activity.fxml file.
+     * The method first attempts to connect to the server. If the connection is successful, it sends a request
+     * to the server to check if the user exists in the database. If the user exists, it will receive a response
+     * from the server and the user will be redirected to the home-activity.fxml file. If the user does not exist,
+     * the user will be redirected to the sign-up-activity.fxml file.
+     * @param _email_ user email
+     * @param _password_ user password
+     *
+     * @return true if the user exists in the database, false otherwise
+     */
     public static boolean signInSequence(String _email_, String _password_) {
         Connection.setConnection();
         Connection.sendRequestCode(NetworkRequestCodes.SIGN_IN_REQUEST);
-        Connection.sendString("");
-        Connection.sendString(_email_);
-        Connection.sendString(_password_);
+        Connection.sendPrimitiveObject("");
+        Connection.sendPrimitiveObject(_email_);
+        Connection.sendPrimitiveObject(_password_);
         int response = Connection.receiveRequestCode();
-        if (response == NetworkRequestCodes.USER_FOUND_FROM_DATABASE) {
-            String name = Connection.receiveString();
-            String email = Connection.receiveString();
+        if (response == NetworkRequestCodes.SIGN_IN_SUCCESSFUL) {
+            String name = Connection.receivePrimitiveObject();
+            String email = Connection.receivePrimitiveObject();
             User.setUser(name, email);
+            return true;
+        } else return false;
+    }
+
+
+    /**
+     * This method is called when the user clicks on the "Sign Up" button in the sign-up-activity.fxml file.
+     * The method first attempts to connect to the server. If the connection is successful, it sends a request
+     * to the server to add the user to the database. If the user is successfully added to the database, it will
+     * receive a response from the server and the user will be redirected to the sign-in-activity.fxml file.
+     * @param _name_ Name of the user
+     * @param _email_ Email of the user
+     * @param _password_ Password of the user
+     * @return true if the user is successfully added to the database, false otherwise
+     */
+    public static boolean signUpSequence(String _name_, String _email_, String _password_) {
+        Connection.setConnection();
+        Connection.sendRequestCode(NetworkRequestCodes.SIGN_UP_REQUEST);
+        Connection.sendPrimitiveObject(_name_);
+        Connection.sendPrimitiveObject(_email_);
+        Connection.sendPrimitiveObject(_password_);
+        int response = Connection.receiveRequestCode();
+        return response == NetworkRequestCodes.SIGN_UP_SUCCESSFUL;
+    }
+
+    /**
+     * This method is called when the user clicks on the "Sign Out" button in the home-activity.fxml file.
+     * This method send a request to the server to sign out the user. If the user is successfully signed out,
+     * it will receive a response from the server and the user will be redirected to the sign-in-activity.fxml file.
+     * @return true if the user is successfully signed out, false otherwise
+     */
+    public static boolean signOutSequence() {
+        Connection.sendRequestCode(NetworkRequestCodes.SIGN_OUT_REQUEST);
+        int response = Connection.receiveRequestCode();
+        if (response == NetworkRequestCodes.SIGN_OUT_SUCCESSFUL) {
+            Connection.unsetConnection();
             return true;
         } else return false;
 
     }
 
-    public static boolean signUpSequence(String _name_, String _email_, String _password_) {
-        Connection.setConnection();
-        Connection.sendRequestCode(NetworkRequestCodes.SIGN_UP_REQUEST);
-        Connection.sendString(_name_);
-        Connection.sendString(_email_);
-        Connection.sendString(_password_);
-        int response = Connection.receiveRequestCode();
-        return response == NetworkRequestCodes.USER_ADDED_TO_DATABASE;
-    }
-
-    public static boolean signOutSequence() {
-        Connection.sendRequestCode(NetworkRequestCodes.LOG_OUT);
-        Connection.unsetConnection();
-        return true;
-    }
-
+    /**
+     * This method is called when the user clicks on the "Add Event" button in the home-activity.fxml file.
+     * This method send a request to the server to add an event to the database. If the event is successfully
+     * added to the database, it will receive a response from the server and the user will be redirected to the
+     * home-activity.fxml file.
+     * @param event Event (as object) to be added to the database
+     * @return true if the event is successfully added to the database, false otherwise
+     */
     public static boolean createEventSequence(Event event) {
-        Connection.sendRequestCode(NetworkRequestCodes.CREATE_EVENT);
+        Connection.sendRequestCode(NetworkRequestCodes.CREATE_EVENT_REQUEST);
         Connection.sendObject(event);
         int response = Connection.receiveRequestCode();
-        return response == NetworkRequestCodes.CREATE_EVENT_CONFIRMATION;
+        return response == NetworkRequestCodes.CREATE_EVENT_SUCCESSFUL;
     }
 
+    /**
+     * This method is called when the user clicks on the "Delete Event" button in the home-activity.fxml file.
+     * This method send a request to the server to delete an event from the database. If the event is successfully
+     * deleted from the database, it will receive a response from the server and the user will be redirected to the
+     * home-activity.fxml file.
+     * @param event_name Name of the event to be deleted from the database
+     * @param event_date Date of the event to be deleted from the database
+     * @return true if the event is successfully deleted from the database, false otherwise
+     */
     public static boolean deleteEventSequence(String event_name, String event_date) {
-        Connection.sendRequestCode(NetworkRequestCodes.DELETE_EVENT);
-        Connection.sendString(event_name);
-        Connection.sendString(event_date);
+        Connection.sendRequestCode(NetworkRequestCodes.DELETE_EVENT_REQUEST);
+        Connection.sendPrimitiveObject(event_name);
+        Connection.sendPrimitiveObject(event_date);
         int response = Connection.receiveRequestCode();
-        return response == NetworkRequestCodes.DELETE_EVENT_CONFIRMATION;
+        return response == NetworkRequestCodes.DELETE_EVENT_SUCCESSFUL;
+    }
+
+    // TODO: 12/10/22 Add more sequences, finish search sequence
+    public static boolean searchEventSequence() {
+        return true;
     }
 
 

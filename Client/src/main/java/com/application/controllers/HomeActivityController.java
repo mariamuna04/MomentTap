@@ -9,8 +9,6 @@ import javafx.scene.layout.Pane;
 
 /**
  * This Controller handles the Home Activity.
- *
- * @author Kishorè Shanto
  */
 public class HomeActivityController extends Controller {
 
@@ -18,11 +16,11 @@ public class HomeActivityController extends Controller {
     public TextField searchField;
 
     public void onCreateEventButton() {
-        Utility.createStage("create-event.fxml");
+        Utility.createStage("create-event-activity.fxml");
     }
 
     public void onDeleteEventButton() {
-        Utility.createStage("delete-event.fxml");
+        Utility.createStage("delete-event-activity.fxml");
     }
 
     public void onSignOutButton() {

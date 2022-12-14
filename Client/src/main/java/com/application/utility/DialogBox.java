@@ -46,8 +46,7 @@ public class DialogBox {
             dialogBox.getIcons().add(new Image("file:Client/src/main/resources/img/success.png"));
         }
 
-        Scene scene = new Scene(root);
-        dialogBox.centerOnScreen();
+        Scene scene = new Scene(root);dialogBox.centerOnScreen();
         dialogBox.setAlwaysOnTop(true);
         dialogBox.setScene(scene);
 

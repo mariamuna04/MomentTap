@@ -9,7 +9,18 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+
+/**
+ * Utility class for the Client Application
+ */
 public class Utility {
+    /**
+     * Change the scene of the application
+     * @param node The node from which the scene is to be changed
+     * @param fxml The fxml file to be loaded
+     * @throws Exception If the fxml file is not found,
+     * init() method is not found in the controller or the controller is not found
+     */
     public static void changeScene(Node node, String fxml) throws Exception {
         // Get Stage, Load FXML, Create Scene
         Stage currentStage = (Stage) node.getScene().getWindow();
@@ -30,6 +41,10 @@ public class Utility {
         currentStage.setScene(scene);
     }
 
+    /**
+     * Create a new stage with the given fxml file
+     * @param fxml The fxml file to be loaded
+     */
     public static void createStage(String fxml) {
         try {
             Stage stage = new Stage();
@@ -42,6 +57,11 @@ public class Utility {
         }
     }
 
+
+    /**
+     * Delete the Stage with given node from the scene
+     * @param node The node from which the stage is to be deleted
+     */
     public static void deleteStage(Node node) {
         Stage currentStage = (Stage) node.getScene().getWindow();
         currentStage.close();

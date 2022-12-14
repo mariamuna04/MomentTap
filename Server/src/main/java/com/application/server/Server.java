@@ -19,62 +19,53 @@ public class Server {
         while (true) {
             Socket socket = Connection.clientRequestAccept();
             System.out.println("Client Connected");
-
-            // ----------------------------------------------------------------
             assert socket != null;
             User user = new User(socket);
 
-
             new Thread(() -> {
+                System.out.println(user.getEmail() + " is connected, Thread started");
                 try {
-
                     if (user.getRequest() == NetworkRequestCodes.SIGN_UP_REQUEST) {
                         Database.addUser(user.getName(), user.getEmail(), user.getPassword());
-                        user.sendRequestCode(NetworkRequestCodes.USER_ADDED_TO_DATABASE);
+                        user.sendRequestCode(NetworkRequestCodes.SIGN_UP_SUCCESSFUL);
                     } else if (user.getRequest() == NetworkRequestCodes.SIGN_IN_REQUEST) {
 
                         Database.findUser(user.getEmail(), user.getPassword());
 
                         if (Database.resultSet.next()) {
                             System.out.println("User Found"); // TODO: pop up dialogue box
-                            user.getDataOutputStream().writeInt(NetworkRequestCodes.USER_FOUND_FROM_DATABASE);
+                            user.getDataOutputStream().writeInt(NetworkRequestCodes.SIGN_IN_SUCCESSFUL);
                             user.getDataOutputStream().writeUTF(Database.resultSet.getString("name"));
                             user.getDataOutputStream().writeUTF(Database.resultSet.getString("email"));
 
                             while (true) {
-                                int r = user.receiveRequestCode();
-                                if (r == NetworkRequestCodes.CREATE_EVENT) {
+                                int clientRequest = user.receiveRequestCode();
+                                if (clientRequest == NetworkRequestCodes.CREATE_EVENT_REQUEST) {
                                     Event event = (Event) user.getObjectInputStream().readObject();
                                     Database.addEvent(event);
-                                    user.sendRequestCode(NetworkRequestCodes.CREATE_EVENT_CONFIRMATION);
-                                } else if (r == NetworkRequestCodes.DELETE_EVENT) {
+                                    user.sendRequestCode(NetworkRequestCodes.CREATE_EVENT_SUCCESSFUL);
+                                } else if (clientRequest == NetworkRequestCodes.DELETE_EVENT_REQUEST) {
                                     String name = user.receiveString();
                                     String date = user.receiveString();
-                                    Database.deleteEvent(user.getEmail(),name, date);
-                                    user.sendRequestCode(NetworkRequestCodes.DELETE_EVENT_CONFIRMATION);
-                                } else if(r == NetworkRequestCodes.LOG_OUT) {
+                                    Database.deleteEvent(user.getEmail(), name, date);
+                                    user.sendRequestCode(NetworkRequestCodes.DELETE_EVENT_SUCCESSFUL);
+                                } else if (clientRequest == NetworkRequestCodes.SIGN_OUT_REQUEST) {
                                     user.closeConnection();
                                     System.out.println("Client Disconnected");
                                     break;
-                                } else if(r == NetworkRequestCodes.SEARCH_EVENT) {
+                                } else if (clientRequest == NetworkRequestCodes.SEARCH_EVENT_REQUEST) {
                                     String keyword = user.receiveString();
                                     Database.searchEvent(keyword);
-                                    if(Database.resultSet.next()) {
-                                        user.sendRequestCode(NetworkRequestCodes.SEARCH_EVENT_CONFIRMATION);
-                                        user.sendObject(Database.resultSet);
-                                        System.out.println("Event Found");
+                                    if (Database.resultSet.next()) {
+
                                     } else {
-                                        user.sendRequestCode(NetworkRequestCodes.SEARCH_EVENT_CONFIRMATION);
-                                        user.sendObject(null);
-                                        System.out.println("Event Not Found");
+
                                     }
                                 }
                             }
-
-
                         } else {
-                            System.out.println("User Not Found"); // TODO: pop up dialogue box
-                            user.getDataOutputStream().writeInt(NetworkRequestCodes.USER_NOT_FOUND_FROM_DATABASE);
+                            System.out.println("User Not Found");
+                            user.getDataOutputStream().writeInt(NetworkRequestCodes.SIGN_IN_UNSUCCESSFUL);
                         }
                     } else {
                         System.err.println("Invalid Request");
@@ -84,9 +75,6 @@ public class Server {
                     e.printStackTrace();
                 }
             }).start();
-
-
-            System.out.println("Client Connected");
         }
     }
 
