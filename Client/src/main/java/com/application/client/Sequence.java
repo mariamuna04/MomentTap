@@ -4,6 +4,7 @@ package com.application.client;
 
 import com.application.connection.Connection;
 import com.application.serialShared.Event;
+import com.application.utility.Date;
 import com.application.utility.NetworkRequestCodes;
 
 import java.io.IOException;
@@ -113,13 +114,7 @@ public class Sequence {
         return response == NetworkRequestCodes.DELETE_EVENT_SUCCESSFUL;
     }
 
-    // TODO: 12/10/22 Add more sequences, finish search sequence
-    public static boolean searchEventSequence() {
-        return true;
-    }
-
-
-    public static void searchSequence(String keyword) {
+    public static boolean searchSequence(String keyword) {
         User.events.clear();
         try {
             Connection.sendRequestCode(NetworkRequestCodes.SEARCH_EVENT_REQUEST);
@@ -137,10 +132,11 @@ public class Sequence {
                     Event e = new Event(User.getEmail(), name, description, category, date, start_time, end_time);
                     User.events.add(e);
                 }
-                System.out.println(User.events);
             }
+            return true;
         } catch (IOException e) {
             e.printStackTrace();
+            return false;
         }
     }
 }

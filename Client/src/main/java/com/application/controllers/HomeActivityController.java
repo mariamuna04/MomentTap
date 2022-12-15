@@ -4,6 +4,8 @@ package com.application.controllers;
 
 import com.application.client.Sequence;
 import com.application.client.User;
+import com.application.serialShared.Event;
+import com.application.utility.Date;
 import com.application.utility.Utility;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -26,7 +28,17 @@ public class HomeActivityController extends Controller {
             usernameLabel.setText(User.getName());
         }
 
-
+        Sequence.searchSequence("");
+        for (Event e : User.events) {
+            Date date = Date.parseDate(e.event_date());
+            if (Date.compareDate(date)) {
+                future_events.getChildren().add(new Label(e.event_name() + " " + e.event_date()));
+                System.err.println(date);
+            } else {
+                past_events.getChildren().add(new Label(e.event_name() + " " + e.event_date()));
+                System.out.println(date);
+            }
+        }
     }
 
     public Pane parent;
@@ -51,7 +63,14 @@ public class HomeActivityController extends Controller {
     }
 
     public void onSearchButton() {
-        Sequence.searchSequence(searchField.getText());
+        if(Sequence.searchSequence(searchField.getText())){
+            try {
+                this.init();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
+
 }
 

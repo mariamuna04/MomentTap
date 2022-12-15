@@ -28,9 +28,7 @@ public class CreateEventController extends Controller {
     private TextField event_end_time;
 
     public void onCreateButtonListener() throws Exception {
-
         Event event = new Event(User.getEmail(), event_name.getText(), event_description.getText(), event_category.getText(), event_date.getValue().toString(), Integer.parseInt(event_start_time.getText()), Integer.parseInt(event_end_time.getText()));
-
         if (Sequence.createEventSequence(event)) {
             DialogBox.showDialogue("Success", "Event created successfully.", DialogBox.SUCCESS_DIALOG_BOX);
             Utility.deleteStage(parent);
@@ -43,4 +41,6 @@ public class CreateEventController extends Controller {
     public void onCancelButtonListener() {
         Utility.deleteStage(parent);
     }
+
+
 }
