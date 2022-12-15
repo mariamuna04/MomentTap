@@ -5,9 +5,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.application</groupId>
-    <artifactId>com.application.server.User</artifactId>
+    <artifactId>Client</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>com.application.server.User</name>
+    <name>Client</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
