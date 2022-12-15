@@ -3,14 +3,16 @@
 package com.application.controllers;
 
 import com.application.client.Sequence;
-import com.application.utility.DialogBox;
 import com.application.utility.Utility;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 
 public class SignInController extends Controller {
+    @FXML
+    private Label signInErrorLabel;
     @FXML
     private Pane parent;
     @FXML
@@ -19,10 +21,11 @@ public class SignInController extends Controller {
     private PasswordField passwordTextField;
 
     public void onSignInListener() throws Exception {
-        if (Sequence.signInSequence(emailTextField.getText(), passwordTextField.getText())) {
+        if (emailTextField.getText().isEmpty() || passwordTextField.getText().isEmpty()) {
+            signInErrorLabel.setText("Please fill all the fields");
+        } else if (Sequence.signInSequence(emailTextField.getText(), passwordTextField.getText())) {
             Utility.changeScene(parent, "home-activity.fxml");
-        } else
-            DialogBox.showDialogue("Error", "Invalid username or password.", DialogBox.ERROR_DIALOG_BOX);
+        } else signInErrorLabel.setText("Invalid email or password");
     }
 
     public void onSignIUpListener() throws Exception {

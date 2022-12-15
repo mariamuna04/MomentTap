@@ -18,7 +18,6 @@ public record Date(int day, int month, int year) {
         return new Date(Integer.parseInt(dateArray[2]), Integer.parseInt(dateArray[1]), Integer.parseInt(dateArray[0]));
     }
 
-    // Compare date with current system date
     public static boolean compareDate(Date date) {
         Date currentDate = new Date(java.time.LocalDate.now().getDayOfMonth(), java.time.LocalDate.now().getMonthValue(), java.time.LocalDate.now().getYear());
         if (date.year() > currentDate.year()) {

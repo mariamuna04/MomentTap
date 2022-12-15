@@ -4,7 +4,6 @@ package com.application.client;
 
 import com.application.connection.Connection;
 import com.application.serialShared.Event;
-import com.application.utility.Date;
 import com.application.utility.NetworkRequestCodes;
 
 import java.io.IOException;

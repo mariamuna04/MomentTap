@@ -20,7 +20,6 @@ public class Client extends Application {
      *
      * @param stage the primary stage for this application, onto which
      *              the application scene can be set.
-     * @throws IOException
      */
     @Override
     public void start(Stage stage) throws IOException {

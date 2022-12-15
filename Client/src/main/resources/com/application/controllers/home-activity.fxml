@@ -72,7 +72,7 @@
                     <HBox.margin>
                         <Insets top="2.0" />
                     </HBox.margin>
-                    <Image url="@../../../fxml-css/search-icon.png" />
+                    <Image url="@../../../icons/search-icon.png" />
                 </ImageView>
             </HBox>
             <TextField fx:id="searchField" focusTraversable="false" maxHeight="36.0" maxWidth="250.0" minHeight="36.0" minWidth="250.0" prefHeight="36.0" prefWidth="250.0" promptText="Search Anything" style="-fx-background-color: #fff; -fx-background-radius: 0 0 0 0;">

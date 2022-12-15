@@ -3,7 +3,6 @@ package com.application.client;
 
 import com.application.serialShared.Event;
 
-import java.sql.Array;
 import java.util.ArrayList;
 
 /**

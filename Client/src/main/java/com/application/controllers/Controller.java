@@ -37,7 +37,7 @@ public class Controller extends Application {
      * override this method to perform initialization prior to the actual starting
      * of the application.
      *
-     * @throws Exception
+     * @throws Exception - if something goes wrong while initializing the application
      */
     @Override
     public void init() throws Exception {
@@ -50,7 +50,7 @@ public class Controller extends Application {
      * application may override this method to perform any necessary cleanup
      * operations.
      *
-     * @throws Exception
+     * @throws Exception - if something goes wrong while stopping the application
      */
     @Override
     public void stop() throws Exception {
