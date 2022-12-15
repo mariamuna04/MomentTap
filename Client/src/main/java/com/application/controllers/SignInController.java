@@ -25,6 +25,7 @@ public class SignInController extends Controller {
             signInErrorLabel.setText("Please fill all the fields");
         } else if (Sequence.signInSequence(emailTextField.getText(), passwordTextField.getText())) {
             Utility.changeScene(parent, "home-activity.fxml");
+            // FIXME: If server is not running, it will show email already exists
         } else signInErrorLabel.setText("Invalid email or password");
     }
 

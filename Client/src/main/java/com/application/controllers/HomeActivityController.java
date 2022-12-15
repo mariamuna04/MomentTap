@@ -6,6 +6,7 @@ import com.application.client.Sequence;
 import com.application.client.User;
 import com.application.serialShared.Event;
 import com.application.utility.Date;
+import com.application.utility.EventCard;
 import com.application.utility.Utility;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Label;
@@ -24,21 +25,26 @@ public class HomeActivityController extends Controller {
 
     @Override
     public void init() throws Exception {
-        super.init();
+
         if (usernameLabel.getText().equals("")) {
             usernameLabel.setText(User.getName());
         }
+
+        // FIXME: ADD Dates ascending order
 
         Sequence.searchSequence("");
         for (Event e : User.events) {
             Date date = Date.parseDate(e.event_date());
             if (Date.compareDate(date)) {
-                future_events.getChildren().add(new Label(e.event_name() + " " + e.event_date()));
-                System.err.println(date);
+                EventCard eventCard = new EventCard();
+                VBox vBox = eventCard.makeCard(e.event_date(), e.event_name(), e.event_category(),
+                        e.event_description(), e.event_start_time(), e.event_end_time(), 1);
+                future_events.getChildren().add(vBox);
             } else {
-                past_events.getChildren().add(new Label(e.event_name() + " " + e.event_date()));
-                System.out.println(date);
-            }
+                EventCard eventCard = new EventCard();
+                VBox vBox = eventCard.makeCard(e.event_date(), e.event_name(), e.event_category(),
+                        e.event_description(), e.event_start_time(), e.event_end_time(), 0);
+                past_events.getChildren().add(vBox);            }
         }
     }
 
@@ -64,7 +70,7 @@ public class HomeActivityController extends Controller {
     }
 
     public void onSearchButton() {
-        if(Sequence.searchSequence(searchField.getText())){
+        if (Sequence.searchSequence(searchField.getText())) {
             try {
                 this.init();
             } catch (Exception e) {

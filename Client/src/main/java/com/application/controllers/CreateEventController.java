@@ -34,7 +34,7 @@ public class CreateEventController extends Controller {
             Utility.deleteStage(parent);
         } else {
             DialogBox.showDialogue("Error", "Event creation failed.", DialogBox.ERROR_DIALOG_BOX);
-            Utility.deleteStage(event_category);
+            Utility.deleteStage(parent);
         }
     }
 

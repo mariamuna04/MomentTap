@@ -37,8 +37,6 @@
             <artifactId>javafx-fxml</artifactId>
             <version>19-ea+7</version>
         </dependency>
-
-
     </dependencies>
 
     <build>

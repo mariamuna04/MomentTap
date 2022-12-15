@@ -15,7 +15,7 @@ public class Sequence {
         }
     }
 
-    public static void receiveEventSequence(User user) {
+    public static void createEventSequence(User user) {
         try {
             Event event = (Event) user.getObjectInputStream().readObject();
             Database.addEvent(event);

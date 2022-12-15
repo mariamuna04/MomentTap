@@ -39,7 +39,7 @@ public class ClientThread implements Runnable {
         while (true) {
             int clientRequest = this.user.receiveRequestCode();
             if (clientRequest == NetworkRequestCodes.CREATE_EVENT_REQUEST) {
-                Sequence.receiveEventSequence(this.user);
+                Sequence.createEventSequence(this.user);
             } else if (clientRequest == NetworkRequestCodes.DELETE_EVENT_REQUEST) {
                 Sequence.deleteEventSequence(this.user);
             } else if (clientRequest == NetworkRequestCodes.SIGN_OUT_REQUEST) {

@@ -137,11 +137,9 @@ public class Database {
             if (keyword.matches("[0-9]+")) {
                 int integer_keyword = Integer.parseInt(keyword);
                 resultSet = connection.createStatement().executeQuery("SELECT * FROM events WHERE user_email LIKE '%" + email + "%' AND ( event_name LIKE '%" + keyword + "%' OR event_description LIKE '%" + keyword + "%' OR event_category LIKE '%" + keyword + "%' OR event_date LIKE '%" + keyword + "%' OR (event_start_time <= " + integer_keyword + " AND event_end_time >= " + integer_keyword + "))");
-            } else if(keyword.equals("")){
+            } else if (keyword.equals("")) {
                 resultSet = connection.createStatement().executeQuery("SELECT * FROM events WHERE user_email LIKE '%" + email + "%'");
-            }
-
-            else {
+            } else {
                 resultSet = connection.createStatement().executeQuery("SELECT * FROM events WHERE user_email LIKE '%" + email + "%' AND ( event_name LIKE '%" + keyword + "%' OR event_description LIKE '%" + keyword + "%' OR event_category LIKE '%" + keyword + "%' OR event_date LIKE '%" + keyword + "%')");
             }
         } catch (Exception e) {

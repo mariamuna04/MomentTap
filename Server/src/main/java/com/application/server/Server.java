@@ -26,6 +26,8 @@ public class Server {
                 Socket socket = Connection.clientRequestAccept();
                 assert socket != null;
                 User user = new User(socket);
+
+
                 Thread thread = new Thread(new ClientThread(user));
                 thread.start();
 
