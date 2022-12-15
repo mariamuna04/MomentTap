@@ -34,6 +34,7 @@ public class Sequence {
 
     public static void signOutSequence(User user) {
         try {
+            user.sendRequestCode(NetworkRequestCodes.SIGN_OUT_SUCCESSFUL);
             user.closeConnection();
             System.out.println("Client Disconnected");
         } catch (Exception e) {
@@ -44,34 +45,31 @@ public class Sequence {
     public static void searchEventSequence(User user) {
         try {
             String keyword = user.receiveString();
-            Database.searchEvent(keyword);
+            Database.searchEvent(user.getEmail(), keyword);
             System.out.println("Searching for " + keyword);
 
-            // how many events are there?
             int size = 0;
             if (Database.resultSet != null) {
-                Database.resultSet.last();              // moves cursor to the last row
-                size = Database.resultSet.getRow();     // get row id
+                Database.resultSet.last();
+                size = Database.resultSet.getRow();
             }
 
             if (size > 0) {
                 user.sendRequestCode(NetworkRequestCodes.SEARCH_EVENT_SUCCESSFUL);
                 System.out.println("Sending size: " + size);
-                user.getDataOutputStream().writeInt(size);
+                user.sendData(size);
                 Database.resultSet.beforeFirst();
                 while (Database.resultSet.next()) {
-                    user.sendString(Database.resultSet.getString("event_name"));
-                    user.sendString(Database.resultSet.getString("event_description"));
-                    user.sendString(Database.resultSet.getString("event_category"));
-                    user.sendString(Database.resultSet.getString("event_date"));
-                    user.getDataOutputStream().writeInt(Database.resultSet.getInt("event_start_time"));
-                    user.getDataOutputStream().writeInt(Database.resultSet.getInt("event_end_time"));
+                    user.sendData(Database.resultSet.getString("event_name"));
+                    user.sendData(Database.resultSet.getString("event_description"));
+                    user.sendData(Database.resultSet.getString("event_category"));
+                    user.sendData(Database.resultSet.getString("event_date"));
+                    user.sendData(Database.resultSet.getInt("event_start_time"));
+                    user.sendData(Database.resultSet.getInt("event_end_time"));
                 }
-
             } else {
                 user.sendRequestCode(NetworkRequestCodes.SEARCH_EVENT_UNSUCCESSFUL);
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }

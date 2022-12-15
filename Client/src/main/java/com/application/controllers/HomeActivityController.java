@@ -3,14 +3,31 @@
 package com.application.controllers;
 
 import com.application.client.Sequence;
+import com.application.client.User;
 import com.application.utility.Utility;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 
 /**
  * This Controller handles the Home Activity.
  */
 public class HomeActivityController extends Controller {
+
+    public Label usernameLabel;
+    public VBox future_events;
+    public VBox past_events;
+
+    @Override
+    public void init() throws Exception {
+        super.init();
+        if (usernameLabel.getText().equals("")) {
+            usernameLabel.setText(User.getName());
+        }
+
+
+    }
 
     public Pane parent;
     public TextField searchField;

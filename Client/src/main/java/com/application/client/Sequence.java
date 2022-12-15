@@ -120,6 +120,7 @@ public class Sequence {
 
 
     public static void searchSequence(String keyword) {
+        User.events.clear();
         try {
             Connection.sendRequestCode(NetworkRequestCodes.SEARCH_EVENT_REQUEST);
             Connection.sendPrimitiveObject(keyword);
@@ -133,8 +134,10 @@ public class Sequence {
                     String date = Connection.getDataInputStream().readUTF();
                     int start_time = Connection.getDataInputStream().readInt();
                     int end_time = Connection.getDataInputStream().readInt();
-                    System.out.println(name + " " + description + " " + category + " " + date + " " + start_time + " " + end_time);
+                    Event e = new Event(User.getEmail(), name, description, category, date, start_time, end_time);
+                    User.events.add(e);
                 }
+                System.out.println(User.events);
             }
         } catch (IOException e) {
             e.printStackTrace();

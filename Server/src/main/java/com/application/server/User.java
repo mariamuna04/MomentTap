@@ -88,17 +88,8 @@ public class User {
         try {
             return dataInputStream.readInt();
         } catch (Exception e) {
-            System.err.println("Error in receiveRequestCode");
+            System.err.println("Socket Terminated");
             return -1;
-        }
-    }
-
-    public void sendString(String string) {
-        try {
-            dataOutputStream.writeUTF(string);
-        } catch (Exception e) {
-            System.err.println("Error in sendString");
-
         }
     }
 
@@ -186,6 +177,24 @@ public class User {
 
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    public void sendData(Object data){
+        try {
+            if (data instanceof String) {
+                dataOutputStream.writeUTF((String) data);
+            } else if (data instanceof Integer){
+                dataOutputStream.writeInt((Integer) data);
+            } else if(data instanceof Boolean){
+                dataOutputStream.writeBoolean((Boolean) data);
+            } else if (data instanceof Double){
+                dataOutputStream.writeDouble((Double) data);
+            } else {
+                objectOutputStream.writeObject(data);
+            }
+        } catch (Exception e){
+            System.out.println(e.getMessage());
         }
     }
 }

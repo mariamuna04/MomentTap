@@ -57,7 +57,6 @@ public class Utility {
         }
     }
 
-
     /**
      * Delete the Stage with given node from the scene
      * @param node The node from which the stage is to be deleted
@@ -66,5 +65,4 @@ public class Utility {
         Stage currentStage = (Stage) node.getScene().getWindow();
         currentStage.close();
     }
-
 }

@@ -45,10 +45,10 @@ public class Database {
     private static void establishConnection() {
         try {
             connection = DriverManager.getConnection(DATABASE_URL, DATABASE_USER, DATABASE_PASSWORD);
-            System.out.println("Database Connected");
+            System.out.println("Database Server Connected");
         } catch (SQLException e) {
-            System.err.println("Error while connecting to database");
-            System.err.println("Possible reasons: Database is not running, or the database URL, Auth is incorrect");
+            System.err.println("Error while connecting to database [Database.java:49]");
+            System.err.println("Possible reasons: Database is not running, database URL or Database auth is incorrect");
         }
     }
 
@@ -59,7 +59,7 @@ public class Database {
             resultSet = connection.createStatement().executeQuery("SELECT * FROM users WHERE email = '" + email + "' AND password = '" + password + "'");
             System.out.println("Query Executed: findUser");
         } catch (Exception e) {
-            System.err.println("Error while executing query: findUser");
+            System.err.println("Error while executing query: findUser [Database.java:61]");
             System.err.println("Possible reasons: Database is not running, or SQL syntax is incorrect");
         }
     }
@@ -70,13 +70,14 @@ public class Database {
             establishConnection();
             resultSet = connection.createStatement().executeQuery("SELECT * FROM users WHERE email = '" + email + "'");
             if (resultSet.next()) {
-                System.out.println("Email Already Exists");
+                System.out.println("User already exist with the email");
             } else {
                 connection.createStatement().executeUpdate("INSERT INTO users (name, email, password) VALUES ('" + name + "', '" + email + "', '" + password + "')");
                 System.out.println("User Created");
             }
         } catch (Exception e) {
-            // TODO: handle exception, when insert same PK
+            System.out.println("Error while executing query: addUser [Database.java:78]");
+            System.err.println("Possible reason: Database is not running, or SQL syntax is incorrect");
         }
     }
 
@@ -87,11 +88,12 @@ public class Database {
             resultSet = connection.createStatement().executeQuery("SELECT name FROM users WHERE email = '" + email + "'");
             if (resultSet.next()) {
                 return resultSet.getString("name");
-            }
+            } else return null;
         } catch (Exception e) {
-            System.err.println(e.getMessage());
+            System.out.println("Error while executing query: queryForName [Database.java:93]");
+            System.err.println("Possible reason: Database is not running, or SQL syntax is incorrect");
+            return null;
         }
-        return null;
     }
 
 
@@ -109,10 +111,10 @@ public class Database {
         try {
             establishConnection();
             connection.createStatement().executeUpdate("INSERT INTO events (user_email, event_name, " + "event_description,  event_category, event_date, event_start_time, event_end_time) VALUES " + "('" + email + "', '" + name + "', '" + description + "', '" + category + "', '" + date + "', '" + start_time + "', '" + end_time + "')");
-
-            System.out.println("Event Created");
+            System.out.println("Event Created for " + email);
         } catch (Exception e) {
-            System.err.println(e.getMessage());
+            System.out.println("Error while executing query: addEvent [Database.java:116]");
+            System.err.println("Possible reason: Database is not running, or SQL syntax is incorrect");
         }
     }
 
@@ -129,14 +131,18 @@ public class Database {
     }
 
     @DatabaseQuery
-    public static void searchEvent(String keyword) {
+    public static void searchEvent(String email, String keyword) {
         try {
             establishConnection();
             if (keyword.matches("[0-9]+")) {
                 int integer_keyword = Integer.parseInt(keyword);
-                resultSet = connection.createStatement().executeQuery("SELECT * FROM events WHERE event_name LIKE '%" + keyword + "%' OR event_description LIKE '%" + keyword + "%' OR event_category LIKE '%" + keyword + "%' OR event_date LIKE '%" + keyword + "%' OR (event_start_time <= " + integer_keyword + " AND event_end_time >= " + integer_keyword + ")");
-            } else {
-                resultSet = connection.createStatement().executeQuery("SELECT * FROM events WHERE event_name LIKE '%" + keyword + "%' OR event_description LIKE '%" + keyword + "%' OR event_category LIKE '%" + keyword + "%' OR event_date LIKE '%" + keyword + "%'");
+                resultSet = connection.createStatement().executeQuery("SELECT * FROM events WHERE user_email LIKE '%" + email + "%' AND ( event_name LIKE '%" + keyword + "%' OR event_description LIKE '%" + keyword + "%' OR event_category LIKE '%" + keyword + "%' OR event_date LIKE '%" + keyword + "%' OR (event_start_time <= " + integer_keyword + " AND event_end_time >= " + integer_keyword + "))");
+            } else if(keyword.equals("")){
+                resultSet = connection.createStatement().executeQuery("SELECT * FROM events WHERE user_email LIKE '%" + email + "%'");
+            }
+
+            else {
+                resultSet = connection.createStatement().executeQuery("SELECT * FROM events WHERE user_email LIKE '%" + email + "%' AND ( event_name LIKE '%" + keyword + "%' OR event_description LIKE '%" + keyword + "%' OR event_category LIKE '%" + keyword + "%' OR event_date LIKE '%" + keyword + "%')");
             }
         } catch (Exception e) {
             System.err.println(e.getMessage());

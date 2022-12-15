@@ -35,8 +35,6 @@ public class DeleteEventController extends Controller {
         } catch (Exception e) {
             DialogBox.showDialogue("Error", "Something went wrong", DialogBox.ERROR_DIALOG_BOX);
         }
-
-
     }
 
     public void onCancelButtonListener() {

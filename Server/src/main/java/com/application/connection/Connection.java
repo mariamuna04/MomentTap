@@ -34,7 +34,8 @@ public class Connection {
             serverSocket = new ServerSocket(PORT);
             System.out.println("Server Started at port " + PORT);
         } catch (Exception e) {
-            System.err.println("Error while establishing connection");
+            System.err.println("Error while establishing connection [Connection.java:36]");
+            // DEBUG    :   e.printStackTrace();
             System.err.println("Possible reasons: Port is already in use, or the server is already running");
             System.out.println("Possible Solution: Change the port number in Connection.java");
         }
@@ -49,7 +50,8 @@ public class Connection {
             System.out.println("Server terminated");
             System.exit(0);
         } catch (Exception e) {
-            System.err.println("Error while terminating connection");
+            System.err.println("Error while terminating connection [Connection.java:51]");
+            // DEBUG    :   e.printStackTrace();
             System.err.println("Possible reasons: Server is not running");
         }
     }
@@ -70,7 +72,8 @@ public class Connection {
                 return null;
             }
         } catch (Exception e) {
-            System.err.println("Error while accepting client request");
+            System.err.println("Error while accepting client request [Connection.java:74]");
+            // DEBUG    :   e.printStackTrace();
             System.err.println("Possible reasons: Server is not running, error in clientRequestAccept()");
             return null;
         }

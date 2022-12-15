@@ -26,7 +26,6 @@ public class SignUpController extends Controller {
             Utility.changeScene(parent, "sign-in-activity.fxml");
         } else
             DialogBox.showDialogue("Error", "Email or password incorrect", DialogBox.ERROR_DIALOG_BOX);
-
     }
 
     public void onSignInAction() throws Exception {

@@ -22,8 +22,8 @@ public class ClientThread implements Runnable {
             try {
                 if (Database.resultSet.next()) {
                     user.sendRequestCode(NetworkRequestCodes.SIGN_IN_SUCCESSFUL);
-                    user.sendString(Database.resultSet.getString("name"));
-                    user.sendString(Database.resultSet.getString("email"));
+                    user.sendData(Database.resultSet.getString("name"));
+                    user.sendData(Database.resultSet.getString("email"));
                     receiveClientRequestOnLoop();
                 } else {
                     System.out.println("User Not Found");
