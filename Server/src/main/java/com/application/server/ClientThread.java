@@ -49,6 +49,8 @@ public class ClientThread implements Runnable {
             } else if(clientRequest == -1) {
                 System.err.println("Client Disconnected");
                 break;
+            } else if (clientRequest == NetworkRequestCodes.UPDATE_EVENT_REQUEST) {
+                Sequence.updateEventSequence(this.user);
             }
         }
     }

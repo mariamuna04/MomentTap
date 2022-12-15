@@ -148,4 +148,20 @@ public class Database {
             System.err.println(e.getMessage());
         }
     }
+
+    public static void updateEvent(String email,String newName, String newPassword){
+        try {
+            establishConnection();
+            if(!newName.equals("")){
+                System.out.println("new name="+newName);
+                connection.createStatement().executeUpdate("UPDATE users SET name = '" + newName + "' , password = '"+newPassword+"' WHERE email = '" + email + "'");
+            }
+            else{
+                connection.createStatement().executeUpdate("UPDATE users SET password = '" + newPassword + "' WHERE email = '" + email + "'");
+            }
+        } catch (Exception e) {
+            System.out.println("Error while executing query: updateEvent [Database.java:116]");
+            System.err.println("Possible reason: Database is not running, or SQL syntax is incorrect");
+        }
+    }
 }

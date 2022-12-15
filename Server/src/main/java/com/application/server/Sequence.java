@@ -75,5 +75,21 @@ public class Sequence {
         }
     }
 
+    public static void updateEventSequence(User user){
+        String name = user.receiveString();
+        String password = user.receiveString();
+        System.out.println("Updating event: " + name);
+        Database.updateEvent(user.getEmail(), name, password);
+        System.out.println("Event updated");
+        if (Database.resultSet != null) {
+            System.out.println("Sending data");
+            user.sendRequestCode(NetworkRequestCodes.UPDATE_EVENT_SUCCESSFUL);
+            System.out.println("Sending size: " + 1);
+        } else {
+            System.out.println("Sending data");
+            user.sendRequestCode(NetworkRequestCodes.UPDATE_EVENT_UNSUCCESSFUL);
+            System.out.println("Sending size: " + 0);
+        }
+    }
 
 }

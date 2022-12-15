@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="parent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.application.controllers.HomeActivityController">
+<Pane fx:id="parent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.application.controllers.HomeActivityController">
     <GridPane layoutX="1.0" layoutY="-2.0" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #FFF;">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -160,7 +160,7 @@
                <Insets left="-2.0" />
             </VBox.margin>
             </Button>
-            <Button alignment="BASELINE_LEFT" contentDisplay="BOTTOM" maxHeight="30.0" maxWidth="250.0" minHeight="50.0" minWidth="250.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="250.0" style="-fx-background-radius: 0 20 20 0; -fx-background-color: #c5cae9;" text="Edit Profile" textFill="#49599a" VBox.vgrow="ALWAYS">
+            <Button alignment="BASELINE_LEFT" contentDisplay="BOTTOM" maxHeight="30.0" maxWidth="250.0" minHeight="50.0" minWidth="250.0" mnemonicParsing="false" onAction="#onEditProfileButton" prefHeight="30.0" prefWidth="250.0" style="-fx-background-radius: 0 20 20 0; -fx-background-color: #c5cae9;" text="Edit Profile" textFill="#49599a" VBox.vgrow="ALWAYS">
                 <padding>
                     <Insets left="35.0" />
                 </padding>

@@ -25,15 +25,18 @@ public class User {
      */
     private static String email;
 
+    private static String password;
+
 
     /**
      * Set the name and email of the user on a successful sign in
      * @param name Name of the user
      * @param email Email of the user
      */
-    public static void setUser(String name, String email) {
+    public static void setUser(String name, String email, String password) {
         User.name = name;
         User.email = email;
+        User.password = password;
     }
 
     /**
@@ -48,4 +51,7 @@ public class User {
         return email;
     }
 
+    public static String getPassword() {
+        return password;
+    }
 }

@@ -35,7 +35,7 @@ public class Sequence {
         if (response == NetworkRequestCodes.SIGN_IN_SUCCESSFUL) {
             String name = Connection.receivePrimitiveObject();
             String email = Connection.receivePrimitiveObject();
-            User.setUser(name, email);
+            User.setUser(name, email, _password_);
             return true;
         } else return false;
     }

@@ -7,6 +7,7 @@ import com.application.client.User;
 import com.application.serialShared.Event;
 import com.application.utility.Date;
 import com.application.utility.Utility;
+import javafx.event.ActionEvent;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
@@ -72,5 +73,9 @@ public class HomeActivityController extends Controller {
         }
     }
 
+
+    public void onEditProfileButton(ActionEvent actionEvent) {
+        Utility.createStage("edit-profile-activity.fxml");
+    }
 }
 
