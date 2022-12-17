@@ -23,30 +23,20 @@ public class HomeActivityController extends Controller {
     public VBox future_events;
     public VBox past_events;
 
+    public boolean primaryInitialized = false;
+
     @Override
     public void init() throws Exception {
-
         if (usernameLabel.getText().equals("")) {
             usernameLabel.setText(User.getName());
         }
 
-        // FIXME: ADD Dates ascending order
-
-        Sequence.searchSequence("");
-        for (Event e : User.events) {
-            Date date = Date.parseDate(e.event_date());
-            if (Date.compareDate(date)) {
-                EventCard eventCard = new EventCard();
-                VBox vBox = eventCard.makeCard(e.event_date(), e.event_name(), e.event_category(),
-                        e.event_description(), e.event_start_time(), e.event_end_time(), 1);
-                future_events.getChildren().add(vBox);
-            } else {
-                EventCard eventCard = new EventCard();
-                VBox vBox = eventCard.makeCard(e.event_date(), e.event_name(), e.event_category(),
-                        e.event_description(), e.event_start_time(), e.event_end_time(), 0);
-                past_events.getChildren().add(vBox);            }
+        if(future_events.getChildren().size() == 0 && past_events.getChildren().size() == 0 && !primaryInitialized) {
+            onAllEventButtonListener();
+            primaryInitialized = true;
         }
     }
+
 
     public Pane parent;
     public TextField searchField;
@@ -69,19 +59,77 @@ public class HomeActivityController extends Controller {
         }
     }
 
-    public void onSearchButton() {
-        if (Sequence.searchSequence(searchField.getText())) {
-            try {
-                this.init();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
+    public void onSearchButton() throws Exception {
+        makeCardView(searchField.getText());
+        this.init();
     }
 
 
     public void onEditProfileButton(ActionEvent actionEvent) {
         Utility.createStage("edit-profile-activity.fxml");
+    }
+
+    public void onAllEventButtonListener() throws Exception{
+        makeCardView("");
+        this.init();
+
+    }
+
+    public void onPersonalButtonListener() throws Exception {
+        makeCardView("Personal");
+        this.init();
+
+    }
+
+    public void onWorkButtonListener() {
+        makeCardView("Work");
+    }
+
+    public void onUniversityButtonListener() throws Exception {
+        makeCardView("University");
+        this.init();
+
+    }
+
+    public void onOthersButtonListener() {
+        // makeCardView("Others");
+
+
+
+    }
+
+
+
+    private void makeCardView(String keyword) {
+        User.cleanMemory();
+        future_events.getChildren().clear();
+        past_events.getChildren().clear();
+
+        Sequence.searchSequence(keyword);
+
+
+        for (Event e : User.events) {
+            Date date = Date.parseDate(e.event_date());
+            if (Date.compareDate(date)) {
+                User.sortedFutureEvents.add(e);
+            } else {
+                User.sortedPastEvents.add(e);
+            }
+        }
+
+        for (Event e : User.sortedFutureEvents) {
+            EventCard eventCard = new EventCard();
+            VBox vBox = eventCard.makeCard(e.event_date(), e.event_name(), e.event_category(),
+                    e.event_description(), e.event_start_time(), e.event_end_time(), 1);
+            future_events.getChildren().add(vBox);
+        }
+
+        for (Event e : User.sortedPastEvents) {
+            EventCard eventCard = new EventCard();
+            VBox vBox = eventCard.makeCard(e.event_date(), e.event_name(), e.event_category(),
+                    e.event_description(), e.event_start_time(), e.event_end_time(), 0);
+            past_events.getChildren().add(vBox);
+        }
     }
 }
 

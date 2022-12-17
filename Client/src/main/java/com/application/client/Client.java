@@ -29,6 +29,7 @@ public class Client extends Application {
         stage.setTitle("Application Name");
         stage.setScene(scene);
         stage.show();
+        stage.setResizable(false);
     }
 
     /**

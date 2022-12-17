@@ -5,6 +5,9 @@ package com.application.utility;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
@@ -19,9 +22,17 @@ public class EventCard {
     HBox timeHolder = new HBox();
 
     Label eventStartTime = new Label();
+
+    Line line = new Line();
+
+    Circle circleOne = new Circle();
+    Circle circleTwo = new Circle();
+
+    HBox timeLineHolder = new HBox();
     Label eventEndTime = new Label();
 
     public VBox makeCard(String date, String name, String category, String description, int startTime, int endTime, int type) {
+        // if type == 1 ->
         this.parent.setSpacing(6);
         if (type == 1) {
             this.parent.setStyle("-fx-background-color: #9fa8da; -fx-background-radius: 12px;");
@@ -50,16 +61,51 @@ public class EventCard {
 
 
         this.eventStartTime.setFont(Font.font("Arial", FontWeight.BOLD, 16));
-        this.eventStartTime.setText(String.valueOf(startTime));
+        this.eventStartTime.setText(startTime + ".00");
 
         this.eventEndTime.setFont(Font.font("Arial", FontWeight.BOLD, 16));
-        this.eventEndTime.setText(String.valueOf(endTime));
+        this.eventEndTime.setText(endTime + ".00");
+
+        line.setStartX(0);
+        line.setStartY(0);
+        line.setEndX(60);
+        line.setEndY(0);
+        line.setStrokeWidth(2);
+        if(type == 1) {
+            line.setStroke(javafx.scene.paint.Color.rgb(197, 202, 233));
+        } else {
+            line.setStroke(javafx.scene.paint.Color.rgb(159, 168, 218));
+        }
+
+        circleOne.setRadius(5);
+        circleOne.setStroke(javafx.scene.paint.Color.rgb(197, 202, 233));
+        if(type == 1) {
+            circleOne.setStyle("-fx-fill: #FFF; -fx-stroke: #C5C9E8; -fx-stroke-width: 2px");
+        } else {
+            circleOne.setStyle("-fx-fill: #FFF; -fx-stroke: #9fa8da; -fx-stroke-width: 2px");
+        }
+        circleOne.setFill(javafx.scene.paint.Color.BLACK);
+
+        circleTwo.setRadius(5);
+        circleTwo.setStroke(javafx.scene.paint.Color.rgb(197, 202, 233));
+        if(type == 1) {
+            circleTwo.setStyle("-fx-fill:  #FFF; -fx-stroke: #C5C9E8; -fx-stroke-width: 2px");
+        } else {
+            circleTwo.setStyle("-fx-fill:  #FFF; -fx-stroke: #9fa8da; -fx-stroke-width: 2px");
+        }
+        circleTwo.setFill(javafx.scene.paint.Color.BLACK);
+
+        timeLineHolder.getChildren().addAll(circleOne, line, circleTwo);
+        timeLineHolder.setAlignment(javafx.geometry.Pos.CENTER);
 
 
-        this.timeHolder.setSpacing(100);
+
+        this.timeHolder.setPadding(new javafx.geometry.Insets(15, 0, 0, 0));
+        this.timeHolder.setSpacing(15);
         this.timeHolder.setAlignment(javafx.geometry.Pos.CENTER);
+        //this.timeHolder.
 
-        this.timeHolder.getChildren().addAll(eventStartTime, eventEndTime);
+        this.timeHolder.getChildren().addAll(eventStartTime, timeLineHolder, eventEndTime);
         this.parent.getChildren().addAll(eventName, eventDate, eventCategory, eventDescription, timeHolder);
 
         return parent;

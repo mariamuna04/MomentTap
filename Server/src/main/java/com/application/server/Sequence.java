@@ -21,6 +21,7 @@ public class Sequence {
             Database.addEvent(event);
             user.sendRequestCode(NetworkRequestCodes.CREATE_EVENT_SUCCESSFUL);
         } catch (Exception e) {
+            user.sendRequestCode(NetworkRequestCodes.CREATE_EVENT_UNSUCCESSFUL);
             e.printStackTrace();
         }
     }
@@ -79,7 +80,7 @@ public class Sequence {
         String name = user.receiveString();
         String password = user.receiveString();
         System.out.println("Updating event: " + name);
-        Database.updateEvent(user.getEmail(), name, password);
+        Database.updateProfile(user.getEmail(), name, password);
         System.out.println("Event updated");
         if (Database.resultSet != null) {
             System.out.println("Sending data");

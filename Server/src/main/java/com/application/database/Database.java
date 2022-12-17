@@ -147,7 +147,7 @@ public class Database {
         }
     }
 
-    public static void updateEvent(String email,String newName, String newPassword){
+    public static void updateProfile(String email, String newName, String newPassword){
         try {
             establishConnection();
             if(!newName.equals("")){
