@@ -4,6 +4,7 @@ package com.application.utility;
 
 import com.application.controllers.Controller;
 import javafx.animation.FadeTransition;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -48,6 +49,14 @@ public class Utility {
     public static void createStage(String fxml) {
         try {
             Stage stage = new Stage();
+
+            stage.onCloseRequestProperty().addListener((observable, oldValue, newValue) -> {
+                try {
+                    Platform.exit();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            });
             FXMLLoader fxmlLoader = new FXMLLoader(Controller.class.getResource(fxml));
             Scene scene = new Scene(fxmlLoader.load());
             stage.setScene(scene);

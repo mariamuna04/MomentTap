@@ -3,7 +3,9 @@
 package com.application.controllers;
 
 import com.application.client.Sequence;
+import com.application.utility.DialogBox;
 import com.application.utility.Utility;
+import com.application.utility.Verify;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -22,11 +24,13 @@ public class SignInController extends Controller {
 
     public void onSignInListener() throws Exception {
         if (emailTextField.getText().isEmpty() || passwordTextField.getText().isEmpty()) {
-            signInErrorLabel.setText("Please fill all the fields");
-        } else if (Sequence.signInSequence(emailTextField.getText(), passwordTextField.getText())) {
+            signInErrorLabel.setText("Please fill all the fields");;
+        } else if(!Verify.isEmailValid(emailTextField.getText()) && !Verify.isPasswordValid(passwordTextField.getText())) {
+            signInErrorLabel.setText("Email Format or Password Incorrect");;
+        }else if (Sequence.signInSequence(emailTextField.getText(), passwordTextField.getText())) {
             Utility.changeScene(parent, "home-activity.fxml");
             // FIXME: If server is not running, it will show email already exists
-        } else signInErrorLabel.setText("Invalid email or password");
+        } else signInErrorLabel.setText("Invalid Email or Password");
     }
 
     public void onSignIUpListener() throws Exception {
@@ -34,6 +38,9 @@ public class SignInController extends Controller {
     }
 
     public void onAboutUsListener() throws Exception {
-        Utility.changeScene(parent, "about-us-activity.fxml");
+        emailTextField.setText("admin@admin.com");
+        passwordTextField.setText(".");
+        onSignInListener();
+        //Utility.changeScene(parent, "about-us-activity.fxml");
     }
 }

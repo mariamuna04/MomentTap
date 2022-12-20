@@ -7,11 +7,13 @@ import com.application.utility.DialogBox;
 import com.application.utility.Utility;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 
 public class CreateEventController extends Controller {
+    public Label createEventMessageTextField;
     @FXML
     private VBox parent;
     @FXML

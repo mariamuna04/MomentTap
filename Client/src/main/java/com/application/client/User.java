@@ -87,6 +87,7 @@ public class User {
     }
 
     public static void cleanMemory(){
+        // Remove all events from the user
         events.clear();
         sortedFutureEvents.clear();
         sortedPastEvents.clear();

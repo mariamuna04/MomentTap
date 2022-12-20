@@ -9,8 +9,10 @@ import com.application.utility.Date;
 import com.application.utility.EventCard;
 import com.application.utility.Utility;
 import javafx.event.ActionEvent;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.effect.BoxBlur;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
@@ -19,20 +21,29 @@ import javafx.scene.layout.VBox;
  */
 public class HomeActivityController extends Controller {
 
-    public Label usernameLabel;
     public VBox future_events;
     public VBox past_events;
 
     public boolean primaryInitialized = false;
+    public Button profileButton = new Button();
+    public Pane profileView;
+    public Pane backgroundOverlay;
+    public Label profileViewName;
+    public Label profileViewEmail;
+    public Label profileViewUpcoming    ;
+    public Label profileViewCompleted;
 
     @Override
     public void init() throws Exception {
-        if (usernameLabel.getText().equals("")) {
-            usernameLabel.setText(User.getName());
-        }
+        profileButton.setText(User.getName());
+        profileViewName.setText(User.getName());
+        profileViewEmail.setText(User.getEmail());
 
-        if(future_events.getChildren().size() == 0 && past_events.getChildren().size() == 0 && !primaryInitialized) {
+        if (future_events.getChildren().size() == 0 && past_events.getChildren().size() == 0 && !primaryInitialized) {
             onAllEventButtonListener();
+            profileViewUpcoming.setText(String.valueOf(User.sortedFutureEvents.size()));
+            profileViewUpcoming.setText(String.valueOf(User.sortedPastEvents.size()));
+
             primaryInitialized = true;
         }
     }
@@ -69,7 +80,7 @@ public class HomeActivityController extends Controller {
         Utility.createStage("edit-profile-activity.fxml");
     }
 
-    public void onAllEventButtonListener() throws Exception{
+    public void onAllEventButtonListener() throws Exception {
         makeCardView("");
         this.init();
 
@@ -95,9 +106,7 @@ public class HomeActivityController extends Controller {
         // makeCardView("Others");
 
 
-
     }
-
 
 
     private void makeCardView(String keyword) {
@@ -107,29 +116,45 @@ public class HomeActivityController extends Controller {
 
         Sequence.searchSequence(keyword);
 
+        if (User.events.size() == 0) {
+            Label labelFuture = new Label("No Upcoming event found");
+            Label labelPast = new Label("No Completed event found");
+            labelFuture.setStyle("-fx-font-size: 20px; -fx-text-fill: #ffffff; -fx-font-weight: bold;");
+            labelPast.setStyle("-fx-font-size: 20px; -fx-text-fill: #ffffff; -fx-font-weight: bold;");
+            future_events.getChildren().add(labelFuture);
+            past_events.getChildren().add(labelPast);
+        } else {
+            for (Event e : User.events) {
+                Date date = Date.parseDate(e.event_date());
+                if (Date.compareDate(date)) {
+                    User.sortedFutureEvents.add(e);
+                } else {
+                    User.sortedPastEvents.add(e);
+                }
+            }
 
-        for (Event e : User.events) {
-            Date date = Date.parseDate(e.event_date());
-            if (Date.compareDate(date)) {
-                User.sortedFutureEvents.add(e);
-            } else {
-                User.sortedPastEvents.add(e);
+            for (Event e : User.sortedFutureEvents) {
+                EventCard eventCard = new EventCard();
+                VBox vBox = eventCard.makeCard(e.event_date(), e.event_name(), e.event_category(),
+                        e.event_description(), e.event_start_time(), e.event_end_time(), 1);
+                future_events.getChildren().add(vBox);
+            }
+
+            for (Event e : User.sortedPastEvents) {
+                EventCard eventCard = new EventCard();
+                VBox vBox = eventCard.makeCard(e.event_date(), e.event_name(), e.event_category(),
+                        e.event_description(), e.event_start_time(), e.event_end_time(), 0);
+                past_events.getChildren().add(vBox);
             }
         }
 
-        for (Event e : User.sortedFutureEvents) {
-            EventCard eventCard = new EventCard();
-            VBox vBox = eventCard.makeCard(e.event_date(), e.event_name(), e.event_category(),
-                    e.event_description(), e.event_start_time(), e.event_end_time(), 1);
-            future_events.getChildren().add(vBox);
-        }
+    }
 
-        for (Event e : User.sortedPastEvents) {
-            EventCard eventCard = new EventCard();
-            VBox vBox = eventCard.makeCard(e.event_date(), e.event_name(), e.event_category(),
-                    e.event_description(), e.event_start_time(), e.event_end_time(), 0);
-            past_events.getChildren().add(vBox);
-        }
+    public void onProfileButtonListener() {
+        profileView.setVisible(!profileView.isVisible());
+        BoxBlur blur = new BoxBlur(3, 3, 3);
+        backgroundOverlay.setEffect(profileView.isVisible() ? blur : null);
+        backgroundOverlay.setVisible(!backgroundOverlay.isVisible());
     }
 }
 

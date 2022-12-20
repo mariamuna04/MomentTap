@@ -8,8 +8,8 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
-
 
 <VBox fx:id="parent" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="446.0" prefWidth="366.0" spacing="12.0" style="-fx-background-color: #FFF;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.application.controllers.CreateEventController">
     <padding>
@@ -23,7 +23,7 @@
          <Insets bottom="10.0" top="-10.0" />
       </VBox.margin>
     </Label>
-    <TextField fx:id="event_name" focusTraversable="false" maxHeight="30.0" minHeight="30.0" prefHeight="30.0" promptText="Event Name">
+    <TextField fx:id="event_name" focusTraversable="false" maxHeight="30.0" minHeight="30.0" prefHeight="30.0" promptText="Event Name" style="-fx-background-radius: 8;">
       <font>
          <Font name="Arial Bold" size="13.0" />
       </font>
@@ -39,12 +39,13 @@
       </font>
    </TextArea>
     <DatePicker fx:id="event_date" maxHeight="30.0" minHeight="30.0" prefHeight="30.0" prefWidth="329.0" promptText="Enter date" showWeekNumbers="true" />
-    <HBox alignment="CENTER" spacing="12.0">
+    <HBox alignment="CENTER">
         <TextField fx:id="event_start_time" alignment="CENTER" maxHeight="30.0" minHeight="30.0" prefHeight="30.0" promptText="Start time (HH:MM)" style="-fx-background-radius: 8;">
          <font>
             <Font name="Arial" size="13.0" />
          </font>
       </TextField>
+      <Line endX="100.0" opacity="0.62" startX="40.0" stroke="#d0d0d0" strokeWidth="5.0" />
         <TextField fx:id="event_end_time" alignment="CENTER" maxHeight="30.0" minHeight="30.0" prefHeight="30.0" promptText="End time (HH:MM)" style="-fx-background-radius: 8;">
          <font>
             <Font name="Arial" size="13.0" />
