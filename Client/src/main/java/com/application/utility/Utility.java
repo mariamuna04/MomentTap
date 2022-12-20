@@ -57,6 +57,7 @@ public class Utility {
                     e.printStackTrace();
                 }
             });
+
             FXMLLoader fxmlLoader = new FXMLLoader(Controller.class.getResource(fxml));
             Scene scene = new Scene(fxmlLoader.load());
             stage.setScene(scene);

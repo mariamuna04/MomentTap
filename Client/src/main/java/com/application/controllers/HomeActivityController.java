@@ -8,6 +8,7 @@ import com.application.serialShared.Event;
 import com.application.utility.Date;
 import com.application.utility.EventCard;
 import com.application.utility.Utility;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -30,8 +31,10 @@ public class HomeActivityController extends Controller {
     public Pane backgroundOverlay;
     public Label profileViewName;
     public Label profileViewEmail;
-    public Label profileViewUpcoming    ;
+    public Label profileViewUpcoming;
     public Label profileViewCompleted;
+
+    public boolean toBeRefreshed = false;
 
     @Override
     public void init() throws Exception {
@@ -46,6 +49,7 @@ public class HomeActivityController extends Controller {
 
             primaryInitialized = true;
         }
+
     }
 
 
@@ -58,6 +62,13 @@ public class HomeActivityController extends Controller {
 
     public void onDeleteEventButton() {
         Utility.createStage("delete-event-activity.fxml");
+        Platform.runLater(() -> {
+            try {
+                init();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     public void onSignOutButton() {
