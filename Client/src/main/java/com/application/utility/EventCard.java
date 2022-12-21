@@ -3,8 +3,6 @@
 package com.application.utility;
 
 import com.application.client.Sequence;
-import com.application.controllers.HomeActivityController;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -17,8 +15,6 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-
-import java.io.IOException;
 
 public class EventCard {
     VBox parent = new VBox();
@@ -45,9 +41,9 @@ public class EventCard {
     public VBox makeCard(String date, String name, String category, String description, int startTime, int endTime, int type) {
         this.parent.setSpacing(6);
         if (type == 1) {
-            this.parent.setStyle("-fx-background-color: #9fa8da; -fx-background-radius: 12px;");
+            this.parent.setStyle("-fx-background-color: #9fa8daF0; -fx-background-radius: 12px;");
         } else
-            this.parent.setStyle("-fx-background-color: #C5C9E8; -fx-background-radius: 12px;");
+            this.parent.setStyle("-fx-background-color: #C5C9E8D0; -fx-background-radius: 12px;");
 
         this.parent.setPadding(new javafx.geometry.Insets(10, 10, 10, 10));
 
@@ -60,6 +56,13 @@ public class EventCard {
 
 
         this.eventName.setFont(Font.font("Arial", FontWeight.BOLD, 18));
+        if (type == 1) {
+            // Set text color to white
+            this.eventName.setStyle("-fx-text-fill: #343f6b;");
+        } else {
+            // Set text color to white
+            this.eventName.setStyle("-fx-text-fill: #676b79;");
+        }
         eventName.setText(name);
 
         this.eventCategory.setFont(Font.font("Arial", FontWeight.NORMAL, 14));
@@ -76,9 +79,19 @@ public class EventCard {
         this.eventEndTime.setFont(Font.font("Arial", FontWeight.BOLD, 16));
         this.eventEndTime.setText(endTime + ".00");
 
+        if (type == 1) {
+            // Set text color to white
+            this.eventStartTime.setStyle("-fx-text-fill: #343f6b;");
+            this.eventEndTime.setStyle("-fx-text-fill: #343f6b;");
+        } else {
+            // Set text color to white
+            this.eventStartTime.setStyle("-fx-text-fill: #676b79;");
+            this.eventEndTime.setStyle("-fx-text-fill: #676b79;");
+        }
+
         line.setStartX(0);
         line.setStartY(0);
-        line.setEndX(60);
+        line.setEndX(120);
         line.setEndY(0);
         line.setStrokeWidth(2);
         if (type == 1) {
@@ -113,30 +126,48 @@ public class EventCard {
         this.timeHolder.setAlignment(javafx.geometry.Pos.CENTER);
         this.timeHolder.getChildren().addAll(eventStartTime, timeLineHolder, eventEndTime);
 
-
-        shareButton.setStyle("-fx-background-color: #9fa8da");
-        updateButton.setStyle("-fx-background-color: #9fa8da");
-        deleteButton.setStyle("-fx-background-color: #9fa8da");
+        if (type == 1) {
+            shareButton.setStyle("-fx-background-color:  #c5cae9; -fx-background-radius: 12px 0 0 12px;");
+            shareButton.setMinHeight(30);
+            shareButton.setMinWidth(80);
+            updateButton.setStyle("-fx-background-color: #c5cae9;");
+            updateButton.setMinHeight(30);
+            updateButton.setMinWidth(80);
+            deleteButton.setStyle("-fx-background-color: #c5cae9; -fx-background-radius: 0 12px 12px 0;");
+            deleteButton.setMinHeight(30);
+            deleteButton.setMinWidth(80);
+        } else {
+            shareButton.setStyle("-fx-background-color:  #9fa8da; -fx-background-radius: 12px 0 0 12px;");
+            shareButton.setMinHeight(30);
+            shareButton.setMinWidth(80);
+            shareButton.setDisable(true);
+            updateButton.setStyle("-fx-background-color: #9fa8da; ");
+            updateButton.setMinHeight(30);
+            updateButton.setMinWidth(80);
+            updateButton.setDisable(true);
+            deleteButton.setStyle("-fx-background-color: #9fa8da; -fx-background-radius: 0 12px 12px 0;");
+            deleteButton.setMinHeight(30);
+            deleteButton.setMinWidth(80);
+        }
 
         Image shareIcon = new Image("file:Client/src/main/resources/icons/share-icon.png");
         ImageView shareIconView = new ImageView(shareIcon);
-        shareIconView.setFitHeight(25);
-        shareIconView.setFitWidth(25);
+        shareIconView.setFitHeight(20);
+        shareIconView.setFitWidth(20);
         shareButton.setGraphic(shareIconView);
 
         Image updateIcon = new Image("file:Client/src/main/resources/icons/update-icon.png");
         ImageView updateIconView = new ImageView(updateIcon);
-        updateIconView.setFitHeight(25);
-        updateIconView.setFitWidth(25);
+        updateIconView.setFitHeight(20);
+        updateIconView.setFitWidth(20);
         updateButton.setGraphic(updateIconView);
 
         Image deleteIcon = new Image("file:Client/src/main/resources/icons/delete-icon.png");
         ImageView deleteIconView = new ImageView(deleteIcon);
-        deleteIconView.setFitHeight(25);
-        deleteIconView.setFitWidth(25);
+        deleteIconView.setFitHeight(20);
+        deleteIconView.setFitWidth(20);
         deleteButton.setGraphic(deleteIconView);
 
-        this.buttonHolder.setSpacing(40);
         this.buttonHolder.setPadding(new javafx.geometry.Insets(10, 0, 0, 0));
         this.buttonHolder.setAlignment(javafx.geometry.Pos.CENTER);
         this.buttonHolder.getChildren().addAll(shareButton, updateButton, deleteButton);
@@ -153,21 +184,25 @@ public class EventCard {
             @Override
             public void handle(ActionEvent event) {
                 Sequence.deleteEventSequence(name, date);
+                try {
+                    DialogBox.showDialogue("Deleted", "Event deleted successfully, Please Refresh", DialogBox.SUCCESS_DIALOG_BOX);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
 
         updateButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                Utility.createStage("updateEvent.fxml");
+                // Utility.createStage("update-event.fxml");
             }
         });
 
 
-        if (type == 1)
-            this.parent.getChildren().addAll(eventName, eventDate, eventCategory, eventDescription, timeHolder, buttonHolder);
-        else
-            this.parent.getChildren().addAll(eventName, eventDate, eventCategory, eventDescription, timeHolder);
+
+        this.parent.getChildren().addAll(eventName, eventDate, eventCategory, eventDescription, timeHolder, buttonHolder);
+
         return parent;
 
 

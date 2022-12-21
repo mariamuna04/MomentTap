@@ -13,7 +13,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 
 public class CreateEventController extends Controller {
-    public Label createEventMessageTextField;
+    @FXML
+    private Label createEventMessageTextField;
     @FXML
     private VBox parent;
     @FXML
@@ -33,6 +34,7 @@ public class CreateEventController extends Controller {
         Event event = new Event(User.getEmail(), event_name.getText(), event_description.getText(), event_category.getText(), event_date.getValue().toString(), Integer.parseInt(event_start_time.getText()), Integer.parseInt(event_end_time.getText()));
         if (Sequence.createEventSequence(event)) {
             DialogBox.showDialogue("Success", "Event created successfully.", DialogBox.SUCCESS_DIALOG_BOX);
+
             Utility.deleteStage(parent);
         } else {
             DialogBox.showDialogue("Error", "Event creation failed.", DialogBox.ERROR_DIALOG_BOX);

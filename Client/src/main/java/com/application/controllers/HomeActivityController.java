@@ -49,14 +49,13 @@ public class HomeActivityController extends Controller {
 
             primaryInitialized = true;
         }
-
     }
 
 
     public Pane parent;
     public TextField searchField;
 
-    public void onCreateEventButton() {
+    public void onCreateEventButton() throws Exception {
         Utility.createStage("create-event-activity.fxml");
     }
 
