@@ -3,6 +3,7 @@
 package com.application.utility;
 
 import com.application.client.Sequence;
+import com.application.connection.Connection;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -176,7 +177,15 @@ public class EventCard {
         shareButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                System.out.println("Share button clicked for " + name);
+                Utility.createStage("share-event-activity.fxml");
+                Connection.sendRequestCode(NetworkRequestCodes.SHARE_EVENT_REQUEST);
+                Connection.sendPrimitiveObject(name);
+                Connection.sendPrimitiveObject(description);
+                Connection.sendPrimitiveObject(category);
+                Connection.sendPrimitiveObject(date);
+                Connection.sendRequestCode(startTime);
+                Connection.sendRequestCode(endTime);
+
             }
         });
 

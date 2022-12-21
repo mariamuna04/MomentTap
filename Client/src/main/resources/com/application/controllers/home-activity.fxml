@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="parent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.application.controllers.HomeActivityController">
+<Pane fx:id="parent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.application.controllers.HomeActivityController">
     <ImageView fitHeight="545.0" fitWidth="910.0" layoutY="61.0" pickOnBounds="true" preserveRatio="true">
         <Image url="@../../../fxml-images/home-activity-background.png" />
     </ImageView>
@@ -100,7 +100,7 @@
                 <padding>
                     <Insets bottom="10.0" left="10.0" right="20.0" top="10.0" />
                 </padding>
-                <Button fx:id="profileButton" maxHeight="45.0" minHeight="45.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#onProfileButtonListener" prefHeight="45.0" style="-fx-background-radius: 10; -fx-background-color: #9db6c4;" textFill="#2b365b">
+                <Button fx:id="profileButton" maxHeight="45.0" minHeight="45.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#onProfileButtonListener" prefHeight="45.0" style="-fx-background-radius: 10; -fx-background-color: #9fa8da#9fa8da;" textFill="#2b365b">
                     <font>
                         <Font name="Arial Bold" size="16.0" />
                     </font>
