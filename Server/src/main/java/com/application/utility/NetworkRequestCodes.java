@@ -36,5 +36,10 @@ public class NetworkRequestCodes {
     public static final int SEARCH_EVENT_SUCCESSFUL = 207;
     public static final int SEARCH_EVENT_UNSUCCESSFUL = -207;
 
+    public static final int SHARE_EVENT_REQUEST = 108;
+    public static final int SHARE_EVENT_SUCCESSFUL = 208;
+
+    public static final int USER_NOT_FOUND = 988;
+
 
 }

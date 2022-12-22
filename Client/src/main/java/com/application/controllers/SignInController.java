@@ -27,7 +27,7 @@ public class SignInController extends Controller {
             signInErrorLabel.setText("Please fill all the fields");;
         } else if(!Verify.isEmailValid(emailTextField.getText()) && !Verify.isPasswordValid(passwordTextField.getText())) {
             signInErrorLabel.setText("Email Format or Password Incorrect");;
-        }else if (Sequence.signInSequence(emailTextField.getText(), passwordTextField.getText())) {
+        }else if (Sequence.signInSequence(emailTextField.getText(), Verify.md5(passwordTextField.getText()))) {
             Utility.changeScene(parent, "home-activity.fxml");
             // FIXME: If server is not running, it will show email already exists
         } else signInErrorLabel.setText("Invalid Email or Password");

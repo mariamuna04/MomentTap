@@ -5,6 +5,7 @@ package com.application.controllers;
 import com.application.client.Sequence;
 import com.application.utility.DialogBox;
 import com.application.utility.Utility;
+import com.application.utility.Verify;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -29,11 +30,24 @@ public class SignUpController extends Controller {
     public void onSignUpAction() throws Exception {
         if (nameTextField.getText().isEmpty() || emailTextField.getText().isEmpty() || passwordTextField.getText().isEmpty()) {
             signUpErrorLabel.setText("Please fill all the fields");
-        } else if (Sequence.signUpSequence(nameTextField.getText(), emailTextField.getText(), passwordTextField.getText())) {
-            DialogBox.showDialogue("Sign Up Successful", "You have successfully signed up. Please sign in to continue.", DialogBox.SUCCESS_DIALOG_BOX);
-            Utility.changeScene(parent, "sign-in-activity.fxml");
+            return;
+        }
 
-        } else signUpErrorLabel.setText("Email already exists");
+        boolean validName = Verify.isNameValid(nameTextField.getText());
+        boolean validEmail = Verify.isEmailValid(emailTextField.getText());
+        boolean validPassword = Verify.isPasswordValid(passwordTextField.getText());
+
+        if(validEmail && validName && validPassword) {
+            if (Sequence.signUpSequence(nameTextField.getText(), emailTextField.getText(), Verify.md5(passwordTextField.getText()))) {
+                DialogBox.showDialogue("Sign Up Successful", "You have successfully signed up. Please sign in to continue.", DialogBox.SUCCESS_DIALOG_BOX);
+                Utility.changeScene(parent, "sign-in-activity.fxml");
+
+            } else signUpErrorLabel.setText("Email already exists");
+        } else {
+            if(!validName) signUpErrorLabel.setText("Invalid name");
+            else if(!validEmail) signUpErrorLabel.setText("Invalid email Format");
+            else signUpErrorLabel.setText("Invalid password");
+        }
     }
 
     public void onSignInAction() throws Exception {

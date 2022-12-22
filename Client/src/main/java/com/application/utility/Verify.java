@@ -31,4 +31,20 @@ public class Verify {
     public static boolean isTimeValid(String time) {
         return time.matches("^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$");
     }
+
+    // md5 convert
+    public static String md5(String key) {
+        try {
+            java.security.MessageDigest md = java.security.MessageDigest.getInstance("MD5");
+            byte[] array = md.digest(key.getBytes());
+            StringBuilder sb = new StringBuilder();
+            for (byte item : array) {
+                sb.append(Integer.toHexString((item & 0xFF) | 0x100), 1, 3);
+            }
+            return sb.toString();
+        } catch (java.security.NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

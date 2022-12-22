@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -18,6 +19,10 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
 public class EventCard {
+    boolean shareButtonClicked = false;
+    boolean deleteButtonClicked = false;
+    boolean editButtonClicked = false;
+
     VBox parent = new VBox();
 
     Label eventDate = new Label();
@@ -39,6 +44,9 @@ public class EventCard {
     Button updateButton = new Button();
     Button deleteButton = new Button();
 
+    VBox bottomGUI = new VBox();
+    HBox shareView = new HBox();
+
     public VBox makeCard(String date, String name, String category, String description, int startTime, int endTime, int type) {
         this.parent.setSpacing(6);
         if (type == 1) {
@@ -55,7 +63,7 @@ public class EventCard {
         this.eventDate.setFont(Font.font("Arial", FontWeight.MEDIUM, 15));
         this.eventDate.setText(date);
 
-
+        // Event name Configuration
         this.eventName.setFont(Font.font("Arial", FontWeight.BOLD, 18));
         if (type == 1) {
             // Set text color to white
@@ -127,16 +135,17 @@ public class EventCard {
         this.timeHolder.setAlignment(javafx.geometry.Pos.CENTER);
         this.timeHolder.getChildren().addAll(eventStartTime, timeLineHolder, eventEndTime);
 
+
         if (type == 1) {
             shareButton.setStyle("-fx-background-color:  #c5cae9; -fx-background-radius: 12px 0 0 12px;");
             shareButton.setMinHeight(30);
-            shareButton.setMinWidth(80);
+            shareButton.setMinWidth(89);
             updateButton.setStyle("-fx-background-color: #c5cae9;");
             updateButton.setMinHeight(30);
-            updateButton.setMinWidth(80);
+            updateButton.setMinWidth(89);
             deleteButton.setStyle("-fx-background-color: #c5cae9; -fx-background-radius: 0 12px 12px 0;");
             deleteButton.setMinHeight(30);
-            deleteButton.setMinWidth(80);
+            deleteButton.setMinWidth(89);
         } else {
             shareButton.setStyle("-fx-background-color:  #9fa8da; -fx-background-radius: 12px 0 0 12px;");
             shareButton.setMinHeight(30);
@@ -172,19 +181,93 @@ public class EventCard {
         this.buttonHolder.setPadding(new javafx.geometry.Insets(10, 0, 0, 0));
         this.buttonHolder.setAlignment(javafx.geometry.Pos.CENTER);
         this.buttonHolder.getChildren().addAll(shareButton, updateButton, deleteButton);
+        bottomGUI.getChildren().addAll(buttonHolder);
 
+        // Share button action GUI-------------------------------------------------------------------------------
 
-        shareButton.setOnAction(new EventHandler<ActionEvent>() {
+        shareView.setSpacing(6);
+
+        shareView.setStyle("-fx-background-color: #c5cae9; -fx-background-radius: 0 0 12px 12px;");
+        shareView.setPadding(new javafx.geometry.Insets(7, 10, 7, 10));
+        TextField shareEmail = new TextField();
+
+        shareEmail.setMinWidth(195);
+        shareEmail.setPromptText("Enter email");
+        shareEmail.setMinHeight(30);
+        shareEmail.setStyle("-fx-background-color: #FFF;-fx-background-radius: 12px;");
+        Button c = new Button();
+        c.setStyle("-fx-background-color: #c5cae9 ;-fx-background-radius: 50px;");
+        c.setMinHeight(30);
+        Image _shareIcon = new Image("file:Client/src/main/resources/icons/share-enter-icon.png");
+        ImageView _shareIconView = new ImageView(_shareIcon);
+        _shareIconView.setFitHeight(22);
+        _shareIconView.setFitWidth(22);
+        c.setGraphic(_shareIconView);
+
+        shareView.getChildren().addAll(shareEmail, c);
+        c.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                Utility.createStage("share-event-activity.fxml");
+                if (shareEmail.getText().equals("")) {
+                    shareEmail.setStyle("-fx-background-color: #FFF;-fx-background-radius: 12px; -fx-border-color: #F76E64; -fx-border-width: 2px; -fx-border-radius: 12px;");
+                    return;
+                }
+
+                // Send data to server
                 Connection.sendRequestCode(NetworkRequestCodes.SHARE_EVENT_REQUEST);
+                Connection.sendPrimitiveObject(shareEmail.getText());
                 Connection.sendPrimitiveObject(name);
                 Connection.sendPrimitiveObject(description);
                 Connection.sendPrimitiveObject(category);
                 Connection.sendPrimitiveObject(date);
                 Connection.sendRequestCode(startTime);
                 Connection.sendRequestCode(endTime);
+
+                int responseCode = Connection.receiveRequestCode();
+
+                if (responseCode == NetworkRequestCodes.SHARE_EVENT_SUCCESSFUL) {
+                    try {
+                        DialogBox.showDialogue("Shared", "Event shared successfully", DialogBox.SUCCESS_DIALOG_BOX);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } else if (responseCode == NetworkRequestCodes.USER_NOT_FOUND) {
+                    try {
+                        DialogBox.showDialogue("Error", "User not found", DialogBox.ERROR_DIALOG_BOX);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    try {
+                        DialogBox.showDialogue("Error", "Event not shared", DialogBox.ERROR_DIALOG_BOX);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+
+            }
+        });
+
+
+        shareButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                if (!shareButtonClicked) {
+                    shareButton.setStyle("-fx-background-color:  #c5cae9; -fx-background-radius: 12px 0 0 0;");
+                    deleteButton.setStyle("-fx-background-color: #c5cae9; -fx-background-radius: 0 12px 0 0;");
+                    shareButtonClicked = true;
+                    bottomGUI.getChildren().add(shareView);
+                } else {
+                    shareButton.setStyle("-fx-background-color:  #c5cae9; -fx-background-radius: 12px 0 0 12px;");
+                    deleteButton.setStyle("-fx-background-color: #c5cae9; -fx-background-radius: 0 12px 12px 0;");
+                    shareEmail.setStyle("-fx-background-color: #FFF;-fx-background-radius: 12px; -fx-border-color: #F76E6400; -fx-border-width: 2px; -fx-border-radius: 12px;");
+
+                    shareButtonClicked = false;
+                    bottomGUI.getChildren().remove(shareView);
+
+                }
+
 
             }
         });
@@ -209,8 +292,7 @@ public class EventCard {
         });
 
 
-
-        this.parent.getChildren().addAll(eventName, eventDate, eventCategory, eventDescription, timeHolder, buttonHolder);
+        this.parent.getChildren().addAll(eventName, eventDate, eventCategory, eventDescription, timeHolder, bottomGUI);
 
         return parent;
 

@@ -76,7 +76,7 @@ public class Sequence {
         }
     }
 
-    public static void updateEventSequence(User user){
+    public static void updateEventSequence(User user) {
         String name = user.receiveString();
         String password = user.receiveString();
         System.out.println("Updating event: " + name);
@@ -93,4 +93,35 @@ public class Sequence {
         }
     }
 
+    public static void shareEventSequence(User user) throws Exception {
+        String from = user.getEmail();
+        String to = user.receiveString();
+        String name = user.receiveString();
+        String description = user.receiveString();
+        String category = user.receiveString();
+        String date = user.receiveString();
+        int startTime = user.receiveRequestCode();
+        int endTime = user.receiveRequestCode();
+
+        Event e = new Event(from, name, description, category, date, startTime, endTime);
+        System.out.println("Sharing event: " + name + " to " + to + " from " + from);
+
+
+        Database.searchEvent(e);
+        System.out.println("Searching for " + name);
+        System.out.println(Database.resultSet.getString("event_name"));
+
+        // print the result elements
+        int size = 0;
+        if (Database.resultSet != null) {
+            Database.resultSet.last();
+            size = Database.resultSet.getRow();
+        }
+        System.out.println("Size: " + size);
+
+        // FIXME
+        // SEND REQ CODE TO CLIENT
+        user.sendRequestCode(NetworkRequestCodes.SHARE_EVENT_SUCCESSFUL);
+
+    }
 }

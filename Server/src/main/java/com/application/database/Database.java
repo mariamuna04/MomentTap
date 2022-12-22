@@ -147,6 +147,7 @@ public class Database {
         }
     }
 
+    @DatabaseQuery
     public static void updateProfile(String email, String newName, String newPassword){
         try {
             establishConnection();
@@ -162,4 +163,28 @@ public class Database {
             System.err.println("Possible reason: Database is not running, or SQL syntax is incorrect");
         }
     }
+
+    @DatabaseQuery
+    public static void searchEvent(Event e){
+        try {
+            establishConnection();
+            resultSet = connection.createStatement().executeQuery("SELECT * FROM events WHERE user_email LIKE '%" + e.user_email() + "%' AND event_name LIKE '%" + e.event_name() +  "%' AND event_date LIKE '%" + e.event_date() + "%'");
+        } catch (Exception ex) {
+            System.err.println(ex.getMessage());
+        }
+
+    }
+
+    @DatabaseQuery
+    public static void addShareEvent (String from, String to, int event_id){
+        try {
+            establishConnection();
+            connection.createStatement().executeUpdate("INSERT INTO share_events (from, to, event_id) VALUES ('" + from + "', '" + to + "', '" + event_id + "')");
+        } catch (Exception e) {
+            System.out.println("Error while executing query: addShareEvent [Database.java:116]");
+            System.err.println("Possible reason: Database is not running, or SQL syntax is incorrect");
+        }
+    }
+
+
 }
