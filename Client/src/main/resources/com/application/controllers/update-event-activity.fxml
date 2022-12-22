@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<Pane xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.application.controllers.UpdateEventController">
+    <ImageView fitHeight="460.0" fitWidth="360.0" pickOnBounds="true" preserveRatio="true">
+        <Image url="@../../../fxml-images/create-event-background.png"/>
+    </ImageView>
+    <VBox fx:id="parent" alignment="CENTER" prefHeight="460.0" prefWidth="360.0" spacing="12.0">
+        <padding>
+            <Insets bottom="18.0" left="18.0" right="18.0" top="18.0"/>
+        </padding>
+        <Label text="Update Event" textFill="#3e62ab">
+            <font>
+                <Font name="Arial Bold" size="26.0"/>
+            </font>
+        </Label>
+        <TextField fx:id="event_name" focusTraversable="false" maxHeight="30.0" minHeight="30.0" prefHeight="30.0"
+                   promptText="New Event Name" style="-fx-background-radius: 8; -fx-background-color: #ffffffc0;">
+            <font>
+                <Font name="Arial Bold" size="13.0"/>
+            </font>
+        </TextField>
+        <TextField fx:id="event_category" focusTraversable="false" maxHeight="30.0" minHeight="30.0"
+                   prefHeight="30.0" promptText="New Category"
+                   style="-fx-background-radius: 8; -fx-background-color: #ffffffc0;">
+            <font>
+                <Font name="Arial" size="13.0"/>
+            </font>
+        </TextField>
+        <TextArea fx:id="event_description" focusTraversable="false" prefHeight="108.0" prefWidth="580.0"
+                  promptText="New Description"
+                  style="-fx-background-color: #ffffffc0; -fx-background-radius: 12; -fx-control-inner-background: #ffffffc0;"
+                  wrapText="true">
+            <font>
+                <Font name="Arial" size="13.0"/>
+            </font>
+            <padding>
+                <Insets bottom="6.0" left="6.0" right="6.0" top="6.0"/>
+            </padding>
+        </TextArea>
+        <DatePicker fx:id="event_date" focusTraversable="false" maxHeight="30.0" minHeight="30.0" prefHeight="30.0"
+                    prefWidth="329.0" promptText="New Enter date" showWeekNumbers="true"
+                    style="-fx-background-color: #ffffffc0;"/>
+        <HBox alignment="CENTER">
+            <TextField fx:id="event_start_time" alignment="CENTER" focusTraversable="false" maxHeight="30.0"
+                       minHeight="30.0" prefHeight="30.0" promptText="New Start time (HH:MM)"
+                       style="-fx-background-radius: 12; -fx-background-color: #ffffffc0;">
+                <font>
+                    <Font name="Arial" size="13.0"/>
+                </font>
+            </TextField>
+            <Line endX="50.0" opacity="0.62" startX="40.0" stroke="#d0d0d0" strokeWidth="5.0"/>
+            <TextField fx:id="event_end_time" alignment="CENTER" focusTraversable="false" maxHeight="30.0"
+                       minHeight="30.0" prefHeight="30.0" promptText="New End time (HH:MM)"
+                       style="-fx-background-radius: 12; -fx-background-color: #ffffffc0;">
+                <font>
+                    <Font name="Arial" size="13.0"/>
+                </font>
+            </TextField>
+        </HBox>
+        <Label fx:id="createEventMessageTextField" textAlignment="CENTER" textFill="RED" wrapText="true">
+            <font>
+                <Font name="Arial" size="13.0"/>
+            </font>
+        </Label>
+        <HBox alignment="CENTER" spacing="12.0">
+            <Button alignment="CENTER" defaultButton="true" maxHeight="30.0" maxWidth="120.0" minHeight="30.0"
+                    minWidth="120.0" mnemonicParsing="false" onAction="#onCreateButtonListener" prefHeight="30.0"
+                    prefWidth="120.0" style="-fx-background-radius: 8; -fx-background-color: #49599a;" text="Update"
+                    textFill="WHITE">
+                <font>
+                    <Font name="Arial Bold" size="13.0"/>
+                </font>
+            </Button>
+            <Button alignment="CENTER" cancelButton="true" maxHeight="30.0" maxWidth="120.0" minHeight="30.0"
+                    minWidth="120.0" mnemonicParsing="false" onAction="#onCancelButtonListener" prefHeight="30.0"
+                    prefWidth="120.0" style="-fx-background-radius: 8; -fx-background-color: #ffcdd2;" text="Cancel"
+                    textFill="#ef5350">
+                <font>
+                    <Font name="Arial Bold" size="13.0"/>
+                </font>
+            </Button>
+        </HBox>
+    </VBox>
+</Pane>

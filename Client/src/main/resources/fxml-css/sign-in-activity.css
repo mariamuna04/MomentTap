@@ -11,7 +11,7 @@
 }
 
 .signInButton {
-    -fx-background-color: rgba(84, 119, 148, 0.75);
+    -fx-background-color:  #828FC4;
     -fx-background-radius: 6px;
     -fx-border-radius: 8px;
     -fx-text-fill: #FFF;
@@ -20,12 +20,12 @@
 }
 
 .signInButton:hover {
-    -fx-background-color: rgba(84, 119, 148, 1);
+    -fx-background-color: #49599a;
     -fx-background-radius: 8px;
 }
 
 .signUpButton {
-    -fx-background-color: rgba(194, 201, 205, 0.75);
+    -fx-background-color:  #ACB5D7;
     -fx-background-radius: 6px;
     -fx-border-radius: 8px;
     -fx-text-fill: #000;
@@ -34,7 +34,7 @@
 }
 
 .signUpButton:hover {
-    -fx-background-color: rgba(194, 201, 205, 1);
+    -fx-background-color: #C4CAE8;
     -fx-background-radius: 8px;
 }
 

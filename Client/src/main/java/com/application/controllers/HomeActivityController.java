@@ -12,10 +12,13 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.BoxBlur;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+
+import java.util.Calendar;
 
 /**
  * This Controller handles the Home Activity.
@@ -35,6 +38,11 @@ public class HomeActivityController extends Controller {
     public Label profileViewCompleted;
 
     public boolean toBeRefreshed = false;
+    public Pane profileEditView;
+    public TextField nameField;
+    public PasswordField oldPasswordField;
+    public PasswordField newPasswordField;
+    public PasswordField confirmPasswordField;
 
     @Override
     public void init() throws Exception {
@@ -86,8 +94,9 @@ public class HomeActivityController extends Controller {
     }
 
 
-    public void onEditProfileButton(ActionEvent actionEvent) {
-        Utility.createStage("edit-profile-activity.fxml");
+    public void onEditProfileButton() {
+        profileEditView.setVisible(true);
+
     }
 
     public void onAllEventButtonListener() throws Exception {
@@ -162,9 +171,19 @@ public class HomeActivityController extends Controller {
 
     public void onProfileButtonListener() {
         profileView.setVisible(!profileView.isVisible());
+        if(profileEditView.isVisible()) {
+            profileEditView.setVisible(false);
+        }
         BoxBlur blur = new BoxBlur(3, 3, 3);
         backgroundOverlay.setEffect(profileView.isVisible() ? blur : null);
         backgroundOverlay.setVisible(!backgroundOverlay.isVisible());
+    }
+
+    public void onSaveEditProfileButton(ActionEvent actionEvent) {
+    }
+
+    public void onCancelEditProfileButton(ActionEvent actionEvent) {
+        profileEditView.setVisible(false);
     }
 }
 

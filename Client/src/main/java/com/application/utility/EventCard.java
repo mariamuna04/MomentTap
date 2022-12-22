@@ -50,9 +50,9 @@ public class EventCard {
     public VBox makeCard(String date, String name, String category, String description, int startTime, int endTime, int type) {
         this.parent.setSpacing(6);
         if (type == 1) {
-            this.parent.setStyle("-fx-background-color: #9fa8daF0; -fx-background-radius: 12px;");
+            this.parent.setStyle("-fx-background-color: #9fa8da; -fx-background-radius: 12px;");
         } else
-            this.parent.setStyle("-fx-background-color: #C5C9E8D0; -fx-background-radius: 12px;");
+            this.parent.setStyle("-fx-background-color: #b6bbe2; -fx-background-radius: 12px;");
 
         this.parent.setPadding(new javafx.geometry.Insets(10, 10, 10, 10));
 
@@ -183,7 +183,7 @@ public class EventCard {
         this.buttonHolder.getChildren().addAll(shareButton, updateButton, deleteButton);
         bottomGUI.getChildren().addAll(buttonHolder);
 
-        // Share button action GUI-------------------------------------------------------------------------------
+        // Share button action GUI -------------------------------------------------------------------------
 
         shareView.setSpacing(6);
 
@@ -287,7 +287,7 @@ public class EventCard {
         updateButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                // Utility.createStage("update-event.fxml");
+                Utility.createStage("update-event-activity.fxml");
             }
         });
 
