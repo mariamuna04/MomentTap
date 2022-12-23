@@ -67,16 +67,6 @@ public class HomeActivityController extends Controller {
         Utility.createStage("create-event-activity.fxml");
     }
 
-    public void onDeleteEventButton() {
-        Utility.createStage("delete-event-activity.fxml");
-        Platform.runLater(() -> {
-            try {
-                init();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
-    }
 
     public void onSignOutButton() {
         if (Sequence.signOutSequence()) {

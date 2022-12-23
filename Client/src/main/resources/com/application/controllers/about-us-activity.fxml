@@ -1,27 +1,70 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
-      prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.application.controllers.AboutUsController">
+
+<Pane fx:id="parent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.application.controllers.AboutUsController">
     <ImageView fitHeight="400.0" fitWidth="600.0" pickOnBounds="true">
-        <Image url="@../../../fxml-images/background_image.png"/>
+        <Image url="@../../../fxml-images/demo-background.png" />
     </ImageView>
-    <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="600.0">
+    <VBox alignment="CENTER" prefHeight="400.0" prefWidth="600.0" spacing="30.0">
         <padding>
-            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
         </padding>
-        <Label text="Label" textFill="#575757">
+        <Label text="About TimeCentum" textFill="#575757">
             <font>
-                <Font name="Arial Bold" size="21.0"/>
+                <Font name="Arial Bold" size="24.0" />
             </font>
+         <padding>
+            <Insets top="2.0" />
+         </padding>
         </Label>
+      <Label lineSpacing="3.0" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque auctor eu dolor non vulputate. Vestibulum vel accumsan neque, a sollicitudin augue. Nam pretium porta ex, sed fermentum orci tristique vitae. Nunc suscipit augue at risus euismod commodo. Integer volutpat risus ac est feugiat cursus. Suspendisse ut elit justo. Integer vel vulputate felis. Curabitur laoreet quam nec neque dignissim imperdiet. Donec nec enim nisi. Cras non purus dapibus, mollis orci vitae, rhoncus nulla. Fusce porta aliquam ante, sed accumsan massa ullamcorper id. Integer id dui tristique, finibus massa non, blandit enim. Ut vitae elit justo. Morbi vitae ipsum at lacus aliquet consectetur vel sit amet est. " textAlignment="CENTER" textFill="#404040" wrapText="true">
+         <font>
+            <Font name="Arial" size="13.0" />
+         </font></Label>
+      <Label text="Made with ♥︎ by Ummay Maria Muna, Shanta Biswas and Afia Naziba Cosmic" textFill="#6f6f6f">
+         <font>
+            <Font name="Arial Bold" size="13.0" />
+         </font>
+      </Label>
+      <HBox alignment="CENTER" spacing="10.0">
+         <children>
+            <Button cache="true" graphicTextGap="10.0" maxHeight="30.0" maxWidth="140.0" minHeight="30.0" minWidth="140.0" mnemonicParsing="false" onAction="#onBackButtonListener" prefHeight="30.0" prefWidth="140.0" styleClass="contactUsButton" stylesheets="@../../../fxml-css/sign-in-activity.css" text="Go Back" textFill="#7c7c7c">
+               <font>
+                  <Font name="Arial Bold" size="13.0" />
+               </font>
+            </Button>
+            <HBox HBox.hgrow="ALWAYS" />
+            <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../icons/facebook.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../icons/github.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="24.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../icons/javafx.png" />
+               </image>
+            </ImageView>
+         </children>
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding>
+      </HBox>
     </VBox>
-    <VBox layoutY="200.0" prefHeight="200.0" prefWidth="600.0"/>
+   <padding>
+      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+   </padding>
 </Pane>

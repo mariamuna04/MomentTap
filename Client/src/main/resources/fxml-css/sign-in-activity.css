@@ -1,12 +1,12 @@
 .textField {
-    -fx-background-color: rgba(255, 255, 255, 0.7);
+    -fx-background-color: #FFFFFFF0;
     -fx-background-radius: 6px;
     -fx-border-radius: 8px;
     -fx-text-fill: #000000;
 }
 
 .textField:hover {
-    -fx-background-color: rgba(255, 255, 255, 0.85);
+    -fx-background-color: #FFFFFF;
     -fx-background-radius: 8px;
 }
 
@@ -48,5 +48,17 @@
 
 .contactUsButton:hover {
     -fx-background-color: rgba(194, 201, 205, 0.6);
+    -fx-background-radius: 8px;
+    cursor: hand;
+}
+
+.cancelButton {
+    -fx-background-color: rgba(194, 201, 205, 0);
+
+    cursor: hand;
+}
+
+.cancelButton:hover {
+    -fx-background-color: #ffcdd2;
     -fx-background-radius: 8px;
 }

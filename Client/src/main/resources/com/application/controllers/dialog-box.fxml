@@ -1,50 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<VBox xmlns:fx="http://javafx.com/fxml/1" fx:id="parent" alignment="CENTER_RIGHT" maxHeight="-Infinity"
-      maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="350.0"
-      spacing="10.0" xmlns="http://javafx.com/javafx/11.0.14-internal"
-      fx:controller="com.application.controllers.DialogBoxController">
+
+<VBox fx:id="parent" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="180.0" prefWidth="400.0" spacing="10.0" style="-fx-background-color: #FFF;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.application.controllers.DialogBoxController">
     <padding>
-        <Insets right="10.0"/>
+        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
     </padding>
-    <HBox alignment="CENTER_LEFT" prefHeight="88.0" prefWidth="330.0" spacing="5.0">
+    <HBox alignment="CENTER_LEFT" prefHeight="110.0" prefWidth="330.0" spacing="5.0">
         <VBox.margin>
-            <Insets/>
+            <Insets />
         </VBox.margin>
         <padding>
-            <Insets left="10.0" right="10.0" top="5.0"/>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
         </padding>
         <ImageView fx:id="imageViewID" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
             <HBox.margin>
-                <Insets/>
+                <Insets />
             </HBox.margin>
-            <Image url="@../../../icons/information.png"/>
+            <Image url="@../../../icons/information.png" />
         </ImageView>
-        <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="86.0" prefWidth="250.0"
-              spacing="5.0">
+        <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="110.0" prefWidth="280.0" spacing="5.0">
             <padding>
-                <Insets left="10.0" right="10.0" top="10.0"/>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
             </padding>
             <Label fx:id="heading">
                 <font>
-                    <Font name="Microsoft Sans Serif" size="16.0"/>
+                    <Font name="Microsoft Sans Serif" size="16.0" />
                 </font>
             </Label>
-            <Label fx:id="subtitle" alignment="TOP_LEFT" contentDisplay="TOP" graphicTextGap="0.0" prefHeight="53.0"
-                   prefWidth="230.0" textFill="#727272" wrapText="true">
+            <Label fx:id="subtitle" alignment="TOP_LEFT" contentDisplay="TOP" graphicTextGap="0.0" prefHeight="100.0" prefWidth="258.0" textFill="#727272" wrapText="true">
                 <font>
-                    <Font name="System Italic" size="14.0"/>
+                    <Font name="System Italic" size="14.0" />
                 </font>
             </Label>
         </VBox>
     </HBox>
-    <Button mnemonicParsing="false" onAction="#onOKButtonClick" prefWidth="75.0" styleClass="helpButton"
-            stylesheets="" text="OK"/>
+    <Button mnemonicParsing="false" onAction="#onOKButtonClick" prefWidth="75.0" style="-fx-background-radius: 12; -fx-background-color: #C4CAE8;" stylesheets="" text="OK">
+      <font>
+         <Font name="Arial Bold" size="13.0" />
+      </font></Button>
 </VBox>

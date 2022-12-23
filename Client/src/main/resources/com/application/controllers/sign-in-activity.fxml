@@ -48,7 +48,7 @@
             <padding>
                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
             </padding>
-            <TextField fx:id="emailTextField" alignment="CENTER" focusTraversable="false" maxHeight="35.0" minHeight="35.0" prefHeight="35.0" promptText="Email or username" style="-fx-background-color: #FFF;" styleClass="textField" stylesheets="@../../../fxml-css/sign-in-activity.css">
+            <TextField fx:id="emailTextField" alignment="CENTER" focusTraversable="false" maxHeight="35.0" minHeight="35.0" prefHeight="35.0" promptText="Email or username" styleClass="textField" stylesheets="@../../../fxml-css/sign-in-activity.css">
                 <font>
                     <Font name="Arial" size="14.0" />
                 </font>
@@ -61,7 +61,7 @@
                 </effect>
             </TextField>
             <VBox alignment="CENTER" spacing="8.0">
-                <PasswordField fx:id="passwordTextField" alignment="CENTER" focusTraversable="false" maxHeight="35.0" minHeight="35.0" prefHeight="35.0" promptText="Password" style="-fx-background-color: #FFF;" styleClass="textField" stylesheets="@../../../fxml-css/sign-in-activity.css">
+                <PasswordField fx:id="passwordTextField" alignment="CENTER" focusTraversable="false" maxHeight="35.0" minHeight="35.0" prefHeight="35.0" promptText="Password" styleClass="textField" stylesheets="@../../../fxml-css/sign-in-activity.css">
                     <font>
                         <Font name="Arial" size="14.0" />
                     </font>

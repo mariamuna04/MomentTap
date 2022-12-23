@@ -38,9 +38,10 @@ public class SignInController extends Controller {
     }
 
     public void onAboutUsListener() throws Exception {
-        emailTextField.setText("admin@admin.com");
-        passwordTextField.setText(".");
-        onSignInListener();
-        //Utility.changeScene(parent, "about-us-activity.fxml");
+        // FIXME: Testing purpose
+//        emailTextField.setText("admin@admin.com");
+//        passwordTextField.setText(".");
+//        onSignInListener();
+        Utility.changeScene(parent, "about-us-activity.fxml");
     }
 }
