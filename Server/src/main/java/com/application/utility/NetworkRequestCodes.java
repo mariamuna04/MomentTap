@@ -23,7 +23,6 @@ public class NetworkRequestCodes {
 
     public static final int CREATE_EVENT_REQUEST = 104;
     public static final int DELETE_EVENT_REQUEST = 105;
-    public static final int UPDATE_EVENT_REQUEST = 106;
     public static final int SEARCH_EVENT_REQUEST = 107;
 
 
@@ -31,8 +30,11 @@ public class NetworkRequestCodes {
     public static final int CREATE_EVENT_UNSUCCESSFUL = -204;
     public static final int DELETE_EVENT_SUCCESSFUL = 205;
     public static final int DELETE_EVENT_UNSUCCESSFUL = -205;
-    public static final int UPDATE_EVENT_SUCCESSFUL = 206;
-    public static final int UPDATE_EVENT_UNSUCCESSFUL = -206;
+
+    public static final int EDIT_PROFILE_REQUEST = 106;
+
+    public static final int EDIT_PROFILE_SUCCESSFUL = 206;
+    public static final int EDIT_PROFILE_UNSUCCESSFUL = -206;
     public static final int SEARCH_EVENT_SUCCESSFUL = 207;
     public static final int SEARCH_EVENT_UNSUCCESSFUL = -207;
 

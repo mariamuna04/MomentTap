@@ -23,7 +23,7 @@ public class NetworkRequestCodes {
 
     public static final int CREATE_EVENT_REQUEST = 104;
     public static final int DELETE_EVENT_REQUEST = 105;
-    public static final int UPDATE_EVENT_REQUEST = 106;
+    public static final int EDIT_PROFILE_REQUEST = 106;
     public static final int SEARCH_EVENT_REQUEST = 107;
 
 

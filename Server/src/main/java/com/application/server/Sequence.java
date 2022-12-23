@@ -76,7 +76,7 @@ public class Sequence {
         }
     }
 
-    public static void updateEventSequence(User user) {
+    public static void editProfileSequence(User user) {
         String name = user.receiveString();
         String password = user.receiveString();
         System.out.println("Updating event: " + name);
@@ -84,11 +84,11 @@ public class Sequence {
         System.out.println("Event updated");
         if (Database.resultSet != null) {
             System.out.println("Sending data");
-            user.sendRequestCode(NetworkRequestCodes.UPDATE_EVENT_SUCCESSFUL);
+            user.sendRequestCode(NetworkRequestCodes.EDIT_PROFILE_SUCCESSFUL);
             System.out.println("Sending size: " + 1);
         } else {
             System.out.println("Sending data");
-            user.sendRequestCode(NetworkRequestCodes.UPDATE_EVENT_UNSUCCESSFUL);
+            user.sendRequestCode(NetworkRequestCodes.EDIT_PROFILE_UNSUCCESSFUL);
             System.out.println("Sending size: " + 0);
         }
     }

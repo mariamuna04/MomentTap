@@ -37,6 +37,7 @@ public class HomeActivityController extends Controller {
     public PasswordField oldPasswordField;
     public PasswordField newPasswordField;
     public PasswordField confirmPasswordField;
+    public Label editProfileMessage ;
 
     @Override
     public void init() throws Exception {
@@ -164,15 +165,17 @@ public class HomeActivityController extends Controller {
     }
 
     public void onSaveEditProfileButton() throws Exception {
-        if(nameField.getText().equals("") && oldPasswordField.getText().equals("") && newPasswordField.getText().equals("") && confirmPasswordField.getText().equals("")){
-            DialogBox.showDialogue("Error","Please fill in at least one field",DialogBox.ERROR_DIALOG_BOX);
-        }
-        else if(!newPasswordField.getText().equals(confirmPasswordField.getText())){
+        if(nameField.getText().equals("") && oldPasswordField.getText().equals("") && newPasswordField.getText().equals("") && confirmPasswordField.getText().equals("")) {
+            editProfileMessage.setStyle("-fx-text-fill: #ff0000;");
+            editProfileMessage.setText("Nothing has been changed");
+        } else if(!newPasswordField.getText().equals(confirmPasswordField.getText())){
             DialogBox.showDialogue("Error","Passwords do not match",DialogBox.ERROR_DIALOG_BOX);
-        } else if (!oldPasswordField.getText().equals(User.getPassword())) {
+            System.out.println("Line: " + 200);
+        } else if (!Verify.md5(oldPasswordField.getText()).equals(User.getPassword())) {
             DialogBox.showDialogue("Error","Incorrect password",DialogBox.ERROR_DIALOG_BOX);
+            System.out.println("Line: " + 202);
         } else {
-            Connection.sendRequestCode(NetworkRequestCodes.UPDATE_EVENT_REQUEST);
+            Connection.sendRequestCode(NetworkRequestCodes.EDIT_PROFILE_REQUEST);
             Connection.sendPrimitiveObject(nameField.getText());
             Connection.sendPrimitiveObject(Verify.md5(newPasswordField.getText()));
             if(Connection.receiveRequestCode() == NetworkRequestCodes.UPDATE_EVENT_SUCCESSFUL){
@@ -181,13 +184,16 @@ public class HomeActivityController extends Controller {
             } else {
                 DialogBox.showDialogue("Error","Profile update failed",DialogBox.ERROR_DIALOG_BOX);
             }
-
         }
-
     }
 
     public void onCancelEditProfileButton() {
         profileEditView.setVisible(false);
+        newPasswordField.setText("");
+        confirmPasswordField.setText("");
+        oldPasswordField.setText("");
+        nameField.setText("");
+        editProfileMessage.setText("");
     }
 }
 
