@@ -8,8 +8,6 @@ import com.application.serialShared.Event;
 import com.application.utility.Date;
 import com.application.utility.EventCard;
 import com.application.utility.Utility;
-import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -17,8 +15,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.effect.BoxBlur;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-
-import java.util.Calendar;
 
 /**
  * This Controller handles the Home Activity.
@@ -37,7 +33,6 @@ public class HomeActivityController extends Controller {
     public Label profileViewUpcoming;
     public Label profileViewCompleted;
 
-    public boolean toBeRefreshed = false;
     public Pane profileEditView;
     public TextField nameField;
     public PasswordField oldPasswordField;
@@ -63,7 +58,7 @@ public class HomeActivityController extends Controller {
     public Pane parent;
     public TextField searchField;
 
-    public void onCreateEventButton() throws Exception {
+    public void onCreateEventButton() {
         Utility.createStage("create-event-activity.fxml");
     }
 
@@ -169,10 +164,10 @@ public class HomeActivityController extends Controller {
         backgroundOverlay.setVisible(!backgroundOverlay.isVisible());
     }
 
-    public void onSaveEditProfileButton(ActionEvent actionEvent) {
+    public void onSaveEditProfileButton() {
     }
 
-    public void onCancelEditProfileButton(ActionEvent actionEvent) {
+    public void onCancelEditProfileButton() {
         profileEditView.setVisible(false);
     }
 }

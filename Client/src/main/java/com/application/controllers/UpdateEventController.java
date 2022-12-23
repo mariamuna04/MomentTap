@@ -21,11 +21,11 @@ public class UpdateEventController {
     public TextField event_start_time;
     public Label createEventMessageTextField;
 
-    public void onCreateButtonListener(ActionEvent actionEvent) {
+    public void onCreateButtonListener() {
 
     }
 
-    public void onCancelButtonListener(ActionEvent actionEvent) {
+    public void onCancelButtonListener() {
         Utility.deleteStage(parent);
     }
 }

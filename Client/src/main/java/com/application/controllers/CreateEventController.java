@@ -5,7 +5,6 @@ import com.application.client.User;
 import com.application.serialShared.Event;
 import com.application.utility.Date;
 import com.application.utility.DialogBox;
-import com.application.utility.Time;
 import com.application.utility.Utility;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;

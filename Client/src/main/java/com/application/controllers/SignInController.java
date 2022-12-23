@@ -3,7 +3,6 @@
 package com.application.controllers;
 
 import com.application.client.Sequence;
-import com.application.utility.DialogBox;
 import com.application.utility.Utility;
 import com.application.utility.Verify;
 import javafx.fxml.FXML;
