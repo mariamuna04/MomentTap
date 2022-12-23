@@ -4,10 +4,9 @@ package com.application.controllers;
 
 import com.application.client.Sequence;
 import com.application.client.User;
+import com.application.connection.Connection;
 import com.application.serialShared.Event;
-import com.application.utility.Date;
-import com.application.utility.EventCard;
-import com.application.utility.Utility;
+import com.application.utility.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -164,7 +163,27 @@ public class HomeActivityController extends Controller {
         backgroundOverlay.setVisible(!backgroundOverlay.isVisible());
     }
 
-    public void onSaveEditProfileButton() {
+    public void onSaveEditProfileButton() throws Exception {
+        if(nameField.getText().equals("") && oldPasswordField.getText().equals("") && newPasswordField.getText().equals("") && confirmPasswordField.getText().equals("")){
+            DialogBox.showDialogue("Error","Please fill in at least one field",DialogBox.ERROR_DIALOG_BOX);
+        }
+        else if(!newPasswordField.getText().equals(confirmPasswordField.getText())){
+            DialogBox.showDialogue("Error","Passwords do not match",DialogBox.ERROR_DIALOG_BOX);
+        } else if (!oldPasswordField.getText().equals(User.getPassword())) {
+            DialogBox.showDialogue("Error","Incorrect password",DialogBox.ERROR_DIALOG_BOX);
+        } else {
+            Connection.sendRequestCode(NetworkRequestCodes.UPDATE_EVENT_REQUEST);
+            Connection.sendPrimitiveObject(nameField.getText());
+            Connection.sendPrimitiveObject(Verify.md5(newPasswordField.getText()));
+            if(Connection.receiveRequestCode() == NetworkRequestCodes.UPDATE_EVENT_SUCCESSFUL){
+                DialogBox.showDialogue("Success","Profile updated successfully",DialogBox.SUCCESS_DIALOG_BOX);
+                Utility.deleteStage(parent);
+            } else {
+                DialogBox.showDialogue("Error","Profile update failed",DialogBox.ERROR_DIALOG_BOX);
+            }
+
+        }
+
     }
 
     public void onCancelEditProfileButton() {

@@ -38,9 +38,9 @@ public class SignInController extends Controller {
 
     public void onAboutUsListener() throws Exception {
         // FIXME: Testing purpose
-//        emailTextField.setText("admin@admin.com");
-//        passwordTextField.setText(".");
-//        onSignInListener();
-        Utility.changeScene(parent, "about-us-activity.fxml");
+        emailTextField.setText("admin@admin.com");
+        passwordTextField.setText(".");
+        onSignInListener();
+        //Utility.changeScene(parent, "about-us-activity.fxml");
     }
 }
