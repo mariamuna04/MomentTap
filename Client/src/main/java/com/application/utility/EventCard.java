@@ -9,10 +9,13 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.effect.BlurType;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
@@ -49,6 +52,7 @@ public class EventCard {
 
     public VBox makeCard(String date, String name, String category, String description, int startTime, int endTime, int type) {
         this.parent.setSpacing(6);
+        this.parent.setEffect(new DropShadow(BlurType.THREE_PASS_BOX, Color.rgb(163, 163, 163),10,0,3,3));
         if (type == 1) {
             this.parent.setStyle("-fx-background-color: #9fa8da; -fx-background-radius: 12px;");
         } else
@@ -287,7 +291,7 @@ public class EventCard {
         updateButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                Utility.createStage("update-event-activity.fxml");
+                //Utility.createStage("update-event-activity.fxml");
             }
         });
 
