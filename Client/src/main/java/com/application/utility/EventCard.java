@@ -6,9 +6,7 @@ import com.application.client.Sequence;
 import com.application.connection.Connection;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.effect.BlurType;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
@@ -50,15 +48,33 @@ public class EventCard {
     VBox bottomGUI = new VBox();
     HBox shareView = new HBox();
 
+    // Update event guis----------------------------------------------------------------
+    VBox updateEventView = new VBox();
+    TextField updateEventName = new TextField();
+    TextArea updateEventDescription = new TextArea();
+    TextField updateEventCategory = new TextField();
+    DatePicker updateEventDate = new DatePicker();
+    TextField updateEventStartTime = new TextField();
+    TextField updateEventEndTime = new TextField();
+    Button updateEventButton = new Button("Update");
+    Button updateEventCancelButton = new Button("Cancel");
+
+    HBox updateEventTimeHolder = new HBox();
+    HBox updateEventButtonHolder = new HBox();
+
+
+    boolean cardView = true;
+
+
     public VBox makeCard(String date, String name, String category, String description, int startTime, int endTime, int type) {
         this.parent.setSpacing(6);
-        this.parent.setEffect(new DropShadow(BlurType.THREE_PASS_BOX, Color.rgb(163, 163, 163),10,0,3,3));
+        this.parent.setEffect(new DropShadow(BlurType.THREE_PASS_BOX, Color.rgb(163, 163, 163), 10, 0, 3, 3));
         if (type == 1) {
             this.parent.setStyle("-fx-background-color: #9fa8da; -fx-background-radius: 12px;");
-        } else
-            this.parent.setStyle("-fx-background-color: #b6bbe2; -fx-background-radius: 12px;");
+        } else this.parent.setStyle("-fx-background-color: #b6bbe2; -fx-background-radius: 12px;");
 
         this.parent.setPadding(new javafx.geometry.Insets(10, 10, 10, 10));
+
 
         // set parent width
         this.parent.setPrefWidth(288);
@@ -209,6 +225,24 @@ public class EventCard {
         c.setGraphic(_shareIconView);
 
         shareView.getChildren().addAll(shareEmail, c);
+
+
+        // Update GUI initialization -------------------------------------------------------------------------
+        updateEventView.setSpacing(8);
+        updateEventView.setAlignment(javafx.geometry.Pos.CENTER);
+        updateEventTimeHolder.getChildren().addAll(updateEventStartTime, updateEventEndTime);
+        updateEventTimeHolder.setSpacing(10);
+        updateEventButtonHolder.getChildren().addAll(updateEventButton, updateEventCancelButton);
+        updateEventButtonHolder.setSpacing(10);
+        updateEventButtonHolder.setAlignment(javafx.geometry.Pos.CENTER);
+        updateEventView.getChildren().addAll(updateEventName, updateEventCategory, updateEventDescription, updateEventDate,  updateEventTimeHolder, updateEventButtonHolder);
+
+        updateEventDescription.setWrapText(true);
+        updateEventDescription.setMinHeight(90);
+        updateEventDescription.setMaxHeight(90);
+        updateEventDescription.setPrefHeight(90);
+
+
         c.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -291,7 +325,16 @@ public class EventCard {
         updateButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                //Utility.createStage("update-event-activity.fxml");
+                if (cardView) {
+                    parent.getChildren().removeAll(eventName, eventCategory, eventDescription, eventDate, timeHolder, bottomGUI);
+                    parent.getChildren().addAll(updateEventView, bottomGUI);
+                    cardView = false;
+                } else {
+                    parent.getChildren().removeAll(updateEventView, bottomGUI);
+                    parent.getChildren().addAll(eventName, eventCategory, eventDescription, eventDate, timeHolder, bottomGUI);
+                    cardView = true;
+                }
+
             }
         });
 
