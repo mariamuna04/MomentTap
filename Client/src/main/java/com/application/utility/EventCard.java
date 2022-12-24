@@ -12,12 +12,15 @@ import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+
+import java.time.LocalDate;
 
 public class EventCard {
     boolean shareButtonClicked = false;
@@ -241,6 +244,30 @@ public class EventCard {
         updateEventDescription.setMinHeight(90);
         updateEventDescription.setMaxHeight(90);
         updateEventDescription.setPrefHeight(90);
+
+
+        updateEventName.setPromptText(name);
+        updateEventName.setMinHeight(30);
+        updateEventName.setStyle("-fx-background-color: #FFF;-fx-background-radius: 8px;");
+        updateEventCategory.setPromptText(category);
+        updateEventCategory.setMinHeight(30);
+        updateEventCategory.setStyle("-fx-background-color: #FFF;-fx-background-radius: 8px;");
+        updateEventDescription.setPromptText(description);
+        updateEventDescription.setStyle("-fx-background-color: #FFF;-fx-background-radius: 8px;");
+        updateEventDate.setPromptText(String.valueOf(LocalDate.parse(date)));
+        updateEventDate.setMinHeight(30);
+        updateEventDate.setStyle("-fx-background-color: #FFF;-fx-background-radius: 8px;");
+        updateEventStartTime.setPromptText(String.valueOf(startTime));
+        updateEventStartTime.setMinHeight(30);
+        updateEventStartTime.setStyle("-fx-background-color: #FFF;-fx-background-radius: 8px;");
+        updateEventEndTime.setPromptText(String.valueOf(endTime));
+        updateEventEndTime.setMinHeight(30);
+        updateEventEndTime.setStyle("-fx-background-color: #FFF;-fx-background-radius: 8px;");
+
+        updateEventButton.setMinHeight(30);
+
+        updateEventCancelButton.setMinHeight(30);
+
 
 
         c.setOnAction(new EventHandler<ActionEvent>() {
