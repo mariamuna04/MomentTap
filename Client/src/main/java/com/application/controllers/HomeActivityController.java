@@ -12,8 +12,12 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.BoxBlur;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+
+import java.util.jar.JarEntry;
 
 /**
  * This Controller handles the Home Activity.
@@ -24,7 +28,7 @@ public class HomeActivityController extends Controller {
     public VBox past_events;
 
     public boolean primaryInitialized = false;
-    public Button profileButton = new Button();
+    public Button profileButton;
     public Pane profileView;
     public Pane backgroundOverlay;
     public Label profileViewName;
@@ -37,7 +41,7 @@ public class HomeActivityController extends Controller {
     public PasswordField oldPasswordField;
     public PasswordField newPasswordField;
     public PasswordField confirmPasswordField;
-    public Label editProfileMessage ;
+    public Label editProfileMessage;
 
     @Override
     public void init() throws Exception {
@@ -71,11 +75,6 @@ public class HomeActivityController extends Controller {
                 e.printStackTrace();
             }
         }
-    }
-
-    public void onSearchButton() throws Exception {
-        makeCardView(searchField.getText());
-        this.init();
     }
 
 
@@ -122,9 +121,11 @@ public class HomeActivityController extends Controller {
 
         if (User.events.size() == 0) {
             Label labelFuture = new Label("No Upcoming event found");
+            labelFuture.setPadding(new javafx.geometry.Insets(40, 0, 0, 0));
             Label labelPast = new Label("No Completed event found");
-            labelFuture.setStyle("-fx-font-size: 20px; -fx-text-fill: #ffffff; -fx-font-weight: bold;");
-            labelPast.setStyle("-fx-font-size: 20px; -fx-text-fill: #ffffff; -fx-font-weight: bold;");
+            labelPast.setPadding(new javafx.geometry.Insets(40, 0, 0, 0));
+            labelFuture.setStyle("-fx-font-size: 20px; -fx-text-fill:  #49599a; -fx-font-weight: bold; ");
+            labelPast.setStyle("-fx-font-size: 20px; -fx-text-fill:  #49599a; -fx-font-weight: bold;");
             future_events.getChildren().add(labelFuture);
             past_events.getChildren().add(labelPast);
         } else {
@@ -156,7 +157,7 @@ public class HomeActivityController extends Controller {
 
     public void onProfileButtonListener() {
         profileView.setVisible(!profileView.isVisible());
-        if(profileEditView.isVisible()) {
+        if (profileEditView.isVisible()) {
             profileEditView.setVisible(false);
         }
         BoxBlur blur = new BoxBlur(3, 3, 3);
@@ -165,24 +166,24 @@ public class HomeActivityController extends Controller {
     }
 
     public void onSaveEditProfileButton() throws Exception {
-        if(nameField.getText().equals("") && oldPasswordField.getText().equals("") && newPasswordField.getText().equals("") && confirmPasswordField.getText().equals("")) {
+        if (nameField.getText().equals("") && oldPasswordField.getText().equals("") && newPasswordField.getText().equals("") && confirmPasswordField.getText().equals("")) {
             editProfileMessage.setStyle("-fx-text-fill: #ff0000;");
             editProfileMessage.setText("Nothing has been changed");
-        } else if(!newPasswordField.getText().equals(confirmPasswordField.getText())){
-            DialogBox.showDialogue("Error","Passwords do not match",DialogBox.ERROR_DIALOG_BOX);
+        } else if (!newPasswordField.getText().equals(confirmPasswordField.getText())) {
+            DialogBox.showDialogue("Error", "Passwords do not match", DialogBox.ERROR_DIALOG_BOX);
             System.out.println("Line: " + 200);
         } else if (!Verify.md5(oldPasswordField.getText()).equals(User.getPassword())) {
-            DialogBox.showDialogue("Error","Incorrect password",DialogBox.ERROR_DIALOG_BOX);
+            DialogBox.showDialogue("Error", "Incorrect password", DialogBox.ERROR_DIALOG_BOX);
             System.out.println("Line: " + 202);
         } else {
             Connection.sendRequestCode(NetworkRequestCodes.EDIT_PROFILE_REQUEST);
             Connection.sendPrimitiveObject(nameField.getText());
             Connection.sendPrimitiveObject(Verify.md5(newPasswordField.getText()));
-            if(Connection.receiveRequestCode() == NetworkRequestCodes.UPDATE_EVENT_SUCCESSFUL){
-                DialogBox.showDialogue("Success","Profile updated successfully",DialogBox.SUCCESS_DIALOG_BOX);
+            if (Connection.receiveRequestCode() == NetworkRequestCodes.UPDATE_EVENT_SUCCESSFUL) {
+                DialogBox.showDialogue("Success", "Profile updated successfully", DialogBox.SUCCESS_DIALOG_BOX);
                 Utility.deleteStage(parent);
             } else {
-                DialogBox.showDialogue("Error","Profile update failed",DialogBox.ERROR_DIALOG_BOX);
+                DialogBox.showDialogue("Error", "Profile update failed", DialogBox.ERROR_DIALOG_BOX);
             }
         }
     }
@@ -194,6 +195,18 @@ public class HomeActivityController extends Controller {
         oldPasswordField.setText("");
         nameField.setText("");
         editProfileMessage.setText("");
+    }
+
+    public void onSearchFieldKeyPressed(KeyEvent keyEvent) {
+        // search if any key is pressed
+        if (keyEvent.getCode().isLetterKey() || keyEvent.getCode().isDigitKey() || keyEvent.getCode().isWhitespaceKey() || keyEvent.getCode() == KeyCode.BACK_SPACE) {
+            try {
+                makeCardView(searchField.getText());
+                this.init();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
 

@@ -80,19 +80,11 @@
                     <Image url="@../../../icons/search-icon.png" />
                 </ImageView>
             </HBox>
-            <TextField fx:id="searchField" focusTraversable="false" maxHeight="36.0" maxWidth="250.0" minHeight="36.0" minWidth="250.0" prefHeight="36.0" prefWidth="250.0" promptText="Search Anything" style="-fx-background-color: #fff; -fx-background-radius: 0 0 0 0;">
+            <TextField fx:id="searchField" focusTraversable="false" maxHeight="36.0" maxWidth="250.0" minHeight="36.0" minWidth="250.0" onKeyPressed="#onSearchFieldKeyPressed" prefHeight="36.0" prefWidth="250.0" promptText="Type Anything to Search" style="-fx-background-color: #fff; -fx-background-radius: 0 8 8 0;">
                 <font>
                     <Font name="Arial" size="13.0" />
                 </font>
             </TextField>
-            <Button maxHeight="36.0" maxWidth="70.0" minHeight="36.0" minWidth="70.0" mnemonicParsing="false" onAction="#onSearchButton" prefHeight="36.0" prefWidth="70.0" style="-fx-background-radius: 0 8 8 0; -fx-background-color: #fff; -fx-border-radius: 0;" text="Search" textFill="#547794" HBox.hgrow="ALWAYS">
-                <HBox.margin>
-                    <Insets />
-                </HBox.margin>
-                <font>
-                    <Font name="Arial Bold" size="13.0" />
-                </font>
-            </Button>
             <HBox prefWidth="200.0" HBox.hgrow="ALWAYS" />
             <HBox alignment="CENTER_RIGHT" maxWidth="200.0" minWidth="200.0" prefWidth="200.0" spacing="5.0">
                 <HBox.margin>
@@ -298,7 +290,7 @@
             </HBox>
         </VBox>
     </Pane>
-    <Pane fx:id="profileEditView" layoutX="421.0" layoutY="69.0" prefHeight="282.0" prefWidth="475.0" style="-fx-background-color: #e1e4f4; -fx-background-radius: 10;">
+    <Pane fx:id="profileEditView" layoutX="421.0" layoutY="69.0" prefHeight="282.0" prefWidth="475.0" style="-fx-background-color: #e1e4f4; -fx-background-radius: 10;" visible="false">
         <padding>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
         </padding>
