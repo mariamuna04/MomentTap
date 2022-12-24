@@ -1,0 +1,60 @@
+.categoryButton {
+    -fx-background-radius: 50;
+    -fx-background-color: #49599a;
+}
+
+
+.categoryButton:hover {
+    -fx-background-color: #3B487D;
+}
+
+.sideButtons{
+    -fx-background-radius: 0 50 50 0;
+    -fx-background-color:  #c5cae9;
+}
+
+.sideButtons:hover {
+    -fx-background-color: #A6AEDD;
+}
+
+.profileButton {
+    -fx-background-radius: 6;
+    -fx-background-color:  #9fa8da;
+}
+
+.profileButton:hover {
+    -fx-background-radius: 10;
+    -fx-background-color: #8C97C9;
+}
+
+.searchField{
+    -fx-background-color: #fff;
+    -fx-background-radius: 0 8 8 0;
+}
+
+.editProfileButton{
+    -fx-background-radius: 20;
+    -fx-background-color:  #c5cae9;
+}
+
+.editProfileButton:hover {
+    -fx-background-color: #A6AEDD;
+}
+
+.editProfileCancelButton{
+    -fx-background-radius: 20;
+    -fx-background-color:   #ffcdd2;
+}
+
+.editProfileCancelButton:hover {
+    -fx-background-color: #FFB4BA;
+}
+
+.editProfileSaveButton {
+    -fx-background-radius: 20;
+    -fx-background-color:  #49599a;
+}
+
+.editProfileSaveButton:hover {
+    -fx-background-color: #3B487D;
+}

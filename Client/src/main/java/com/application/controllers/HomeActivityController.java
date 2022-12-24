@@ -17,7 +17,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
-import java.util.jar.JarEntry;
+import java.util.Objects;
 
 /**
  * This Controller handles the Home Activity.
@@ -51,9 +51,6 @@ public class HomeActivityController extends Controller {
 
         if (future_events.getChildren().size() == 0 && past_events.getChildren().size() == 0 && !primaryInitialized) {
             onAllEventButtonListener();
-            profileViewUpcoming.setText(String.valueOf(User.sortedFutureEvents.size()));
-            profileViewUpcoming.setText(String.valueOf(User.sortedPastEvents.size()));
-
             primaryInitialized = true;
         }
     }
@@ -172,7 +169,7 @@ public class HomeActivityController extends Controller {
         } else if (!newPasswordField.getText().equals(confirmPasswordField.getText())) {
             DialogBox.showDialogue("Error", "Passwords do not match", DialogBox.ERROR_DIALOG_BOX);
             System.out.println("Line: " + 200);
-        } else if (!Verify.md5(oldPasswordField.getText()).equals(User.getPassword())) {
+        } else if (!Objects.equals(Verify.md5(oldPasswordField.getText()), User.getPassword())) {
             DialogBox.showDialogue("Error", "Incorrect password", DialogBox.ERROR_DIALOG_BOX);
             System.out.println("Line: " + 202);
         } else {
@@ -198,7 +195,6 @@ public class HomeActivityController extends Controller {
     }
 
     public void onSearchFieldKeyPressed(KeyEvent keyEvent) {
-        // search if any key is pressed
         if (keyEvent.getCode().isLetterKey() || keyEvent.getCode().isDigitKey() || keyEvent.getCode().isWhitespaceKey() || keyEvent.getCode() == KeyCode.BACK_SPACE) {
             try {
                 makeCardView(searchField.getText());
