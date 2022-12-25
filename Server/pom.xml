@@ -31,11 +31,6 @@
             <version>2.0.5</version>
             <scope>runtime</scope>
         </dependency>
-        <dependency>
-            <groupId>com.calendarfx</groupId>
-            <artifactId>view</artifactId>
-            <version>11.12.3</version>
-        </dependency>
     </dependencies>
 
 </project>

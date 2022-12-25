@@ -37,6 +37,14 @@
             <artifactId>javafx-fxml</artifactId>
             <version>19-ea+7</version>
         </dependency>
+
+        <!-- For remove the stupid Simple Logging Facade  -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>2.0.5</version>
+            <scope>runtime</scope>
+        </dependency>
     </dependencies>
 
     <build>
