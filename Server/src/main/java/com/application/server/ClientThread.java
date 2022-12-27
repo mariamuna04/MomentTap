@@ -57,6 +57,8 @@ public class ClientThread implements Runnable {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+            } else if (clientRequest == NetworkRequestCodes.UPDATE_EVENT_REQUEST1){
+                Sequence.updateEventSequence(this.user);
             }
         }
     }

@@ -3,7 +3,9 @@
 package com.application.utility;
 
 import com.application.client.Sequence;
+import com.application.client.User;
 import com.application.connection.Connection;
+import com.application.serialShared.Event;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.*;
@@ -265,7 +267,6 @@ public class EventCard {
         updateEventEndTime.setStyle("-fx-background-color: #FFF;-fx-background-radius: 8px;");
 
         updateEventButton.setMinHeight(30);
-
         updateEventCancelButton.setMinHeight(30);
 
 
@@ -362,6 +363,54 @@ public class EventCard {
                     cardView = true;
                 }
 
+            }
+        });
+        updateEventButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                if (updateEventName.getText().equals("") && updateEventCategory.getText().equals("") && updateEventDescription.getText().equals("") && updateEventDate.getValue() == null && updateEventStartTime.getText() == null && updateEventEndTime.getText() == null) {
+                    try {
+                        DialogBox.showDialogue("Warning", "No Changes", DialogBox.WARNING_DIALOG_BOX);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    return;
+                }
+                String _name = (updateEventName.getText().equals("")) ? name : updateEventName.getText();
+                String _category = (updateEventCategory.getText().equals("")) ? category : updateEventCategory.getText();
+                String _description = (updateEventDescription.getText().equals("")) ? description : updateEventDescription.getText();
+                String _date = (updateEventDate.getValue() == null) ? date : updateEventDate.getValue().toString();
+                String _startTime = (updateEventStartTime.getText().equals("")) ? startTime.toString() : updateEventStartTime.getText();
+                String _endTime = (updateEventEndTime.getText().equals("")) ? endTime.toString() : updateEventEndTime.getText();
+
+                Event event = new Event(User.getEmail(), _name, _category, _description, _date, Time.parseTime(_startTime), Time.parseTime(_endTime));
+                Connection.sendRequestCode(NetworkRequestCodes.UPDATE_EVENT_REQUEST1);
+                Connection.sendObject(event);
+                Connection.sendPrimitiveObject(name);
+                Connection.sendPrimitiveObject(date);
+                int responseCode = Connection.receiveRequestCode();
+                if (responseCode == NetworkRequestCodes.UPDATE_EVENT_SUCCESSFUL1) {
+                    try {
+                        DialogBox.showDialogue("Updated", "Event updated successfully, Please Refresh", DialogBox.SUCCESS_DIALOG_BOX);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    try {
+                        DialogBox.showDialogue("Error", "Event not updated", DialogBox.ERROR_DIALOG_BOX);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+
+        updateEventCancelButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                parent.getChildren().removeAll(updateEventView, bottomGUI);
+                parent.getChildren().addAll(eventName, eventCategory, eventDescription, eventDate, timeHolder, bottomGUI);
+                cardView = true;
             }
         });
 

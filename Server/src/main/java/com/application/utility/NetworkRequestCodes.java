@@ -30,16 +30,19 @@ public class NetworkRequestCodes {
     public static final int CREATE_EVENT_UNSUCCESSFUL = -204;
     public static final int DELETE_EVENT_SUCCESSFUL = 205;
     public static final int DELETE_EVENT_UNSUCCESSFUL = -205;
-
     public static final int EDIT_PROFILE_REQUEST = 106;
+    public static final int UPDATE_EVENT_REQUEST1 = 110;
 
     public static final int EDIT_PROFILE_SUCCESSFUL = 206;
     public static final int EDIT_PROFILE_UNSUCCESSFUL = -206;
     public static final int SEARCH_EVENT_SUCCESSFUL = 207;
     public static final int SEARCH_EVENT_UNSUCCESSFUL = -207;
-
     public static final int SHARE_EVENT_REQUEST = 108;
     public static final int SHARE_EVENT_SUCCESSFUL = 208;
+    public static final int SHARE_EVENT_UNSUCCESSFUL = -208;
+    public static final int UPDATE_EVENT_SUCCESSFUL1 = 210;
+    public static final int UPDATE_EVENT_UNSUCCESSFUL1 = -210;
+
 
     public static final int USER_NOT_FOUND = 988;
 

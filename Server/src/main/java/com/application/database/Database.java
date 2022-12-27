@@ -188,4 +188,23 @@ public class Database {
     }
 
 
+    public static void updateEvent(Event newEvent, String oldName, String oldDate) {
+        String email = newEvent.user_email();
+        String name = newEvent.event_name();
+        String description = newEvent.event_description();
+        String category = newEvent.event_category();
+        String date = newEvent.event_date();
+        String start_time = newEvent.event_start_time().toString();
+        String end_time = newEvent.event_end_time().toString();
+
+        // update event in database
+        try {
+            establishConnection();
+            connection.createStatement().executeUpdate("UPDATE events SET event_name = '" + name + "', event_description = '" + description + "', event_category = '" + category + "', event_date = '" + date + "', event_start_time = '" + start_time + "', event_end_time = '" + end_time + "' WHERE user_email = '" + email + "' AND event_name = '" + oldName + "' AND event_date = '" + oldDate + "'");
+            System.out.println("Event Updated");
+        } catch (Exception e) {
+            System.out.println("Error while executing query: updateEvent [Database.java:116]");
+            System.err.println("Possible reason: Database is not running, or SQL syntax is incorrect");
+        }
+    }
 }

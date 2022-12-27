@@ -94,6 +94,20 @@ public class Sequence {
         }
     }
 
+    public static void updateEventSequence(User user) {
+        try {
+            Event event = (Event) user.getObjectInputStream().readObject();
+            String oldName = user.receiveString();
+            String oldDate = user.receiveString();
+            System.out.println(event);
+            Database.updateEvent(event,oldName,oldDate);
+            user.sendRequestCode(NetworkRequestCodes.UPDATE_EVENT_SUCCESSFUL1);
+        } catch (Exception e) {
+            user.sendRequestCode(NetworkRequestCodes.UPDATE_EVENT_UNSUCCESSFUL1);
+            e.printStackTrace();
+        }
+    }
+
     /*public static void shareEventSequence(User user) throws Exception {
         String from = user.getEmail();
         String to = user.receiveString();
