@@ -12,7 +12,6 @@ import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -69,7 +68,7 @@ public class EventCard {
     boolean cardView = true;
 
 
-    public VBox makeCard(String date, String name, String category, String description, int startTime, int endTime, int type) {
+    public VBox makeCard(String date, String name, String category, String description, Time startTime, Time endTime, int type) {
         this.parent.setSpacing(6);
         this.parent.setEffect(new DropShadow(BlurType.THREE_PASS_BOX, Color.rgb(163, 163, 163), 10, 0, 3, 3));
         if (type == 1) {
@@ -149,6 +148,7 @@ public class EventCard {
         }
         circleTwo.setFill(javafx.scene.paint.Color.BLACK);
 
+
         timeLineHolder.getChildren().addAll(circleOne, line, circleTwo);
         timeLineHolder.setAlignment(javafx.geometry.Pos.CENTER);
 
@@ -218,16 +218,16 @@ public class EventCard {
         shareEmail.setPromptText("Enter email");
         shareEmail.setMinHeight(30);
         shareEmail.setStyle("-fx-background-color: #FFF;-fx-background-radius: 12px;");
-        Button c = new Button();
-        c.setStyle("-fx-background-color: #c5cae9 ;-fx-background-radius: 50px;");
-        c.setMinHeight(30);
+        Button _shareButton = new Button();
+        _shareButton.setStyle("-fx-background-color: #c5cae9 ;-fx-background-radius: 50px;");
+        _shareButton.setMinHeight(30);
         Image _shareIcon = new Image("file:Client/src/main/resources/icons/share-enter-icon.png");
         ImageView _shareIconView = new ImageView(_shareIcon);
         _shareIconView.setFitHeight(22);
         _shareIconView.setFitWidth(22);
-        c.setGraphic(_shareIconView);
+        _shareButton.setGraphic(_shareIconView);
 
-        shareView.getChildren().addAll(shareEmail, c);
+        shareView.getChildren().addAll(shareEmail, _shareButton);
 
 
         // Update GUI initialization -------------------------------------------------------------------------
@@ -270,7 +270,7 @@ public class EventCard {
 
 
 
-        c.setOnAction(new EventHandler<ActionEvent>() {
+        _shareButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 if (shareEmail.getText().equals("")) {
@@ -285,8 +285,8 @@ public class EventCard {
                 Connection.sendPrimitiveObject(description);
                 Connection.sendPrimitiveObject(category);
                 Connection.sendPrimitiveObject(date);
-                Connection.sendRequestCode(startTime);
-                Connection.sendRequestCode(endTime);
+                Connection.sendPrimitiveObject(startTime.toString());
+                Connection.sendPrimitiveObject(endTime.toString()); // hh:mm
 
                 int responseCode = Connection.receiveRequestCode();
 

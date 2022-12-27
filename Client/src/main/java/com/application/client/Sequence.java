@@ -4,7 +4,9 @@ package com.application.client;
 
 import com.application.connection.Connection;
 import com.application.serialShared.Event;
+import com.application.utility.Date;
 import com.application.utility.NetworkRequestCodes;
+import com.application.utility.Time;
 
 import java.io.IOException;
 
@@ -126,9 +128,9 @@ public class Sequence {
                     String description = Connection.getDataInputStream().readUTF();
                     String category = Connection.getDataInputStream().readUTF();
                     String date = Connection.getDataInputStream().readUTF();
-                    int start_time = Connection.getDataInputStream().readInt();
-                    int end_time = Connection.getDataInputStream().readInt();
-                    Event e = new Event(User.getEmail(), name, description, category, date, start_time, end_time);
+                    String start_time = Connection.getDataInputStream().readUTF();
+                    String end_time = Connection.getDataInputStream().readUTF();
+                    Event e = new Event(User.getEmail(), name, description, category, date, Time.parseTime(start_time), Time.parseTime(end_time));
                     User.events.add(e);
                 }
             }

@@ -2,7 +2,7 @@
 
 package com.application.utility;
 
-public record Time (int hour, int minute) {
+public record Time(int hour, int minute) {
 
     @Override
     public String toString() {
@@ -10,8 +10,15 @@ public record Time (int hour, int minute) {
     }
 
     public static Time parseTime(String time) {
-        String[] timeArray = time.split(":");
-        return new Time(Integer.parseInt(timeArray[0]), Integer.parseInt(timeArray[1]));
+        if (time.contains(":")) {
+            String[] timeArray = time.split(":");
+            return new Time(Integer.parseInt(timeArray[0]), Integer.parseInt(timeArray[1]));
+        } else if (time.contains(".")) {
+            String[] timeArray = time.split("\\.");
+            return new Time(Integer.parseInt(timeArray[0]), Integer.parseInt(timeArray[1]));
+        } else {
+            return new Time(Integer.parseInt(time), 0);
+        }
     }
 
     public static boolean compareTime(Time time) {

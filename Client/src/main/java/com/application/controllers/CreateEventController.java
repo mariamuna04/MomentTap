@@ -5,6 +5,7 @@ import com.application.client.User;
 import com.application.serialShared.Event;
 import com.application.utility.Date;
 import com.application.utility.DialogBox;
+import com.application.utility.Time;
 import com.application.utility.Utility;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
@@ -32,7 +33,7 @@ public class CreateEventController extends Controller {
     private TextField event_end_time;
 
     public void onCreateButtonListener() throws Exception {
-        if(event_name.getText().isEmpty() || event_category.getText().isEmpty()  || event_date.getValue() == null || event_start_time.getText().isEmpty() || event_end_time.getText().isEmpty()) {
+        if (event_name.getText().isEmpty() || event_category.getText().isEmpty() || event_date.getValue() == null || event_start_time.getText().isEmpty() || event_end_time.getText().isEmpty()) {
             createEventMessageTextField.setText("Please fill in all the fields");
             return;
         }
@@ -44,13 +45,13 @@ public class CreateEventController extends Controller {
         // WARNING
         //   Fixing time will break sql codes
 
+        Time startTime = Time.parseTime(event_start_time.getText());
+        Time endTime = Time.parseTime(event_end_time.getText());
+        boolean validTime = Time.compareTime(startTime, endTime) && startTime.hour() >= 0 && startTime.hour() <= 23 && endTime.hour() >= 0 && endTime.hour() <= 23 && startTime.minute() >= 0 && startTime.minute() <= 59 && endTime.minute() >= 0 && endTime.minute() <= 59;
 
-//        Time startTime = Time.parseTime(event_start_time.getText());
-//        Time endTime = Time.parseTime(event_end_time.getText());
-//        boolean validTime = Time.compareTime(startTime, endTime);
-
-        if(validDate) {
-            Event event = new Event(User.getEmail(), event_name.getText(), event_description.getText(), event_category.getText(), event_date.getValue().toString(), Integer.parseInt(event_start_time.getText()), Integer.parseInt(event_end_time.getText()));
+        if (validDate && validTime) {
+            Event event = new Event(User.getEmail(), event_name.getText(), event_description.getText(), event_category.getText(),
+                    event_date.getValue().toString(), Time.parseTime(event_start_time.getText()), Time.parseTime(event_end_time.getText()));
             if (Sequence.createEventSequence(event)) {
                 DialogBox.showDialogue("Success", "Event created successfully.", DialogBox.SUCCESS_DIALOG_BOX);
                 Utility.deleteStage(parent);
@@ -59,7 +60,13 @@ public class CreateEventController extends Controller {
                 Utility.deleteStage(parent);
             }
         } else {
-            createEventMessageTextField.setText("Date cannot be in the past");
+            if (!validDate) {
+                createEventMessageTextField.setText("Please enter a valid date");
+            }
+
+            if (!validTime) {
+                createEventMessageTextField.setText("Please enter a valid time");
+            }
         }
     }
 

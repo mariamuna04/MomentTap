@@ -149,7 +149,6 @@ public class HomeActivityController extends Controller {
                 past_events.getChildren().add(vBox);
             }
         }
-
     }
 
     public void onProfileButtonListener() {

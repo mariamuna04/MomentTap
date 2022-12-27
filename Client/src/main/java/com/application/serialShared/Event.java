@@ -18,6 +18,6 @@ import java.io.Serializable;
  * @param event_end_time End time of the event
  */
 public record Event(String user_email, String event_name, String event_description, String event_category,
-                    Date event_date, Time event_start_time, Time event_end_time) implements Serializable {
+                    String event_date, Time event_start_time, Time event_end_time) implements Serializable {
 
 }
