@@ -105,10 +105,10 @@ public class EventCard {
 
 
         this.eventStartTime.setFont(Font.font("Arial", FontWeight.BOLD, 16));
-        this.eventStartTime.setText(startTime + ".00");
+        this.eventStartTime.setText(startTime.toString());
 
         this.eventEndTime.setFont(Font.font("Arial", FontWeight.BOLD, 16));
-        this.eventEndTime.setText(endTime + ".00");
+        this.eventEndTime.setText(endTime.toString());
 
         if (type == 1) {
             // Set text color to white
@@ -364,7 +364,6 @@ public class EventCard {
 
             }
         });
-
 
         this.parent.getChildren().addAll(eventName, eventDate, eventCategory, eventDescription, timeHolder, bottomGUI);
 

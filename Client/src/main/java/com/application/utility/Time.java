@@ -2,7 +2,9 @@
 
 package com.application.utility;
 
-public record Time(int hour, int minute) {
+import java.io.Serializable;
+
+public record Time(int hour, int minute) implements Serializable {
 
     @Override
     public String toString() {
@@ -31,10 +33,10 @@ public record Time(int hour, int minute) {
     }
 
     private static boolean compare(Time o1, Time o2) {
-        if (o1.hour() > o2.hour()) {
+        if (o1.hour() < o2.hour()) {
             return true;
         } else if (o1.hour() == o2.hour()) {
-            return o1.minute() >= o2.minute();
+            return o1.minute() <= o2.minute();
         }
         return false;
     }

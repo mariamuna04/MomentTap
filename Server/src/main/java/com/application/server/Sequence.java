@@ -18,6 +18,7 @@ public class Sequence {
     public static void createEventSequence(User user) {
         try {
             Event event = (Event) user.getObjectInputStream().readObject();
+            System.out.println(event);
             Database.addEvent(event);
             user.sendRequestCode(NetworkRequestCodes.CREATE_EVENT_SUCCESSFUL);
         } catch (Exception e) {
@@ -65,8 +66,8 @@ public class Sequence {
                     user.sendData(Database.resultSet.getString("event_description"));
                     user.sendData(Database.resultSet.getString("event_category"));
                     user.sendData(Database.resultSet.getString("event_date"));
-                    user.sendData(Database.resultSet.getInt("event_start_time"));
-                    user.sendData(Database.resultSet.getInt("event_end_time"));
+                    user.sendData(Database.resultSet.getString("event_start_time"));
+                    user.sendData(Database.resultSet.getString("event_end_time"));
                 }
             } else {
                 user.sendRequestCode(NetworkRequestCodes.SEARCH_EVENT_UNSUCCESSFUL);
@@ -93,7 +94,7 @@ public class Sequence {
         }
     }
 
-    public static void shareEventSequence(User user) throws Exception {
+    /*public static void shareEventSequence(User user) throws Exception {
         String from = user.getEmail();
         String to = user.receiveString();
         String name = user.receiveString();
@@ -124,4 +125,5 @@ public class Sequence {
         user.sendRequestCode(NetworkRequestCodes.SHARE_EVENT_SUCCESSFUL);
 
     }
+     */
 }

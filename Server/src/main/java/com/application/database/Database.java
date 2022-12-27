@@ -104,8 +104,8 @@ public class Database {
         String description = event.event_description();
         String category = event.event_category();
         String date = event.event_date();
-        int start_time = event.event_start_time();
-        int end_time = event.event_end_time();
+        String start_time = event.event_start_time().toString();
+        String end_time = event.event_end_time().toString();
 
         // add event to database
         try {
@@ -134,10 +134,11 @@ public class Database {
     public static void searchEvent(String email, String keyword) {
         try {
             establishConnection();
-            if (keyword.matches("[0-9]+")) {
-                int integer_keyword = Integer.parseInt(keyword);
-                resultSet = connection.createStatement().executeQuery("SELECT * FROM events WHERE user_email LIKE '%" + email + "%' AND ( event_name LIKE '%" + keyword + "%' OR event_description LIKE '%" + keyword + "%' OR event_category LIKE '%" + keyword + "%' OR event_date LIKE '%" + keyword + "%' OR (event_start_time <= " + integer_keyword + " AND event_end_time >= " + integer_keyword + "))");
-            } else if (keyword.equals("")) {
+            //if (keyword.matches("[0-9]+")) {
+               // int integer_keyword = Integer.parseInt(keyword);
+               // resultSet = connection.createStatement().executeQuery("SELECT * FROM events WHERE user_email LIKE '%" + email + "%' AND ( event_name LIKE '%" + keyword + "%' OR event_description LIKE '%" + keyword + "%' OR event_category LIKE '%" + keyword + "%' OR event_date LIKE '%" + keyword + "%' OR (event_start_time <= " + integer_keyword + " AND event_end_time >= " + integer_keyword + "))");
+        //    }
+        if (keyword.equals("")) {
                 resultSet = connection.createStatement().executeQuery("SELECT * FROM events WHERE user_email LIKE '%" + email + "%'");
             } else {
                 resultSet = connection.createStatement().executeQuery("SELECT * FROM events WHERE user_email LIKE '%" + email + "%' AND ( event_name LIKE '%" + keyword + "%' OR event_description LIKE '%" + keyword + "%' OR event_category LIKE '%" + keyword + "%' OR event_date LIKE '%" + keyword + "%')");

@@ -53,7 +53,7 @@ public class ClientThread implements Runnable {
                 Sequence.editProfileSequence(this.user);
             } else if (clientRequest == NetworkRequestCodes.SHARE_EVENT_REQUEST) {
                 try {
-                    Sequence.shareEventSequence(this.user);
+                   // Sequence.shareEventSequence(this.user);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

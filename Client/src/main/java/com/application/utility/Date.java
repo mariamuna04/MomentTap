@@ -2,7 +2,9 @@
 
 package com.application.utility;
 
-public record Date(int day, int month, int year) {
+import java.io.Serializable;
+
+public record Date (int day, int month, int year) implements Serializable {
 
     @Override
     public String toString() {

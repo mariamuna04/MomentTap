@@ -2,7 +2,9 @@
 
 package com.application.utility;
 
-public record Time (int hour, int minute) {
+import java.io.Serializable;
+
+public record Time (int hour, int minute) implements Serializable {
 
     @Override
     public String toString() {
