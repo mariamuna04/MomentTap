@@ -48,7 +48,7 @@ public class ClientThread implements Runnable {
                     return;
                 }
                 case NetworkRequestCodes.EDIT_PROFILE_REQUEST -> Sequence.editProfileSequence(this.user);
-                // case NetworkRequestCodes.SHARE_EVENT_REQUEST -> Sequence.shareEventRequest(this.user);
+                case NetworkRequestCodes.SHARE_EVENT_REQUEST -> Sequence.shareEventSequence(this.user);
             }
         }
     }

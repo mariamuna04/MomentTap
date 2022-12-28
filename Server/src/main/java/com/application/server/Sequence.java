@@ -99,11 +99,25 @@ public class Sequence {
             Event event = (Event) user.getObjectInputStream().readObject();
             String oldName = user.receiveString();
             String oldDate = user.receiveString();
-            System.out.println(event);
+
             Database.updateEvent(event, oldName, oldDate);
             user.sendRequestCode(NetworkRequestCodes.UPDATE_EVENT_SUCCESSFUL1);
         } catch (Exception e) {
             user.sendRequestCode(NetworkRequestCodes.UPDATE_EVENT_UNSUCCESSFUL1);
+            e.printStackTrace();
+        }
+    }
+
+    public static void shareEventSequence(User user){
+        try{
+            Event event = (Event) user.getObjectInputStream().readObject();
+            String toEmail = user.receiveString();
+            Database.shareEvent(event, toEmail);
+            user.sendRequestCode(NetworkRequestCodes.SHARE_EVENT_SUCCESSFUL);
+
+        }
+        catch (Exception e){
+            user.sendRequestCode(NetworkRequestCodes.SHARE_EVENT_UNSUCCESSFUL);
             e.printStackTrace();
         }
     }

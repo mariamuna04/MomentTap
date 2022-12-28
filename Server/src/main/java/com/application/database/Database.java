@@ -192,4 +192,23 @@ public class Database {
             System.err.println("Possible reason: Database is not running, or SQL syntax is incorrect");
         }
     }
+
+    public static void shareEvent(Event event, String toEmail) {
+        String email = event.user_email();
+        String name = event.event_name();
+        String description = event.event_description();
+        String category = event.event_category();
+        String date = event.event_date();
+        String start_time = event.event_start_time().toString();
+        String end_time = event.event_end_time().toString();
+
+        try{
+            establishConnection();
+            connection.createStatement().executeUpdate("INSERT INTO events (user_email, event_name, event_description,  event_category, event_date, event_start_time, event_end_time, event_from) VALUES " + "('" + toEmail + "', '" + name + "', '" + description + "', '" + category + "', '" + date + "', '" + start_time + "', '" + end_time + "', '" + email + "')");
+        }
+        catch (Exception e) {
+            System.out.println("Error while executing query: shareEvent [Database.java:116]");
+            System.err.println("Possible reason: Database is not running, or SQL syntax is incorrect");
+        }
+    }
 }

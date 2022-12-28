@@ -66,12 +66,14 @@ public class EventCard {
     boolean cardView = true;
 
 
-    public VBox makeCard(String date, String name, String category, String description, Time startTime, Time endTime, int type) {
+    public VBox makeCard(String date, String name, String category, String description, Time startTime, Time endTime, int type, boolean isShared) {
         this.parent.setSpacing(6);
         this.parent.setEffect(new DropShadow(BlurType.THREE_PASS_BOX, Color.rgb(163, 163, 163), 10, 0, 3, 3));
         if (type == 1) {
             this.parent.setStyle("-fx-background-color: #9fa8da; -fx-background-radius: 12px;");
-        } else this.parent.setStyle("-fx-background-color: #b6bbe2; -fx-background-radius: 12px;");
+        }else if(isShared)
+            this.parent.setStyle("-fx-background-color: #e57373; -fx-background-radius: 12px;");
+        else this.parent.setStyle("-fx-background-color: #b6bbe2; -fx-background-radius: 12px;");
 
         this.parent.setPadding(new javafx.geometry.Insets(10, 10, 10, 10));
 
@@ -243,6 +245,8 @@ public class EventCard {
         updateEventDescription.setMaxHeight(90);
         updateEventDescription.setPrefHeight(90);
 
+        eventName.setWrapText(true);
+
 
         updateEventName.setPromptText(name);
         updateEventName.setMinHeight(30);
@@ -274,40 +278,27 @@ public class EventCard {
             if (shareEmail.getText().equals("")) {
                 shareEmail.setStyle("-fx-background-color: #FFF;-fx-background-radius: 12px; -fx-border-color: #F76E64; -fx-border-width: 2px; -fx-border-radius: 12px;");
                 return;
-            }
+            };
 
-            // Send data to server
+            Event sharingEvent = new Event(User.getEmail(), name, description, category, date, startTime, endTime);
+            sharingEvent.isShared = true;
+
             Connection.sendRequestCode(NetworkRequestCodes.SHARE_EVENT_REQUEST);
+            Connection.sendObject(sharingEvent);
             Connection.sendPrimitiveObject(shareEmail.getText());
-            Connection.sendPrimitiveObject(name);
-            Connection.sendPrimitiveObject(description);
-            Connection.sendPrimitiveObject(category);
-            Connection.sendPrimitiveObject(date);
-            Connection.sendPrimitiveObject(startTime.toString());
-            Connection.sendPrimitiveObject(endTime.toString()); // hh:mm
 
-            int responseCode = Connection.receiveRequestCode();
 
-            if (responseCode == NetworkRequestCodes.SHARE_EVENT_SUCCESSFUL) {
-                try {
-                    DialogBox.showDialogue("Shared", "Event shared successfully", DialogBox.SUCCESS_DIALOG_BOX);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            } else if (responseCode == NetworkRequestCodes.USER_NOT_FOUND) {
-                try {
-                    DialogBox.showDialogue("Error", "User not found", DialogBox.ERROR_DIALOG_BOX);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            } else {
-                try {
-                    DialogBox.showDialogue("Error", "Event not shared", DialogBox.ERROR_DIALOG_BOX);
-                } catch (Exception e) {
-                    e.printStackTrace();
+            int response = Connection.receiveRequestCode();
+            try {
+                if (response == NetworkRequestCodes.SHARE_EVENT_SUCCESSFUL) {
+                    DialogBox.showDialogue("Event shared successfully", "Event shared successfully", DialogBox.SUCCESS_DIALOG_BOX);
+                } else {
+                    DialogBox.showDialogue("Event sharing failed", "Event sharing failed", DialogBox.ERROR_DIALOG_BOX);
                 }
             }
-
+            catch(Exception e){
+                    e.printStackTrace();
+                }
 
         });
 
