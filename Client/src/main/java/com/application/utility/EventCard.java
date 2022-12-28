@@ -360,7 +360,7 @@ public class EventCard {
             String _startTime = (updateEventStartTime.getText().equals("")) ? startTime.toString() : updateEventStartTime.getText();
             String _endTime = (updateEventEndTime.getText().equals("")) ? endTime.toString() : updateEventEndTime.getText();
 
-            Event event = new Event(User.getEmail(), _name, _category, _description, _date, Time.parseTime(_startTime), Time.parseTime(_endTime));
+            Event event = new Event(User.getEmail(), _name, _description, _category, _date, Time.parseTime(_startTime), Time.parseTime(_endTime));
             Connection.sendRequestCode(NetworkRequestCodes.UPDATE_EVENT_REQUEST1);
             Connection.sendObject(event);
             Connection.sendPrimitiveObject(name);
@@ -368,6 +368,7 @@ public class EventCard {
             int responseCode = Connection.receiveRequestCode();
             if (responseCode == NetworkRequestCodes.UPDATE_EVENT_SUCCESSFUL1) {
                 try {
+                    updateEventCancelButton.fire();
                     DialogBox.showDialogue("Updated", "Event updated successfully, Please Refresh", DialogBox.SUCCESS_DIALOG_BOX);
 
                 } catch (Exception e) {
