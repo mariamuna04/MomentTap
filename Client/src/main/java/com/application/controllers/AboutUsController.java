@@ -8,7 +8,6 @@ import javafx.scene.layout.Pane;
  */
 public class AboutUsController extends Controller {
 
-
     public Pane parent;
 
     public void onBackButtonListener() throws Exception {

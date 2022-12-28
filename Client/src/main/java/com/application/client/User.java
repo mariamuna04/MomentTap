@@ -32,7 +32,13 @@ public class User {
     public static PriorityQueue<Event> sortedPastEvents = new PriorityQueue<>((o1, o2) -> {
         Date dateOne = Date.parseDate(o1.event_date());
         Date dateTwo = Date.parseDate(o2.event_date());
-        if (o1.event_date().equals(o2.event_date())) return 0;
+        if (o1.event_date().equals(o2.event_date())) {
+            Time timeOne = o1.event_start_time();
+            Time timeTwo = o2.event_start_time();
+            if(timeOne.toString().equals(timeTwo.toString())) return 0;
+            else if(Time.compareTime(timeOne, timeTwo)) return -1;
+            else return 1;
+        };
         if (Date.compareDate(dateOne, dateTwo)) return -1;
         else return 1;
     });

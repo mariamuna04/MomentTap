@@ -263,7 +263,11 @@ public class EventCard {
         updateEventEndTime.setStyle("-fx-background-color: #FFF;-fx-background-radius: 8px;");
 
         updateEventButton.setMinHeight(30);
+        updateEventButton.setMinWidth(80);
+        updateEventButton.setStyle("-fx-background-color: #49599a ;-fx-background-radius: 10px; -fx-text-fill: #FFF;");
         updateEventCancelButton.setMinHeight(30);
+        updateEventCancelButton.setStyle("-fx-background-color: #c5cae9 ;-fx-background-radius: 10px;");
+        updateEventCancelButton.setMinWidth(80);
 
 
         _shareButton.setOnAction(event -> {
@@ -323,20 +327,18 @@ public class EventCard {
                 bottomGUI.getChildren().remove(shareView);
 
             }
-
-
         });
 
         deleteButton.setOnAction(event -> Sequence.deleteEventSequence(name, date));
 
         updateButton.setOnAction(event -> {
             if (cardView) {
-                parent.getChildren().removeAll(eventName, eventCategory, eventDescription, eventDate, timeHolder, bottomGUI);
-                parent.getChildren().addAll(updateEventView, bottomGUI);
+                parent.getChildren().removeAll(eventName,eventDate, eventCategory, eventDescription, timeHolder, bottomGUI);
+                parent.getChildren().addAll(updateEventView);
                 cardView = false;
             } else {
-                parent.getChildren().removeAll(updateEventView, bottomGUI);
-                parent.getChildren().addAll(eventName, eventCategory, eventDescription, eventDate, timeHolder, bottomGUI);
+                parent.getChildren().removeAll(updateEventView);
+                parent.getChildren().addAll(eventName, eventDate, eventCategory, eventDescription, timeHolder, bottomGUI);
                 cardView = true;
             }
 
@@ -367,6 +369,7 @@ public class EventCard {
             if (responseCode == NetworkRequestCodes.UPDATE_EVENT_SUCCESSFUL1) {
                 try {
                     DialogBox.showDialogue("Updated", "Event updated successfully, Please Refresh", DialogBox.SUCCESS_DIALOG_BOX);
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -380,7 +383,7 @@ public class EventCard {
         });
 
         updateEventCancelButton.setOnAction(actionEvent -> {
-            parent.getChildren().removeAll(updateEventView, bottomGUI);
+            parent.getChildren().removeAll(updateEventView);
             parent.getChildren().addAll(eventName, eventDate, eventCategory, eventDescription, timeHolder, bottomGUI);
             cardView = true;
         });

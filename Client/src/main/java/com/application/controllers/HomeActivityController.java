@@ -5,6 +5,7 @@ import com.application.client.User;
 import com.application.connection.Connection;
 import com.application.serialShared.Event;
 import com.application.utility.*;
+import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -22,22 +23,40 @@ import java.util.Objects;
  */
 public class HomeActivityController extends Controller {
 
-    public VBox future_events;
-    public VBox past_events;
+    public Pane graphicalCalendar;
+    @FXML
+    private Pane parent;
+    @FXML
+    private TextField searchField;
 
-    public boolean primaryInitialized = false;
-    public Button profileButton;
-    public Pane profileView;
-    public Pane backgroundOverlay;
-    public Label profileViewName;
-    public Label profileViewEmail;
-
-    public Pane profileEditView;
-    public TextField nameField;
-    public PasswordField oldPasswordField;
-    public PasswordField newPasswordField;
-    public PasswordField confirmPasswordField;
-    public Label editProfileMessage;
+    @FXML
+    private VBox future_events;
+    @FXML
+    private VBox past_events;
+    @FXML
+    private boolean primaryInitialized = false;
+    @FXML
+    private Button profileButton;
+    @FXML
+    private Pane profileView;
+    @FXML
+    private Pane backgroundOverlay;
+    @FXML
+    private Label profileViewName;
+    @FXML
+    private Label profileViewEmail;
+    @FXML
+    private Pane profileEditView;
+    @FXML
+    private TextField nameField;
+    @FXML
+    private PasswordField oldPasswordField;
+    @FXML
+    private PasswordField newPasswordField;
+    @FXML
+    private PasswordField confirmPasswordField;
+    @FXML
+    private Label editProfileMessage;
 
     @Override
     public void init() throws Exception {
@@ -49,11 +68,12 @@ public class HomeActivityController extends Controller {
             onAllEventButtonListener();
             primaryInitialized = true;
         }
+
+        graphicalCalendar.getChildren().removeAll(graphicalCalendar.getChildren());
+
+        graphicalCalendar.getChildren().add(new GraphicalCalendar());
     }
 
-
-    public Pane parent;
-    public TextField searchField;
 
     public void onCreateEventButton() {
         Utility.createStage("create-event-activity.fxml");
@@ -99,7 +119,8 @@ public class HomeActivityController extends Controller {
     }
 
     public void onOthersButtonListener() {
-        // makeCardView("Others");
+        // FIXME: Complete Other button Listener
+        // FIXME: Add SQL codes to database, simple search
     }
 
 

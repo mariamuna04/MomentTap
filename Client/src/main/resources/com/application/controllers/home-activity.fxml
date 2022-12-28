@@ -63,10 +63,7 @@
             <GridPane.margin>
                 <Insets left="-3.0" top="2.0" />
             </GridPane.margin>
-            <HBox alignment="CENTER" maxWidth="200.0" minWidth="200.0" prefWidth="200.0" spacing="12.0">
-                <padding>
-                    <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
-                </padding>
+            <HBox alignment="CENTER" maxWidth="200.0" minWidth="200.0" prefWidth="200.0">
                 <ImageView fitHeight="40.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                     <Image url="@../../../fxml-images/brand-logo.png" />
                 </ImageView>
@@ -76,29 +73,24 @@
                 <effect>
                     <DropShadow offsetX="3.0" offsetY="3.0">
                         <color>
-                            <Color red="0.8156862854957581" green="0.8156862854957581" blue="0.8156862854957581"/>
+                            <Color red="0.8156862854957581" green="0.8156862854957581" blue="0.8156862854957581" />
                         </color>
                     </DropShadow>
                 </effect>
-                <HBox alignment="CENTER" maxHeight="36.0" maxWidth="32.0" minHeight="32.0" minWidth="32.0"
-                      prefHeight="36.0" prefWidth="32.0"
-                      style="-fx-background-color: #fff; -fx-background-radius: 8 0 0 8;">
+                <HBox alignment="CENTER" maxHeight="36.0" maxWidth="32.0" minHeight="32.0" minWidth="32.0" prefHeight="36.0" prefWidth="32.0" style="-fx-background-color: #fff; -fx-background-radius: 8 0 0 8;">
                     <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true">
                         <HBox.margin>
-                            <Insets top="2.0"/>
+                            <Insets top="2.0" />
                         </HBox.margin>
-                        <Image url="@../../../icons/search-icon.png"/>
+                        <Image url="@../../../icons/search-icon.png" />
                     </ImageView>
                 </HBox>
-                <TextField fx:id="searchField" focusTraversable="false" maxHeight="36.0" maxWidth="250.0"
-                           minHeight="36.0" minWidth="250.0" onKeyPressed="#onSearchFieldKeyPressed" prefHeight="36.0"
-                           prefWidth="250.0" promptText="Type Anything to Search" styleClass="searchField"
-                           stylesheets="@../../../fxml-css/home-activity.css">
+                <TextField fx:id="searchField" focusTraversable="false" maxHeight="36.0" maxWidth="250.0" minHeight="36.0" minWidth="250.0" onKeyPressed="#onSearchFieldKeyPressed" prefHeight="36.0" prefWidth="250.0" promptText="Type Anything to Search" styleClass="searchField" stylesheets="@../../../fxml-css/home-activity.css">
                     <font>
-                        <Font name="Arial" size="13.0"/>
+                        <Font name="Arial" size="13.0" />
                     </font>
                     <opaqueInsets>
-                        <Insets/>
+                        <Insets />
                     </opaqueInsets>
                 </TextField>
             </HBox>
@@ -122,6 +114,13 @@
                     <cursor>
                         <Cursor fx:constant="HAND" />
                     </cursor>
+               <effect>
+                  <DropShadow offsetX="-2.0" offsetY="2.0">
+                     <color>
+                        <Color red="0.7763158082962036" green="0.7763158082962036" blue="0.7763158082962036" />
+                     </color>
+                  </DropShadow>
+               </effect>
                 </Button>
             </HBox>
             <effect>
@@ -137,7 +136,7 @@
                 <Insets bottom="-2.0" />
             </GridPane.margin>
             <padding>
-                <Insets bottom="8.0" top="8.0" />
+                <Insets top="8.0" />
             </padding>
             <Button alignment="BASELINE_LEFT" contentDisplay="BOTTOM" maxHeight="30.0" maxWidth="250.0" minHeight="50.0" minWidth="250.0" mnemonicParsing="false" onAction="#onCreateEventButton" prefHeight="30.0" prefWidth="250.0" styleClass="sideButtons" stylesheets="@../../../fxml-css/home-activity.css" text="New Event" textFill="#49599a" VBox.vgrow="ALWAYS">
                 <padding>
@@ -160,7 +159,7 @@
                     </DropShadow>
                 </effect>
             </Button>
-            <Button alignment="BASELINE_LEFT" contentDisplay="BOTTOM" maxHeight="30.0" maxWidth="250.0" minHeight="50.0" minWidth="250.0" mnemonicParsing="false" onAction="#onCreateEventButton" prefHeight="30.0" prefWidth="250.0" styleClass="sideButtons" stylesheets="@../../../fxml-css/home-activity.css" text="Calander" textFill="#49599a">
+            <Button alignment="BASELINE_LEFT" contentDisplay="BOTTOM" maxHeight="30.0" maxWidth="250.0" minHeight="50.0" minWidth="250.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="250.0" styleClass="sideButtons" stylesheets="@../../../fxml-css/home-activity.css" text="Chat" textFill="#49599a">
                 <padding>
                     <Insets left="35.0" />
                 </padding>
@@ -178,24 +177,39 @@
                     </DropShadow>
                 </effect>
             </Button>
-            <Button alignment="BASELINE_LEFT" contentDisplay="BOTTOM" maxHeight="30.0" maxWidth="250.0" minHeight="50.0" minWidth="250.0" mnemonicParsing="false" onAction="#onCreateEventButton" prefHeight="30.0" prefWidth="250.0" styleClass="sideButtons" stylesheets="@../../../fxml-css/home-activity.css" text="Chat" textFill="#49599a">
-                <padding>
-                    <Insets left="35.0" />
-                </padding>
-                <font>
-                    <Font name="Arial Bold" size="18.0" />
-                </font>
-                <cursor>
-                    <Cursor fx:constant="HAND" />
-                </cursor>
-                <effect>
-                    <DropShadow offsetX="2.0" offsetY="2.0">
-                        <color>
-                            <Color red="0.5131579041481018" green="0.5131579041481018" blue="0.5131579041481018" />
-                        </color>
-                    </DropShadow>
-                </effect>
-            </Button>
+         <Button alignment="BASELINE_LEFT" contentDisplay="BOTTOM" maxHeight="30.0" maxWidth="250.0" minHeight="50.0" minWidth="250.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="250.0" styleClass="sideButtons" stylesheets="@../../../fxml-css/home-activity.css" text="Shared Events" textFill="#49599a">
+            <padding>
+               <Insets left="35.0" />
+            </padding>
+            <font>
+               <Font name="Arial Bold" size="18.0" />
+            </font>
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor>
+            <effect>
+               <DropShadow offsetX="2.0" offsetY="2.0">
+                  <color>
+                     <Color red="0.5131579041481018" green="0.5131579041481018" blue="0.5131579041481018" />
+                  </color>
+               </DropShadow>
+            </effect>
+         </Button>
+         <Pane fx:id="graphicalCalendar" maxHeight="250.0" maxWidth="248.0" minHeight="250.0" minWidth="248.0" prefHeight="250.0" prefWidth="248.0" style="-fx-background-color: #c5cae9; -fx-background-radius: 0 20 20 0;">
+            <VBox.margin>
+               <Insets bottom="10.0" right="10.0" />
+            </VBox.margin>
+            <padding>
+               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </padding>
+            <effect>
+               <DropShadow offsetX="2.0" offsetY="2.0">
+                  <color>
+                     <Color red="0.5131579041481018" green="0.5131579041481018" blue="0.5131579041481018" />
+                  </color>
+               </DropShadow>
+            </effect>
+         </Pane>
         </VBox>
         <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #ffffff00; -fx-background-radius: 20 20 20 20;" GridPane.columnIndex="6" GridPane.columnSpan="7" GridPane.rowIndex="2" GridPane.rowSpan="2147483647">
             <GridPane.margin>

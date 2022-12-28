@@ -43,7 +43,10 @@ public class ClientThread implements Runnable {
                 case NetworkRequestCodes.UPDATE_EVENT_REQUEST1 -> Sequence.updateEventSequence(this.user);
                 case NetworkRequestCodes.SIGN_OUT_REQUEST -> Sequence.signOutSequence(this.user);
                 case NetworkRequestCodes.SEARCH_EVENT_REQUEST -> Sequence.searchEventSequence(this.user);
-                case -1 -> System.out.println("Client Disconnected");
+                case -1 -> {
+                    System.out.println("Client Disconnected");
+                    return;
+                }
                 case NetworkRequestCodes.EDIT_PROFILE_REQUEST -> Sequence.editProfileSequence(this.user);
                 // case NetworkRequestCodes.SHARE_EVENT_REQUEST -> Sequence.shareEventRequest(this.user);
             }
