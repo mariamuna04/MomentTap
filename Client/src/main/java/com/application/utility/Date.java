@@ -1,5 +1,3 @@
-// Created by Kishorè Shanto on 12/15/22 at 15:21
-
 package com.application.utility;
 
 import java.io.Serializable;

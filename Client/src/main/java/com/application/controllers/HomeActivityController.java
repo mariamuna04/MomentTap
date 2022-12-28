@@ -1,5 +1,3 @@
-// Created by Kishorè Shanto on Nov 16 2022 16:33
-
 package com.application.controllers;
 
 import com.application.client.Sequence;
@@ -33,8 +31,6 @@ public class HomeActivityController extends Controller {
     public Pane backgroundOverlay;
     public Label profileViewName;
     public Label profileViewEmail;
-    public Label profileViewUpcoming;
-    public Label profileViewCompleted;
 
     public Pane profileEditView;
     public TextField nameField;
@@ -104,8 +100,6 @@ public class HomeActivityController extends Controller {
 
     public void onOthersButtonListener() {
         // makeCardView("Others");
-
-
     }
 
 
@@ -135,18 +129,29 @@ public class HomeActivityController extends Controller {
                 }
             }
 
-            for (Event e : User.sortedFutureEvents) {
-                EventCard eventCard = new EventCard();
-                VBox vBox = eventCard.makeCard(e.event_date(), e.event_name(), e.event_category(),
-                        e.event_description(), e.event_start_time(), e.event_end_time(), 1);
-                future_events.getChildren().add(vBox);
+            int sortedFutureEventsSize = User.sortedFutureEvents.size();
+            int sortedPastEventsSize = User.sortedPastEvents.size();
+
+            for (int i = 0; i < sortedFutureEventsSize; i++) {
+                Event e = User.sortedFutureEvents.poll();
+                if (e != null) {
+                    EventCard eventCard = new EventCard();
+                    VBox vBox = eventCard.makeCard(e.event_date(), e.event_name(), e.event_category(), e.event_description(), e.event_start_time(), e.event_end_time(), 1);
+                    future_events.getChildren().add(vBox);
+                } else {
+                    System.err.println("Event is null [HomeActivityController.makeCardView :: 144]");
+                }
             }
 
-            for (Event e : User.sortedPastEvents) {
-                EventCard eventCard = new EventCard();
-                VBox vBox = eventCard.makeCard(e.event_date(), e.event_name(), e.event_category(),
-                        e.event_description(), e.event_start_time(), e.event_end_time(), 0);
-                past_events.getChildren().add(vBox);
+            for (int i = 0; i < sortedPastEventsSize; i++) {
+                Event e = User.sortedPastEvents.poll();
+                if (e != null) {
+                    EventCard eventCard = new EventCard();
+                    VBox vBox = eventCard.makeCard(e.event_date(), e.event_name(), e.event_category(), e.event_description(), e.event_start_time(), e.event_end_time(), 0);
+                    past_events.getChildren().add(vBox);
+                } else {
+                    System.err.println("Event is null [HomeActivityController.makeCardView :: 156]");
+                }
             }
         }
     }
@@ -177,7 +182,7 @@ public class HomeActivityController extends Controller {
             Connection.sendPrimitiveObject(Verify.md5(newPasswordField.getText()));
             if (Connection.receiveRequestCode() == NetworkRequestCodes.UPDATE_EVENT_SUCCESSFUL) {
                 DialogBox.showDialogue("Success", "Profile updated successfully", DialogBox.SUCCESS_DIALOG_BOX);
-                Utility.deleteStage(parent);
+                profileEditView.setVisible(false);
             } else {
                 DialogBox.showDialogue("Error", "Profile update failed", DialogBox.ERROR_DIALOG_BOX);
             }

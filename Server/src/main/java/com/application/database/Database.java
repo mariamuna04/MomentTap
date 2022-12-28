@@ -1,4 +1,3 @@
-// Created by Kishorè Shanto on Nov 20 2022 23:08
 package com.application.database;
 
 import com.application.serialShared.Event;
@@ -134,10 +133,6 @@ public class Database {
     public static void searchEvent(String email, String keyword) {
         try {
             establishConnection();
-            //if (keyword.matches("[0-9]+")) {
-               // int integer_keyword = Integer.parseInt(keyword);
-               // resultSet = connection.createStatement().executeQuery("SELECT * FROM events WHERE user_email LIKE '%" + email + "%' AND ( event_name LIKE '%" + keyword + "%' OR event_description LIKE '%" + keyword + "%' OR event_category LIKE '%" + keyword + "%' OR event_date LIKE '%" + keyword + "%' OR (event_start_time <= " + integer_keyword + " AND event_end_time >= " + integer_keyword + "))");
-        //    }
         if (keyword.equals("")) {
                 resultSet = connection.createStatement().executeQuery("SELECT * FROM events WHERE user_email LIKE '%" + email + "%'");
             } else {
@@ -176,16 +171,6 @@ public class Database {
 
     }
 
-    @DatabaseQuery
-    public static void addShareEvent (String from, String to, int event_id){
-        try {
-            establishConnection();
-            connection.createStatement().executeUpdate("INSERT INTO share_events (from, to, event_id) VALUES ('" + from + "', '" + to + "', '" + event_id + "')");
-        } catch (Exception e) {
-            System.out.println("Error while executing query: addShareEvent [Database.java:116]");
-            System.err.println("Possible reason: Database is not running, or SQL syntax is incorrect");
-        }
-    }
 
 
     public static void updateEvent(Event newEvent, String oldName, String oldDate) {

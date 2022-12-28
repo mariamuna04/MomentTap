@@ -1,5 +1,3 @@
-// Created by Kishorè Shanto on 12/5/22 at 19:23
-
 package com.application.server;
 
 import com.application.database.Database;
@@ -158,6 +156,8 @@ public class User {
         return objectOutputStream;
     }
 
+
+
     /**
      * This method initializes the variables {@link #request}, {@link #name}, {@link #email}, {@link #password}
      * by reading from the input stream with try-catch block to handle {@link IOException}.
@@ -180,20 +180,20 @@ public class User {
         }
     }
 
-    public void sendData(Object data){
+    public void sendData(Object data) {
         try {
             if (data instanceof String) {
                 dataOutputStream.writeUTF((String) data);
-            } else if (data instanceof Integer){
+            } else if (data instanceof Integer) {
                 dataOutputStream.writeInt((Integer) data);
-            } else if(data instanceof Boolean){
+            } else if (data instanceof Boolean) {
                 dataOutputStream.writeBoolean((Boolean) data);
-            } else if (data instanceof Double){
+            } else if (data instanceof Double) {
                 dataOutputStream.writeDouble((Double) data);
             } else {
                 objectOutputStream.writeObject(data);
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }

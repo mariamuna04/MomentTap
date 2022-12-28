@@ -1,5 +1,3 @@
-// Created by Kishorè Shanto on Nov 16 2022 16:15
-
 package com.application.controllers;
 
 import javafx.application.Application;

@@ -1,13 +1,9 @@
-// Created by Kishorè Shanto on 12/16/22 at 00:42
-
 package com.application.utility;
 
 import com.application.client.Sequence;
 import com.application.client.User;
 import com.application.connection.Connection;
 import com.application.serialShared.Event;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.control.*;
 import javafx.scene.effect.BlurType;
 import javafx.scene.effect.DropShadow;
@@ -25,8 +21,8 @@ import java.time.LocalDate;
 
 public class EventCard {
     boolean shareButtonClicked = false;
-    boolean deleteButtonClicked = false;
-    boolean editButtonClicked = false;
+//    boolean deleteButtonClicked = false;
+//    boolean editButtonClicked = false;
 
     VBox parent = new VBox();
 
@@ -240,7 +236,7 @@ public class EventCard {
         updateEventButtonHolder.getChildren().addAll(updateEventButton, updateEventCancelButton);
         updateEventButtonHolder.setSpacing(10);
         updateEventButtonHolder.setAlignment(javafx.geometry.Pos.CENTER);
-        updateEventView.getChildren().addAll(updateEventName, updateEventCategory, updateEventDescription, updateEventDate,  updateEventTimeHolder, updateEventButtonHolder);
+        updateEventView.getChildren().addAll(updateEventName, updateEventCategory, updateEventDescription, updateEventDate, updateEventTimeHolder, updateEventButtonHolder);
 
         updateEventDescription.setWrapText(true);
         updateEventDescription.setMinHeight(90);
@@ -270,156 +266,126 @@ public class EventCard {
         updateEventCancelButton.setMinHeight(30);
 
 
-
-        _shareButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                if (shareEmail.getText().equals("")) {
-                    shareEmail.setStyle("-fx-background-color: #FFF;-fx-background-radius: 12px; -fx-border-color: #F76E64; -fx-border-width: 2px; -fx-border-radius: 12px;");
-                    return;
-                }
-
-                // Send data to server
-                Connection.sendRequestCode(NetworkRequestCodes.SHARE_EVENT_REQUEST);
-                Connection.sendPrimitiveObject(shareEmail.getText());
-                Connection.sendPrimitiveObject(name);
-                Connection.sendPrimitiveObject(description);
-                Connection.sendPrimitiveObject(category);
-                Connection.sendPrimitiveObject(date);
-                Connection.sendPrimitiveObject(startTime.toString());
-                Connection.sendPrimitiveObject(endTime.toString()); // hh:mm
-
-                int responseCode = Connection.receiveRequestCode();
-
-                if (responseCode == NetworkRequestCodes.SHARE_EVENT_SUCCESSFUL) {
-                    try {
-                        DialogBox.showDialogue("Shared", "Event shared successfully", DialogBox.SUCCESS_DIALOG_BOX);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                } else if (responseCode == NetworkRequestCodes.USER_NOT_FOUND) {
-                    try {
-                        DialogBox.showDialogue("Error", "User not found", DialogBox.ERROR_DIALOG_BOX);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                } else {
-                    try {
-                        DialogBox.showDialogue("Error", "Event not shared", DialogBox.ERROR_DIALOG_BOX);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-
-
+        _shareButton.setOnAction(event -> {
+            if (shareEmail.getText().equals("")) {
+                shareEmail.setStyle("-fx-background-color: #FFF;-fx-background-radius: 12px; -fx-border-color: #F76E64; -fx-border-width: 2px; -fx-border-radius: 12px;");
+                return;
             }
-        });
 
+            // Send data to server
+            Connection.sendRequestCode(NetworkRequestCodes.SHARE_EVENT_REQUEST);
+            Connection.sendPrimitiveObject(shareEmail.getText());
+            Connection.sendPrimitiveObject(name);
+            Connection.sendPrimitiveObject(description);
+            Connection.sendPrimitiveObject(category);
+            Connection.sendPrimitiveObject(date);
+            Connection.sendPrimitiveObject(startTime.toString());
+            Connection.sendPrimitiveObject(endTime.toString()); // hh:mm
 
-        shareButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                if (!shareButtonClicked) {
-                    shareButton.setStyle("-fx-background-color:  #c5cae9; -fx-background-radius: 12px 0 0 0;");
-                    deleteButton.setStyle("-fx-background-color: #c5cae9; -fx-background-radius: 0 12px 0 0;");
-                    shareButtonClicked = true;
-                    bottomGUI.getChildren().add(shareView);
-                } else {
-                    shareButton.setStyle("-fx-background-color:  #c5cae9; -fx-background-radius: 12px 0 0 12px;");
-                    deleteButton.setStyle("-fx-background-color: #c5cae9; -fx-background-radius: 0 12px 12px 0;");
-                    shareEmail.setStyle("-fx-background-color: #FFF;-fx-background-radius: 12px; -fx-border-color: #F76E6400; -fx-border-width: 2px; -fx-border-radius: 12px;");
+            int responseCode = Connection.receiveRequestCode();
 
-                    shareButtonClicked = false;
-                    bottomGUI.getChildren().remove(shareView);
-
-                }
-
-
-            }
-        });
-
-        deleteButton.setOnAction(new EventHandler<>() {
-            @Override
-            public void handle(ActionEvent event) {
-                Sequence.deleteEventSequence(name, date);
+            if (responseCode == NetworkRequestCodes.SHARE_EVENT_SUCCESSFUL) {
                 try {
-                    DialogBox.showDialogue("Deleted", "Event deleted successfully, Please Refresh", DialogBox.SUCCESS_DIALOG_BOX);
+                    DialogBox.showDialogue("Shared", "Event shared successfully", DialogBox.SUCCESS_DIALOG_BOX);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } else if (responseCode == NetworkRequestCodes.USER_NOT_FOUND) {
+                try {
+                    DialogBox.showDialogue("Error", "User not found", DialogBox.ERROR_DIALOG_BOX);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } else {
+                try {
+                    DialogBox.showDialogue("Error", "Event not shared", DialogBox.ERROR_DIALOG_BOX);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+
+        });
+
+
+        shareButton.setOnAction(event -> {
+            if (!shareButtonClicked) {
+                shareButton.setStyle("-fx-background-color:  #c5cae9; -fx-background-radius: 12px 0 0 0;");
+                deleteButton.setStyle("-fx-background-color: #c5cae9; -fx-background-radius: 0 12px 0 0;");
+                shareButtonClicked = true;
+                bottomGUI.getChildren().add(shareView);
+            } else {
+                shareButton.setStyle("-fx-background-color:  #c5cae9; -fx-background-radius: 12px 0 0 12px;");
+                deleteButton.setStyle("-fx-background-color: #c5cae9; -fx-background-radius: 0 12px 12px 0;");
+                shareEmail.setStyle("-fx-background-color: #FFF;-fx-background-radius: 12px; -fx-border-color: #F76E6400; -fx-border-width: 2px; -fx-border-radius: 12px;");
+
+                shareButtonClicked = false;
+                bottomGUI.getChildren().remove(shareView);
+
+            }
+
+
+        });
+
+        deleteButton.setOnAction(event -> Sequence.deleteEventSequence(name, date));
+
+        updateButton.setOnAction(event -> {
+            if (cardView) {
+                parent.getChildren().removeAll(eventName, eventCategory, eventDescription, eventDate, timeHolder, bottomGUI);
+                parent.getChildren().addAll(updateEventView, bottomGUI);
+                cardView = false;
+            } else {
+                parent.getChildren().removeAll(updateEventView, bottomGUI);
+                parent.getChildren().addAll(eventName, eventCategory, eventDescription, eventDate, timeHolder, bottomGUI);
+                cardView = true;
+            }
+
+        });
+
+        updateEventButton.setOnAction(actionEvent -> {
+            if (updateEventName.getText().equals("") && updateEventCategory.getText().equals("") && updateEventDescription.getText().equals("") && updateEventDate.getValue() == null && updateEventStartTime.getText() == null && updateEventEndTime.getText() == null) {
+                try {
+                    DialogBox.showDialogue("Warning", "No Changes", DialogBox.WARNING_DIALOG_BOX);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                return;
+            }
+            String _name = (updateEventName.getText().equals("")) ? name : updateEventName.getText();
+            String _category = (updateEventCategory.getText().equals("")) ? category : updateEventCategory.getText();
+            String _description = (updateEventDescription.getText().equals("")) ? description : updateEventDescription.getText();
+            String _date = (updateEventDate.getValue() == null) ? date : updateEventDate.getValue().toString();
+            String _startTime = (updateEventStartTime.getText().equals("")) ? startTime.toString() : updateEventStartTime.getText();
+            String _endTime = (updateEventEndTime.getText().equals("")) ? endTime.toString() : updateEventEndTime.getText();
+
+            Event event = new Event(User.getEmail(), _name, _category, _description, _date, Time.parseTime(_startTime), Time.parseTime(_endTime));
+            Connection.sendRequestCode(NetworkRequestCodes.UPDATE_EVENT_REQUEST1);
+            Connection.sendObject(event);
+            Connection.sendPrimitiveObject(name);
+            Connection.sendPrimitiveObject(date);
+            int responseCode = Connection.receiveRequestCode();
+            if (responseCode == NetworkRequestCodes.UPDATE_EVENT_SUCCESSFUL1) {
+                try {
+                    DialogBox.showDialogue("Updated", "Event updated successfully, Please Refresh", DialogBox.SUCCESS_DIALOG_BOX);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } else {
+                try {
+                    DialogBox.showDialogue("Error", "Event not updated", DialogBox.ERROR_DIALOG_BOX);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         });
 
-        updateButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                if (cardView) {
-                    parent.getChildren().removeAll(eventName, eventCategory, eventDescription, eventDate, timeHolder, bottomGUI);
-                    parent.getChildren().addAll(updateEventView, bottomGUI);
-                    cardView = false;
-                } else {
-                    parent.getChildren().removeAll(updateEventView, bottomGUI);
-                    parent.getChildren().addAll(eventName, eventCategory, eventDescription, eventDate, timeHolder, bottomGUI);
-                    cardView = true;
-                }
-
-            }
-        });
-        updateEventButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                if (updateEventName.getText().equals("") && updateEventCategory.getText().equals("") && updateEventDescription.getText().equals("") && updateEventDate.getValue() == null && updateEventStartTime.getText() == null && updateEventEndTime.getText() == null) {
-                    try {
-                        DialogBox.showDialogue("Warning", "No Changes", DialogBox.WARNING_DIALOG_BOX);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    return;
-                }
-                String _name = (updateEventName.getText().equals("")) ? name : updateEventName.getText();
-                String _category = (updateEventCategory.getText().equals("")) ? category : updateEventCategory.getText();
-                String _description = (updateEventDescription.getText().equals("")) ? description : updateEventDescription.getText();
-                String _date = (updateEventDate.getValue() == null) ? date : updateEventDate.getValue().toString();
-                String _startTime = (updateEventStartTime.getText().equals("")) ? startTime.toString() : updateEventStartTime.getText();
-                String _endTime = (updateEventEndTime.getText().equals("")) ? endTime.toString() : updateEventEndTime.getText();
-
-                Event event = new Event(User.getEmail(), _name, _category, _description, _date, Time.parseTime(_startTime), Time.parseTime(_endTime));
-                Connection.sendRequestCode(NetworkRequestCodes.UPDATE_EVENT_REQUEST1);
-                Connection.sendObject(event);
-                Connection.sendPrimitiveObject(name);
-                Connection.sendPrimitiveObject(date);
-                int responseCode = Connection.receiveRequestCode();
-                if (responseCode == NetworkRequestCodes.UPDATE_EVENT_SUCCESSFUL1) {
-                    try {
-                        DialogBox.showDialogue("Updated", "Event updated successfully, Please Refresh", DialogBox.SUCCESS_DIALOG_BOX);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                } else {
-                    try {
-                        DialogBox.showDialogue("Error", "Event not updated", DialogBox.ERROR_DIALOG_BOX);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        });
-
-        updateEventCancelButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                parent.getChildren().removeAll(updateEventView, bottomGUI);
-                parent.getChildren().addAll(eventName, eventCategory, eventDescription, eventDate, timeHolder, bottomGUI);
-                cardView = true;
-            }
+        updateEventCancelButton.setOnAction(actionEvent -> {
+            parent.getChildren().removeAll(updateEventView, bottomGUI);
+            parent.getChildren().addAll(eventName, eventDate, eventCategory, eventDescription, timeHolder, bottomGUI);
+            cardView = true;
         });
 
         this.parent.getChildren().addAll(eventName, eventDate, eventCategory, eventDescription, timeHolder, bottomGUI);
-
         return parent;
-
-
     }
-
-
 }

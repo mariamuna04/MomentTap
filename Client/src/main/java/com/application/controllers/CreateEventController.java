@@ -41,13 +41,9 @@ public class CreateEventController extends Controller {
         Date date = Date.parseDate(event_date.getValue().toString());
         boolean validDate = Date.compareDate(date);
 
-        // FIXME: FIX TIME VALIDATION
-        // WARNING
-        //   Fixing time will break sql codes
-
         Time startTime = Time.parseTime(event_start_time.getText());
         Time endTime = Time.parseTime(event_end_time.getText());
-        boolean validTime = Time.compareTime(startTime,endTime) && startTime.hour() >= 0 && startTime.hour() <= 23 && endTime.hour() >= 0 && endTime.hour() <= 23 && startTime.minute() >= 0 && startTime.minute() <= 59 && endTime.minute() >= 0 && endTime.minute() <= 59;
+        boolean validTime = Time.compareTime(startTime, endTime) && startTime.hour() >= 0 && startTime.hour() <= 23 && endTime.hour() >= 0 && endTime.hour() <= 23 && startTime.minute() >= 0 && startTime.minute() <= 59 && endTime.minute() >= 0 && endTime.minute() <= 59;
 
         if (validDate && validTime) {
             Event event = new Event(User.getEmail(), event_name.getText(), event_description.getText(), event_category.getText(),

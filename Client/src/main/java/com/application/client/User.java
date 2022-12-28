@@ -1,11 +1,10 @@
 package com.application.client;
 
-
 import com.application.serialShared.Event;
 import com.application.utility.Date;
+import com.application.utility.Time;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.PriorityQueue;
 
 /**
@@ -16,31 +15,26 @@ import java.util.PriorityQueue;
 public class User {
 
     public static ArrayList<Event> events = new ArrayList<>();
-    public static PriorityQueue<Event> sortedFutureEvents = new PriorityQueue<>(new Comparator<Event>() {
-        @Override
-        public int compare(Event o1, Event o2) {
-            Date dateOne = Date.parseDate(o1.event_date());
-            Date dateTwo = Date.parseDate(o2.event_date());
-
-            if (Date.compareDate(dateOne, dateTwo)) {
-                return 1;
-            } else {
-                return -1;
-            }
+    public static PriorityQueue<Event> sortedFutureEvents = new PriorityQueue<>((o1, o2) -> {
+        Date dateOne = Date.parseDate(o1.event_date());
+        Date dateTwo = Date.parseDate(o2.event_date());
+        if (o1.event_date().equals(o2.event_date())) {
+            Time timeOne = o1.event_start_time();
+            Time timeTwo = o2.event_start_time();
+            if(timeOne.toString().equals(timeTwo.toString())) return 0;
+            else if(Time.compareTime(timeOne, timeTwo)) return -1;
+            else return 1;
         }
+        else if (Date.compareDate(dateOne, dateTwo)) return 1;
+        else return -1;
     });
-    public static PriorityQueue<Event> sortedPastEvents = new PriorityQueue<>(new Comparator<Event>() {
-        @Override
-        public int compare(Event o1, Event o2) {
-            Date dateOne = Date.parseDate(o1.event_date());
-            Date dateTwo = Date.parseDate(o2.event_date());
 
-            if (Date.compareDate(dateOne, dateTwo)) {
-                return -1;
-            } else {
-                return 1;
-            }
-        }
+    public static PriorityQueue<Event> sortedPastEvents = new PriorityQueue<>((o1, o2) -> {
+        Date dateOne = Date.parseDate(o1.event_date());
+        Date dateTwo = Date.parseDate(o2.event_date());
+        if (o1.event_date().equals(o2.event_date())) return 0;
+        if (Date.compareDate(dateOne, dateTwo)) return -1;
+        else return 1;
     });
 
 
@@ -86,8 +80,7 @@ public class User {
         return password;
     }
 
-    public static void cleanMemory(){
-        // Remove all events from the user
+    public static void cleanMemory() {
         events.clear();
         sortedFutureEvents.clear();
         sortedPastEvents.clear();

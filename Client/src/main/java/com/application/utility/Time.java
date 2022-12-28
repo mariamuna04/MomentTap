@@ -8,7 +8,15 @@ public record Time(int hour, int minute) implements Serializable {
 
     @Override
     public String toString() {
-        return hour + ":" + minute;
+        if(hour < 10 && minute < 10) {
+            return "0" + hour + ":" + "0" + minute;
+        } else if(hour < 10) {
+            return "0" + hour + ":" + minute;
+        } else if(minute < 10) {
+            return hour + ":" + "0" + minute;
+        } else {
+            return hour + ":" + minute;
+        }
     }
 
     public static Time parseTime(String time) {

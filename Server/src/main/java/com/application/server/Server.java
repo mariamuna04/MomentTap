@@ -1,5 +1,3 @@
-// Created by Kishorè Shanto on Dec 4 2022 21:15
-
 package com.application.server;
 
 import com.application.connection.Connection;
@@ -12,7 +10,6 @@ import java.util.Scanner;
  * {@link Connection} class.
  */
 public class Server {
-
 
     public static void main(String[] args) {
         Connection.establishServer();

@@ -1,10 +1,8 @@
-// Created by Kishorè Shanto on 12/10/22 at 20:15
-
 package com.application.client;
 
 import com.application.connection.Connection;
 import com.application.serialShared.Event;
-import com.application.utility.Date;
+import com.application.utility.DialogBox;
 import com.application.utility.NetworkRequestCodes;
 import com.application.utility.Time;
 
@@ -105,17 +103,25 @@ public class Sequence {
      *
      * @param event_name Name of the event to be deleted from the database
      * @param event_date Date of the event to be deleted from the database
-     * @return true if the event is successfully deleted from the database, false otherwise
      */
-    public static boolean deleteEventSequence(String event_name, String event_date) {
+    public static void deleteEventSequence(String event_name, String event_date) {
         Connection.sendRequestCode(NetworkRequestCodes.DELETE_EVENT_REQUEST);
         Connection.sendPrimitiveObject(event_name);
         Connection.sendPrimitiveObject(event_date);
         int response = Connection.receiveRequestCode();
-        return response == NetworkRequestCodes.DELETE_EVENT_SUCCESSFUL;
+        try {
+            if (response == NetworkRequestCodes.DELETE_EVENT_SUCCESSFUL) {
+                DialogBox.showDialogue("Success", "Event deleted successfully", DialogBox.SUCCESS_DIALOG_BOX);
+            } else {
+                DialogBox.showDialogue("Failed", "Event deletion failed", DialogBox.ERROR_DIALOG_BOX);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
-    public static boolean searchSequence(String keyword) {
+    public static void searchSequence(String keyword) {
         User.events.clear();
         try {
             Connection.sendRequestCode(NetworkRequestCodes.SEARCH_EVENT_REQUEST);
@@ -134,10 +140,8 @@ public class Sequence {
                     User.events.add(e);
                 }
             }
-            return true;
         } catch (IOException e) {
             e.printStackTrace();
-            return false;
         }
     }
 }

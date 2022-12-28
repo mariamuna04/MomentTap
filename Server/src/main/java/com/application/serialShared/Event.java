@@ -1,6 +1,5 @@
 package com.application.serialShared;
 
-import com.application.utility.Date;
 import com.application.utility.Time;
 
 import java.io.Serializable;

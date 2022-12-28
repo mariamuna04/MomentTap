@@ -1,5 +1,3 @@
-// Created by Kishorè Shanto on Nov 16 2022 16:15
-
 package com.application.client;
 
 import com.application.controllers.Controller;
@@ -16,6 +14,15 @@ import java.io.IOException;
 public class Client extends Application {
 
     /**
+     * The application initialization method. This method is called automatically
+     *
+     * @param args Command line arguments
+     */
+    public static void main(String[] args) {
+        launch(args);
+    }
+
+    /**
      * Start the GUI
      *
      * @param stage the primary stage for this application, onto which
@@ -30,14 +37,5 @@ public class Client extends Application {
         stage.setScene(scene);
         stage.show();
         stage.setResizable(false);
-    }
-
-    /**
-     * The application initialization method. This method is called automatically
-     *
-     * @param args Command line arguments
-     */
-    public static void main(String[] args) {
-        launch(args);
     }
 }
