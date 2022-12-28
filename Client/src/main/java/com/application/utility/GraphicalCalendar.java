@@ -102,6 +102,9 @@ public class GraphicalCalendar extends BorderPane {
                 row++;
             }
             Text tDate = new Text(String.valueOf(currentDay));
+            if (currentDay == Calendar.getInstance().get(Calendar.DAY_OF_MONTH)) {
+                tDate.setFill(Color.RED);
+            }
             gpBody.add(tDate, dayOfWeek - 1, row);
             currentDay++;
             dayOfWeek++;
