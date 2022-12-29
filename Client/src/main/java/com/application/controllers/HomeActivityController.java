@@ -5,7 +5,6 @@ import com.application.client.User;
 import com.application.connection.Connection;
 import com.application.serialShared.Event;
 import com.application.utility.*;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -32,8 +31,6 @@ public class HomeActivityController extends Controller {
     private VBox future_events;
     @FXML
     private VBox past_events;
-    @FXML
-    private boolean primaryInitialized = false;
     @FXML
     private Button profileButton;
     @FXML
@@ -68,7 +65,6 @@ public class HomeActivityController extends Controller {
         }
 
         graphicalCalendar.getChildren().removeAll(graphicalCalendar.getChildren());
-
         graphicalCalendar.getChildren().add(new GraphicalCalendar());
     }
 
@@ -197,11 +193,11 @@ public class HomeActivityController extends Controller {
                     Connection.sendRequestCode(NetworkRequestCodes.EDIT_PROFILE_REQUEST);
                     Connection.sendPrimitiveObject("");
                     Connection.sendPrimitiveObject(Verify.md5(newPasswordField.getText()));
+                    User.setUser(User.getName(), User.getEmail(), Verify.md5(newPasswordField.getText()));
 
                     if (Connection.receiveRequestCode() == NetworkRequestCodes.UPDATE_EVENT_SUCCESSFUL) {
                         DialogBox.showDialogue("Success", "Profile updated successfully", DialogBox.SUCCESS_DIALOG_BOX);
                         onCancelEditProfileButton();
-                        User.setUser(User.getName(), User.getEmail(), Verify.md5(newPasswordField.getText()));
                         this.init();
                     } else {
                         DialogBox.showDialogue("Error", "Profile update failed", DialogBox.ERROR_DIALOG_BOX);
@@ -222,11 +218,11 @@ public class HomeActivityController extends Controller {
                     Connection.sendRequestCode(NetworkRequestCodes.EDIT_PROFILE_REQUEST);
                     Connection.sendPrimitiveObject(nameField.getText());
                     Connection.sendPrimitiveObject(User.getPassword());
+                    User.setUser(nameField.getText(), User.getEmail(), User.getPassword());
 
                     if (Connection.receiveRequestCode() == NetworkRequestCodes.UPDATE_EVENT_SUCCESSFUL) {
                         DialogBox.showDialogue("Success", "Profile updated successfully", DialogBox.SUCCESS_DIALOG_BOX);
                         onCancelEditProfileButton();
-                        User.setUser(nameField.getText(), User.getEmail(), User.getPassword());
                         this.init();
                     } else {
                         DialogBox.showDialogue("Error", "Profile update failed", DialogBox.ERROR_DIALOG_BOX);
@@ -242,11 +238,11 @@ public class HomeActivityController extends Controller {
                     Connection.sendRequestCode(NetworkRequestCodes.EDIT_PROFILE_REQUEST);
                     Connection.sendPrimitiveObject(nameField.getText());
                     Connection.sendPrimitiveObject(Verify.md5(newPasswordField.getText()));
+                    User.setUser(nameField.getText(), User.getEmail(), Verify.md5(newPasswordField.getText()));
 
                     if (Connection.receiveRequestCode() == NetworkRequestCodes.UPDATE_EVENT_SUCCESSFUL) {
                         DialogBox.showDialogue("Success", "Profile updated successfully", DialogBox.SUCCESS_DIALOG_BOX);
                         onCancelEditProfileButton();
-                        User.setUser(nameField.getText(), User.getEmail(), Verify.md5(newPasswordField.getText()));
                         this.init();
                     } else {
                         DialogBox.showDialogue("Error", "Profile update failed", DialogBox.ERROR_DIALOG_BOX);

@@ -15,14 +15,6 @@ public class Verify {
         return name.matches("^[A-Za-z]+(?: [A-Za-z]+)*$");
     }
 
-    public static boolean isDateValid(String date) {
-        return date.matches("^(19|20)\\d\\d-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$");
-    }
-
-    public static boolean isTimeValid(String time) {
-        return time.matches("^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$");
-    }
-
     public static String md5(String key) {
         try {
             java.security.MessageDigest md = java.security.MessageDigest.getInstance("MD5");

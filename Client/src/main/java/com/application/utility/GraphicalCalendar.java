@@ -102,7 +102,9 @@ public class GraphicalCalendar extends BorderPane {
                 row++;
             }
             Text tDate = new Text(String.valueOf(currentDay));
-            if (currentDay == Calendar.getInstance().get(Calendar.DAY_OF_MONTH)) {
+            if (currentDay == Calendar.getInstance().get(Calendar.DAY_OF_MONTH) &&
+                    currentMonth.get(Calendar.MONTH) == Calendar.getInstance().get(Calendar.MONTH) &&
+                    currentMonth.get(Calendar.YEAR) == Calendar.getInstance().get(Calendar.YEAR)) {
                 tDate.setFill(Color.RED);
             }
             gpBody.add(tDate, dayOfWeek - 1, row);
@@ -173,26 +175,13 @@ public class GraphicalCalendar extends BorderPane {
     private String getDayName(int n) {
         StringBuilder sb = new StringBuilder();
         switch (n) {
-            case 1:
-                sb.append("Sun");
-                break;
-            case 2:
-                sb.append("Mon");
-                break;
-            case 3:
-                sb.append("Tue");
-                break;
-            case 4:
-                sb.append("Wed");
-                break;
-            case 5:
-                sb.append("Thu");
-                break;
-            case 6:
-                sb.append("Fri");
-                break;
-            case 7:
-                sb.append("Sat");
+            case 1 -> sb.append("Sun");
+            case 2 -> sb.append("Mon");
+            case 3 -> sb.append("Tue");
+            case 4 -> sb.append("Wed");
+            case 5 -> sb.append("Thu");
+            case 6 -> sb.append("Fri");
+            case 7 -> sb.append("Sat");
         }
         return sb.toString();
     }

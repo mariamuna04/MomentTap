@@ -38,7 +38,7 @@ public class User {
             if(timeOne.toString().equals(timeTwo.toString())) return 0;
             else if(Time.compareTime(timeOne, timeTwo)) return -1;
             else return 1;
-        };
+        }
         if (Date.compareDate(dateOne, dateTwo)) return -1;
         else return 1;
     });

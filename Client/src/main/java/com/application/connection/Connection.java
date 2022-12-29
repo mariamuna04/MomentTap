@@ -140,36 +140,7 @@ public class Connection {
         }
     }
 
-    /**
-     * This method is used to receive Non-Primitive objects from the server.
-     * @return Object received from the server
-     */
-    public static Object receiveObject() {
-        try {
-            return objectInputStream.readObject();
-        } catch (Exception e) {
-            System.err.println("Error in Connection.receiveObject()");
-            return null;
-        }
-    }
-
-    public static Socket getSocket() {
-        return socket;
-    }
-
     public static DataInputStream getDataInputStream() {
         return dataInputStream;
-    }
-
-    public static DataOutputStream getDataOutputStream() {
-        return dataOutputStream;
-    }
-
-    public static ObjectInputStream getObjectInputStream() {
-        return objectInputStream;
-    }
-
-    public static ObjectOutputStream getObjectOutputStream() {
-        return objectOutputStream;
     }
 }

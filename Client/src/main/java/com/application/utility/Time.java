@@ -31,11 +31,6 @@ public record Time(int hour, int minute) implements Serializable {
         }
     }
 
-    public static boolean compareTime(Time time) {
-        Time currentTime = new Time(java.time.LocalTime.now().getHour(), java.time.LocalTime.now().getMinute());
-        return compare(time, currentTime);
-    }
-
     public static boolean compareTime(Time time1, Time time2) {
         return compare(time1, time2);
     }

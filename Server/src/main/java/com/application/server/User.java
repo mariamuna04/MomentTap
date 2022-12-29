@@ -100,23 +100,6 @@ public class User {
         return null;
     }
 
-    public void sendObject(Object object) {
-        try {
-            objectOutputStream.writeObject(object);
-        } catch (Exception e) {
-            System.err.println("sendObject: " + e.getMessage());
-        }
-    }
-
-    public Object receiveObject() {
-        try {
-            return objectInputStream.readObject();
-        } catch (Exception e) {
-            System.err.println("Received object is null");
-        }
-        return null;
-    }
-
     /**
      * Getter method for variables
      * {@link #request}, {@link #name}, {@link #email}, {@link #password}.
@@ -140,21 +123,11 @@ public class User {
         return password;
     }
 
-    public DataInputStream getDataInputStream() {
-        return dataInputStream;
-    }
-
-    public DataOutputStream getDataOutputStream() {
-        return dataOutputStream;
-    }
 
     public ObjectInputStream getObjectInputStream() {
         return objectInputStream;
     }
 
-    public ObjectOutputStream getObjectOutputStream() {
-        return objectOutputStream;
-    }
 
 
 

@@ -161,17 +161,6 @@ public class Database {
         }
     }
 
-    @DatabaseQuery
-    public static void searchEvent(Event e) {
-        try {
-            establishConnection();
-            resultSet = connection.createStatement().executeQuery("SELECT * FROM events WHERE user_email LIKE '%" + e.user_email() + "%' AND event_name LIKE '%" + e.event_name() + "%' AND event_date LIKE '%" + e.event_date() + "%'");
-        } catch (Exception ex) {
-            System.err.println(ex.getMessage());
-        }
-
-    }
-
 
     public static void updateEvent(Event newEvent, String oldName, String oldDate) {
         String email = newEvent.user_email();

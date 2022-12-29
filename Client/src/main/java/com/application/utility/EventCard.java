@@ -22,8 +22,6 @@ import java.time.LocalDate;
 
 public class EventCard {
     boolean shareButtonClicked = false;
-//    boolean deleteButtonClicked = false;
-//    boolean editButtonClicked = false;
 
     VBox parent = new VBox();
 
@@ -302,7 +300,7 @@ public class EventCard {
                 shareEmail.setStyle("-fx-background-color: #FFF;-fx-background-radius: 12px; -fx-border-color: #F76E64; -fx-border-width: 2px; -fx-border-radius: 12px;");
                 return;
             }
-            ;
+
 
             Event sharingEvent = new Event(User.getEmail(), name, description, category, date, startTime, endTime, isShared);
 
