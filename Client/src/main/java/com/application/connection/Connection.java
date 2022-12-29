@@ -1,5 +1,7 @@
 package com.application.connection;
 
+import com.application.utility.DialogBox;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.ObjectInputStream;
@@ -50,12 +52,18 @@ public class Connection {
     public static void setConnection() {
         try {
             socket = new Socket(HOST, PORT);
+            if(socket.isConnected()) {
+                dataInputStream = new DataInputStream(socket.getInputStream());
+                dataOutputStream = new DataOutputStream(socket.getOutputStream());
+                objectInputStream = new ObjectInputStream(socket.getInputStream());
+                objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
+            }
             dataOutputStream = new DataOutputStream(socket.getOutputStream());
             dataInputStream = new DataInputStream(socket.getInputStream());
             objectInputStream = new ObjectInputStream(socket.getInputStream());
             objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
         } catch (Exception e) {
-            System.err.println("Error in Connection.setConnection()");
+            DialogBox.showDialogue("Connection Error", "Unable to connect to the server", DialogBox.ERROR_DIALOG_BOX);
         }
     }
 

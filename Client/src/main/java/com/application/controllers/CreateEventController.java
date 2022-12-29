@@ -32,7 +32,7 @@ public class CreateEventController extends Controller {
     @FXML
     private TextField event_end_time;
 
-    public void onCreateButtonListener() throws Exception {
+    public void onCreateButtonListener() {
         if (event_name.getText().isEmpty() || event_category.getText().isEmpty() || event_date.getValue() == null || event_start_time.getText().isEmpty() || event_end_time.getText().isEmpty()) {
             createEventMessageTextField.setText("Please fill in all the fields");
             return;

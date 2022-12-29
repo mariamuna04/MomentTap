@@ -18,39 +18,45 @@ public class DialogBox {
     public static final int WARNING_DIALOG_BOX = 3;
     public static final int SUCCESS_DIALOG_BOX = 4;
 
-    public static void showDialogue(String heading, String subtitle, int type) throws IOException {
-        Stage dialogBox = new Stage();
-        FXMLLoader loader = new FXMLLoader(DialogBoxController.class.getResource("dialog-box.fxml"));
-        Parent root = loader.load();
+    public static void showDialogue(String heading, String subtitle, int type) {
+        try {
+            Stage dialogBox = new Stage();
+            FXMLLoader loader = new FXMLLoader(DialogBoxController.class.getResource("dialog-box.fxml"));
 
-        ((Label) root.lookup("#heading")).setText(heading);
-        ((Label) root.lookup("#subtitle")).setText(subtitle);
+            Parent root = loader.load();
 
-        if (type == ERROR_DIALOG_BOX) {
-            dialogBox.setTitle("Error");
-            ((ImageView) root.lookup("#imageViewID")).setImage(new Image("file:Client/src/main/resources/icons/error.png"));
-            dialogBox.getIcons().add(new Image("file:Client/src/main/resources/icons/error.png"));
-        } else if (type == INFORMATION_DIALOG_BOX) {
-            dialogBox.setTitle("Information");
-            ((ImageView) root.lookup("#imageViewID")).setImage(new Image("file:Client/src/main/resources/icons/information.png"));
-            dialogBox.getIcons().add(new Image("file:Client/src/main/resources/icons/information.png"));
-        } else if (type == WARNING_DIALOG_BOX) {
-            dialogBox.setTitle("Warning");
+            ((Label) root.lookup("#heading")).setText(heading);
+            ((Label) root.lookup("#subtitle")).setText(subtitle);
 
-            ((ImageView) root.lookup("#imageViewID")).setImage(new Image("file:Client/src/main/resources/icons/warning.png"));
-            dialogBox.getIcons().add(new Image("file:Client/src/main/resources/icons/warning.png"));
-        } else if (type == SUCCESS_DIALOG_BOX) {
-            dialogBox.setTitle("Success");
+            if (type == ERROR_DIALOG_BOX) {
+                dialogBox.setTitle("Error");
+                ((ImageView) root.lookup("#imageViewID")).setImage(new Image("file:Client/src/main/resources/icons/error.png"));
+                dialogBox.getIcons().add(new Image("file:Client/src/main/resources/icons/error.png"));
+            } else if (type == INFORMATION_DIALOG_BOX) {
+                dialogBox.setTitle("Information");
+                ((ImageView) root.lookup("#imageViewID")).setImage(new Image("file:Client/src/main/resources/icons/information.png"));
+                dialogBox.getIcons().add(new Image("file:Client/src/main/resources/icons/information.png"));
+            } else if (type == WARNING_DIALOG_BOX) {
+                dialogBox.setTitle("Warning");
 
-            ((ImageView) root.lookup("#imageViewID")).setImage(new Image("file:Client/src/main/resources/icons/success.png"));
-            dialogBox.getIcons().add(new Image("file:Client/src/main/resources/icons/success.png"));
+                ((ImageView) root.lookup("#imageViewID")).setImage(new Image("file:Client/src/main/resources/icons/warning.png"));
+                dialogBox.getIcons().add(new Image("file:Client/src/main/resources/icons/warning.png"));
+            } else if (type == SUCCESS_DIALOG_BOX) {
+                dialogBox.setTitle("Success");
+
+                ((ImageView) root.lookup("#imageViewID")).setImage(new Image("file:Client/src/main/resources/icons/success.png"));
+                dialogBox.getIcons().add(new Image("file:Client/src/main/resources/icons/success.png"));
+            }
+
+            Scene scene = new Scene(root);
+            dialogBox.centerOnScreen();
+            dialogBox.setAlwaysOnTop(true);
+            dialogBox.setScene(scene);
+
+            dialogBox.setResizable(false);
+            dialogBox.show();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-
-        Scene scene = new Scene(root);dialogBox.centerOnScreen();
-        dialogBox.setAlwaysOnTop(true);
-        dialogBox.setScene(scene);
-
-        dialogBox.setResizable(false);
-        dialogBox.show();
     }
 }

@@ -109,15 +109,13 @@ public class Sequence {
         Connection.sendPrimitiveObject(event_name);
         Connection.sendPrimitiveObject(event_date);
         int response = Connection.receiveRequestCode();
-        try {
-            if (response == NetworkRequestCodes.DELETE_EVENT_SUCCESSFUL) {
-                DialogBox.showDialogue("Success", "Event deleted successfully", DialogBox.SUCCESS_DIALOG_BOX);
-            } else {
-                DialogBox.showDialogue("Failed", "Event deletion failed", DialogBox.ERROR_DIALOG_BOX);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+
+        if (response == NetworkRequestCodes.DELETE_EVENT_SUCCESSFUL) {
+            DialogBox.showDialogue("Success", "Event deleted successfully", DialogBox.SUCCESS_DIALOG_BOX);
+        } else {
+            DialogBox.showDialogue("Failed", "Event deletion failed", DialogBox.ERROR_DIALOG_BOX);
         }
+
 
     }
 

@@ -49,7 +49,6 @@ public class Connection {
             System.exit(0);
         } catch (Exception e) {
             System.err.println("Error while terminating connection [Connection.java:51]");
-            // DEBUG    :   e.printStackTrace();
             System.err.println("Possible reasons: Server is not running");
         }
     }
@@ -71,7 +70,6 @@ public class Connection {
             }
         } catch (Exception e) {
             System.err.println("Error while accepting client request [Connection.java:74]");
-            // DEBUG    :   e.printStackTrace();
             System.err.println("Possible reasons: Server is not running, error in clientRequestAccept()");
             return null;
         }
