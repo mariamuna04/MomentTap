@@ -143,11 +143,14 @@ public class HomeActivityController extends Controller {
         } else {
             for (Event e : User.events) {
                 Date date = Date.parseDate(e.event_date());
-                if (Date.compareDate(date)) {
+                Time time = e.event_end_time();
+                if (Date.compareDate(date) ) {
                     User.sortedFutureEvents.add(e);
-                } else {
+                }else if(Date.isCurrentDate(date) && Time.compareTime(time)) ///////// ekhaneeeeeeeeeee
+                    User.sortedFutureEvents.add(e);
+                else
                     User.sortedPastEvents.add(e);
-                }
+
             }
 
             int sortedFutureEventsSize = User.sortedFutureEvents.size();

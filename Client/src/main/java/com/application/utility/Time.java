@@ -11,6 +11,11 @@ public record Time(int hour, int minute) implements Serializable {
         return time.hour == currentTime.hour && time.minute == currentTime.minute;
     }
 
+    public static boolean compareTime(Time time) {
+        Time currentTime = new Time(java.time.LocalTime.now().getHour(), java.time.LocalTime.now().getMinute());
+        return compare(time, currentTime);
+    }
+
     @Override
     public String toString() {
         if(hour < 10 && minute < 10) {
