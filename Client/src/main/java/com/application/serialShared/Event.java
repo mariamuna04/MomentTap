@@ -48,6 +48,4 @@ public record Event(String user_email, String event_name, String event_descripti
                 Objects.equals(this.isShared, that.isShared);
 
     }
-
-
 }

@@ -81,7 +81,7 @@ public class EventCard {
             shareFromLabel.setText(isShared);
             // FIXME: COLOR OF SHARED EVENT ---------------------------------------
             if (type == 1) this.parent.setStyle("-fx-background-color: #e1bee7; -fx-background-radius: 12px;");
-            else this.parent.setStyle("-fx-background-color: #EAD2EE; -fx-background-radius: 12px;");
+            else this.parent.setStyle("-fx-background-color: #D1C4E9; -fx-background-radius: 12px;");
         }
 
 
