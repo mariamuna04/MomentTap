@@ -6,6 +6,11 @@ import java.io.Serializable;
 
 public record Time(int hour, int minute) implements Serializable {
 
+    public static boolean isCurrentTime(Time time) {
+        Time currentTime = new Time(java.time.LocalTime.now().getHour(), java.time.LocalTime.now().getMinute());
+        return time.hour == currentTime.hour && time.minute == currentTime.minute;
+    }
+
     @Override
     public String toString() {
         if(hour < 10 && minute < 10) {

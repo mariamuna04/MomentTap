@@ -30,7 +30,7 @@ public record Event(String user_email, String event_name, String event_descripti
 
     @Override
     public String toString() {
-        return event_name + " " + event_description + " " + event_category + " " + event_date + " " + event_start_time + " " + event_end_time + " " + isShared;
+        return " event_name='" + event_name ;
     }
 
     @Override

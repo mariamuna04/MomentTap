@@ -1,5 +1,6 @@
 package com.application.utility;
 
+import com.application.client.Client;
 import com.application.client.Sequence;
 import com.application.client.User;
 import com.application.connection.Connection;
@@ -340,7 +341,12 @@ public class EventCard {
             }
         });
 
-        deleteButton.setOnAction(event -> Sequence.deleteEventSequence(name, date));
+        deleteButton.setOnAction(event -> {
+            Sequence.deleteEventSequence(name, date);
+            ////----------------------------------------------------------------------------------------------
+            Event e = new Event(User.getEmail(), name, description, category, date, startTime, endTime, isShared);
+            Client.alertEvent.remove(e);
+        });
 
         updateButton.setOnAction(event -> {
             if (cardView) {
@@ -364,6 +370,10 @@ public class EventCard {
         });
 
         updateEventButton.setOnAction(actionEvent -> {
+            ////----------------------------------------------------------------------------------------------
+            Event oldEvent = new Event(User.getEmail(), name, description, category, date, startTime, endTime, isShared);
+            Client.alertEvent.remove(oldEvent);
+
             if (updateEventName.getText().equals("") && updateEventCategory.getText().equals("") && updateEventDescription.getText().equals("") && updateEventDate.getValue() == null && updateEventStartTime.getText() == null && updateEventEndTime.getText() == null) {
                 try {
                     DialogBox.showDialogue("Warning", "No Changes", DialogBox.WARNING_DIALOG_BOX);
@@ -380,6 +390,9 @@ public class EventCard {
             String _endTime = (updateEventEndTime.getText().equals("")) ? endTime.toString() : updateEventEndTime.getText();
 
             Event event = new Event(User.getEmail(), _name, _description, _category, _date, Time.parseTime(_startTime), Time.parseTime(_endTime), isShared);
+
+            Client.alertEvent.add(event);
+
             Connection.sendRequestCode(NetworkRequestCodes.UPDATE_EVENT_REQUEST1);
             Connection.sendObject(event);
             Connection.sendPrimitiveObject(name);

@@ -4,6 +4,11 @@ import java.io.Serializable;
 
 public record Date (int day, int month, int year) implements Serializable {
 
+    public static boolean isCurrentDate(Date date) {
+        Date currentDate = new Date(java.time.LocalDate.now().getDayOfMonth(), java.time.LocalDate.now().getMonthValue(), java.time.LocalDate.now().getYear());
+        return date.year == currentDate.year && date.month == currentDate.month && date.day == currentDate.day;
+    }
+
     @Override
     public String toString() {
         return day + "-" + month + "-" + year;

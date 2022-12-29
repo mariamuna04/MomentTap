@@ -1,5 +1,6 @@
 package com.application.controllers;
 
+import com.application.client.Client;
 import com.application.client.Sequence;
 import com.application.client.User;
 import com.application.serialShared.Event;
@@ -48,6 +49,9 @@ public class CreateEventController extends Controller {
         if (validDate && validTime) {
             Event event = new Event(User.getEmail(), event_name.getText(), event_description.getText(), event_category.getText(),
                     event_date.getValue().toString(), Time.parseTime(event_start_time.getText()), Time.parseTime(event_end_time.getText()), "no");
+
+            Client.alertEvent.add(event);
+
             if (Sequence.createEventSequence(event)) {
                 DialogBox.showDialogue("Success", "Event created successfully.", DialogBox.SUCCESS_DIALOG_BOX);
                 Utility.deleteStage(parent);

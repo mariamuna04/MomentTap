@@ -1,5 +1,7 @@
 package com.application.controllers;
 
+import com.application.client.Alert;
+import com.application.client.Client;
 import com.application.client.Sequence;
 import com.application.client.User;
 import com.application.connection.Connection;
@@ -66,6 +68,10 @@ public class HomeActivityController extends Controller {
 
         graphicalCalendar.getChildren().removeAll(graphicalCalendar.getChildren());
         graphicalCalendar.getChildren().add(new GraphicalCalendar());
+
+        if(!Alert.isRunning){
+            new Thread(new Alert()).start();
+        }
     }
 
 
@@ -114,6 +120,7 @@ public class HomeActivityController extends Controller {
 
     public void onOthersButtonListener() {
         makeCardView("Others");
+        System.out.println(Client.alertEvent);
     }
 
 
@@ -148,6 +155,10 @@ public class HomeActivityController extends Controller {
 
             for (int i = 0; i < sortedFutureEventsSize; i++) {
                 Event e = User.sortedFutureEvents.poll();
+                ////--------------------------------------------------------------------------------------------
+                if(!Client.alertEventAdded) {
+                    Client.alertEvent.add(e);
+                }
                 if (e != null) {
                     EventCard eventCard = new EventCard();
                     VBox vBox = eventCard.makeCard(e.event_date(), e.event_name(), e.event_category(), e.event_description(), e.event_start_time(), e.event_end_time(), 1, e.isShared());
@@ -156,6 +167,7 @@ public class HomeActivityController extends Controller {
                     System.err.println("Event is null [HomeActivityController.makeCardView :: 144]");
                 }
             }
+            Client.alertEventAdded = true;
 
             for (int i = 0; i < sortedPastEventsSize; i++) {
                 Event e = User.sortedPastEvents.poll();
