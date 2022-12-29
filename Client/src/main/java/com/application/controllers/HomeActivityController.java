@@ -157,7 +157,7 @@ public class HomeActivityController extends Controller {
                 Event e = User.sortedFutureEvents.poll();
                 if (e != null) {
                     EventCard eventCard = new EventCard();
-                    VBox vBox = eventCard.makeCard(e.event_date(), e.event_name(), e.event_category(), e.event_description(), e.event_start_time(), e.event_end_time(), 1,e.isShared);
+                    VBox vBox = eventCard.makeCard(e.event_date(), e.event_name(), e.event_category(), e.event_description(), e.event_start_time(), e.event_end_time(), 1, e.isShared());
                     future_events.getChildren().add(vBox);
                 } else {
                     System.err.println("Event is null [HomeActivityController.makeCardView :: 144]");
@@ -168,7 +168,7 @@ public class HomeActivityController extends Controller {
                 Event e = User.sortedPastEvents.poll();
                 if (e != null) {
                     EventCard eventCard = new EventCard();
-                    VBox vBox = eventCard.makeCard(e.event_date(), e.event_name(), e.event_category(), e.event_description(), e.event_start_time(), e.event_end_time(), 0,e.isShared);
+                    VBox vBox = eventCard.makeCard(e.event_date(), e.event_name(), e.event_category(), e.event_description(), e.event_start_time(), e.event_end_time(), 0, e.isShared());
                     past_events.getChildren().add(vBox);
                 } else {
                     System.err.println("Event is null [HomeActivityController.makeCardView :: 156]");

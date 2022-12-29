@@ -68,6 +68,7 @@ public class Sequence {
                     user.sendData(Database.resultSet.getString("event_date"));
                     user.sendData(Database.resultSet.getString("event_start_time"));
                     user.sendData(Database.resultSet.getString("event_end_time"));
+                    user.sendData(Database.resultSet.getString("event_from"));
                 }
             } else {
                 user.sendRequestCode(NetworkRequestCodes.SEARCH_EVENT_UNSUCCESSFUL);

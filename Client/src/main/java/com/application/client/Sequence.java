@@ -136,7 +136,8 @@ public class Sequence {
                     String date = Connection.getDataInputStream().readUTF();
                     String start_time = Connection.getDataInputStream().readUTF();
                     String end_time = Connection.getDataInputStream().readUTF();
-                    Event e = new Event(User.getEmail(), name, description, category, date, Time.parseTime(start_time), Time.parseTime(end_time));
+                    String is_Shared = Connection.getDataInputStream().readUTF();
+                    Event e = new Event(User.getEmail(), name, description, category, date, Time.parseTime(start_time), Time.parseTime(end_time), is_Shared);
                     User.events.add(e);
                 }
             }

@@ -20,8 +20,8 @@ public final class Event implements Serializable {
     private final String event_date;
     private final Time event_start_time;
     private final Time event_end_time;
+    private final String isShared;
 
-    public boolean isShared = false;
 
     /**
      * @param user_email        Email of the user who created the event
@@ -32,8 +32,7 @@ public final class Event implements Serializable {
      * @param event_start_time  Start time of the event
      * @param event_end_time    End time of the event
      */
-    public Event(String user_email, String event_name, String event_description, String event_category,
-                 String event_date, Time event_start_time, Time event_end_time) {
+    public Event(String user_email, String event_name, String event_description, String event_category, String event_date, Time event_start_time, Time event_end_time, String  isShared) {
         this.user_email = user_email;
         this.event_name = event_name;
         this.event_description = event_description;
@@ -41,11 +40,28 @@ public final class Event implements Serializable {
         this.event_date = event_date;
         this.event_start_time = event_start_time;
         this.event_end_time = event_end_time;
+        this.isShared = isShared;
     }
 
     @Override
     public String toString() {
-        return event_name + " " + event_description + " " + event_category + " " + event_date + " " + event_start_time + " " + event_end_time;
+        return event_name + " " + event_description + " " + event_category + " " + event_date + " " + event_start_time + " " + event_end_time + " " + isShared;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) return true;
+        if (obj == null || obj.getClass() != this.getClass()) return false;
+        var that = (Event) obj;
+        return Objects.equals(this.user_email, that.user_email) &&
+                Objects.equals(this.event_name, that.event_name) &&
+                Objects.equals(this.event_description, that.event_description) &&
+                Objects.equals(this.event_category, that.event_category) &&
+                Objects.equals(this.event_date, that.event_date) &&
+                Objects.equals(this.event_start_time, that.event_start_time) &&
+                Objects.equals(this.event_end_time, that.event_end_time) &&
+                Objects.equals(this.isShared, that.isShared);
+
     }
 
     public String user_email() {
@@ -76,23 +92,13 @@ public final class Event implements Serializable {
         return event_end_time;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == this) return true;
-        if (obj == null || obj.getClass() != this.getClass()) return false;
-        var that = (Event) obj;
-        return Objects.equals(this.user_email, that.user_email) &&
-                Objects.equals(this.event_name, that.event_name) &&
-                Objects.equals(this.event_description, that.event_description) &&
-                Objects.equals(this.event_category, that.event_category) &&
-                Objects.equals(this.event_date, that.event_date) &&
-                Objects.equals(this.event_start_time, that.event_start_time) &&
-                Objects.equals(this.event_end_time, that.event_end_time);
+    public String  isShared() {
+        return isShared;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(user_email, event_name, event_description, event_category, event_date, event_start_time, event_end_time);
+        return Objects.hash(user_email, event_name, event_description, event_category, event_date, event_start_time, event_end_time, isShared);
     }
 
 

@@ -21,7 +21,7 @@ public class Connection {
     /**
      * Port number of the server
      */
-    public static final int PORT = 8080;
+    public static final int PORT = 8087;
 
     /**
      * Socket of the client

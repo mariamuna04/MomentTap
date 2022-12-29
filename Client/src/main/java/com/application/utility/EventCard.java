@@ -4,6 +4,7 @@ import com.application.client.Sequence;
 import com.application.client.User;
 import com.application.connection.Connection;
 import com.application.serialShared.Event;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.effect.BlurType;
 import javafx.scene.effect.DropShadow;
@@ -62,18 +63,35 @@ public class EventCard {
     HBox updateEventTimeHolder = new HBox();
     HBox updateEventButtonHolder = new HBox();
 
+    HBox shareFromView = new HBox();
+
+    Label shareFromLabel = new Label();
+
 
     boolean cardView = true;
 
 
-    public VBox makeCard(String date, String name, String category, String description, Time startTime, Time endTime, int type, boolean isShared) {
+    public VBox makeCard(String date, String name, String category, String description, Time startTime, Time endTime, int type, String isShared) {
         this.parent.setSpacing(6);
         this.parent.setEffect(new DropShadow(BlurType.THREE_PASS_BOX, Color.rgb(163, 163, 163), 10, 0, 3, 3));
-        if (type == 1) {
-            this.parent.setStyle("-fx-background-color: #9fa8da; -fx-background-radius: 12px;");
-        }else if(isShared)
-            this.parent.setStyle("-fx-background-color: #e57373; -fx-background-radius: 12px;");
-        else this.parent.setStyle("-fx-background-color: #b6bbe2; -fx-background-radius: 12px;");
+
+
+        if (isShared.equals("no")) {
+            if (type == 1) this.parent.setStyle("-fx-background-color: #9fa8da; -fx-background-radius: 12px;");
+            else this.parent.setStyle("-fx-background-color: #b6bbe2; -fx-background-radius: 12px;");
+        } else {
+            shareFromLabel.setText(isShared);
+            // FIXME: COLOR OF SHARED EVENT ---------------------------------------
+            if (type == 1) this.parent.setStyle("-fx-background-color: #e1bee7; -fx-background-radius: 12px;");
+            else this.parent.setStyle("-fx-background-color: #EAD2EE; -fx-background-radius: 12px;");
+        }
+
+
+        shareFromLabel.setFont(Font.font("Arial", FontWeight.BOLD, 12));
+        shareFromView.setSpacing(5);
+        shareFromView.setAlignment(Pos.CENTER_RIGHT);
+        shareFromView.getChildren().add(shareFromLabel);
+
 
         this.parent.setPadding(new javafx.geometry.Insets(10, 10, 10, 10));
 
@@ -206,6 +224,11 @@ public class EventCard {
         this.buttonHolder.getChildren().addAll(shareButton, updateButton, deleteButton);
         bottomGUI.getChildren().addAll(buttonHolder);
 
+        if (!isShared.equals("no")) {
+            updateButton.setDisable(true);
+            shareButton.setDisable(true);
+        }
+
         // Share button action GUI -------------------------------------------------------------------------
 
         shareView.setSpacing(6);
@@ -278,10 +301,10 @@ public class EventCard {
             if (shareEmail.getText().equals("")) {
                 shareEmail.setStyle("-fx-background-color: #FFF;-fx-background-radius: 12px; -fx-border-color: #F76E64; -fx-border-width: 2px; -fx-border-radius: 12px;");
                 return;
-            };
+            }
+            ;
 
-            Event sharingEvent = new Event(User.getEmail(), name, description, category, date, startTime, endTime);
-            sharingEvent.isShared = true;
+            Event sharingEvent = new Event(User.getEmail(), name, description, category, date, startTime, endTime, isShared);
 
             Connection.sendRequestCode(NetworkRequestCodes.SHARE_EVENT_REQUEST);
             Connection.sendObject(sharingEvent);
@@ -295,10 +318,9 @@ public class EventCard {
                 } else {
                     DialogBox.showDialogue("Event sharing failed", "Event sharing failed", DialogBox.ERROR_DIALOG_BOX);
                 }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-            catch(Exception e){
-                    e.printStackTrace();
-                }
 
         });
 
@@ -324,12 +346,20 @@ public class EventCard {
 
         updateButton.setOnAction(event -> {
             if (cardView) {
-                parent.getChildren().removeAll(eventName,eventDate, eventCategory, eventDescription, timeHolder, bottomGUI);
-                parent.getChildren().addAll(updateEventView);
+                if (isShared.equals("no")) {
+                    this.parent.getChildren().removeAll(eventName, eventDate, eventCategory, eventDescription, timeHolder, bottomGUI);
+                } else {
+                    this.parent.getChildren().removeAll(shareFromView, eventName, eventDate, eventCategory, eventDescription, timeHolder, bottomGUI);
+                }
+                parent.getChildren().add(updateEventView);
                 cardView = false;
             } else {
-                parent.getChildren().removeAll(updateEventView);
-                parent.getChildren().addAll(eventName, eventDate, eventCategory, eventDescription, timeHolder, bottomGUI);
+                parent.getChildren().remove(updateEventView);
+                if (isShared.equals("no")) {
+                    this.parent.getChildren().addAll(eventName, eventDate, eventCategory, eventDescription, timeHolder, bottomGUI);
+                } else {
+                    this.parent.getChildren().addAll(shareFromView, eventName, eventDate, eventCategory, eventDescription, timeHolder, bottomGUI);
+                }
                 cardView = true;
             }
 
@@ -351,7 +381,7 @@ public class EventCard {
             String _startTime = (updateEventStartTime.getText().equals("")) ? startTime.toString() : updateEventStartTime.getText();
             String _endTime = (updateEventEndTime.getText().equals("")) ? endTime.toString() : updateEventEndTime.getText();
 
-            Event event = new Event(User.getEmail(), _name, _description, _category, _date, Time.parseTime(_startTime), Time.parseTime(_endTime));
+            Event event = new Event(User.getEmail(), _name, _description, _category, _date, Time.parseTime(_startTime), Time.parseTime(_endTime), isShared);
             Connection.sendRequestCode(NetworkRequestCodes.UPDATE_EVENT_REQUEST1);
             Connection.sendObject(event);
             Connection.sendPrimitiveObject(name);
@@ -376,11 +406,19 @@ public class EventCard {
 
         updateEventCancelButton.setOnAction(actionEvent -> {
             parent.getChildren().removeAll(updateEventView);
-            parent.getChildren().addAll(eventName, eventDate, eventCategory, eventDescription, timeHolder, bottomGUI);
+            if (isShared.equals("no")) {
+                this.parent.getChildren().addAll(eventName, eventDate, eventCategory, eventDescription, timeHolder, bottomGUI);
+            } else {
+                this.parent.getChildren().addAll(shareFromView, eventName, eventDate, eventCategory, eventDescription, timeHolder, bottomGUI);
+            }
             cardView = true;
         });
 
-        this.parent.getChildren().addAll(eventName, eventDate, eventCategory, eventDescription, timeHolder, bottomGUI);
+        if (isShared.equals("no")) {
+            this.parent.getChildren().addAll(eventName, eventDate, eventCategory, eventDescription, timeHolder, bottomGUI);
+        } else {
+            this.parent.getChildren().addAll(shareFromView, eventName, eventDate, eventCategory, eventDescription, timeHolder, bottomGUI);
+        }
         return parent;
     }
 }
