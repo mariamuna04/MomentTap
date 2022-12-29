@@ -52,18 +52,17 @@ public class Connection {
     public static void setConnection() {
         try {
             socket = new Socket(HOST, PORT);
-            if(socket.isConnected()) {
-                dataInputStream = new DataInputStream(socket.getInputStream());
-                dataOutputStream = new DataOutputStream(socket.getOutputStream());
-                objectInputStream = new ObjectInputStream(socket.getInputStream());
-                objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
-            }
             dataOutputStream = new DataOutputStream(socket.getOutputStream());
             dataInputStream = new DataInputStream(socket.getInputStream());
             objectInputStream = new ObjectInputStream(socket.getInputStream());
             objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
         } catch (Exception e) {
-            DialogBox.showDialogue("Connection Error", "Unable to connect to the server", DialogBox.ERROR_DIALOG_BOX);
+            System.err.println("Error in Connection.setConnection()");
+            try {
+                DialogBox.showDialogue("Error", "Server is not running", DialogBox.ERROR_DIALOG_BOX);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
         }
     }
 
