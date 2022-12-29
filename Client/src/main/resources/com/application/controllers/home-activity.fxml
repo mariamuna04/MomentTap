@@ -177,7 +177,7 @@
                     </DropShadow>
                 </effect>
             </Button>
-            <Button alignment="BASELINE_LEFT" contentDisplay="BOTTOM" maxHeight="30.0" maxWidth="250.0" minHeight="50.0" minWidth="250.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="250.0" styleClass="sideButtons" stylesheets="@../../../fxml-css/home-activity.css" text="Shared Events" textFill="#49599a">
+            <Button alignment="BASELINE_LEFT" contentDisplay="BOTTOM" maxHeight="30.0" maxWidth="250.0" minHeight="50.0" minWidth="250.0" mnemonicParsing="false" onAction="#onSharedEventButton" prefHeight="30.0" prefWidth="250.0" styleClass="sideButtons" stylesheets="@../../../fxml-css/home-activity.css" text="Shared Events" textFill="#49599a">
                 <padding>
                     <Insets left="35.0" />
                 </padding>

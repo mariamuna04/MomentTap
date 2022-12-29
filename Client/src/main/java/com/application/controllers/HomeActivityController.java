@@ -5,6 +5,7 @@ import com.application.client.User;
 import com.application.connection.Connection;
 import com.application.serialShared.Event;
 import com.application.utility.*;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -15,8 +16,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-
-import java.util.Objects;
 
 /**
  * This Controller handles the Home Activity.
@@ -64,9 +63,8 @@ public class HomeActivityController extends Controller {
         profileViewName.setText(User.getName());
         profileViewEmail.setText(User.getEmail());
 
-        if (future_events.getChildren().size() == 0 && past_events.getChildren().size() == 0 && !primaryInitialized) {
+        if (future_events.getChildren().size() == 0 && past_events.getChildren().size() == 0) {
             onAllEventButtonListener();
-            primaryInitialized = true;
         }
 
         graphicalCalendar.getChildren().removeAll(graphicalCalendar.getChildren());
@@ -119,8 +117,7 @@ public class HomeActivityController extends Controller {
     }
 
     public void onOthersButtonListener() {
-        // FIXME: Complete Other button Listener
-        // FIXME: Add SQL codes to database, simple search
+        makeCardView("Others");
     }
 
 
@@ -188,24 +185,79 @@ public class HomeActivityController extends Controller {
     }
 
     public void onSaveEditProfileButton() throws Exception {
-        if (nameField.getText().equals("") && oldPasswordField.getText().equals("") && newPasswordField.getText().equals("") && confirmPasswordField.getText().equals("")) {
-            editProfileMessage.setStyle("-fx-text-fill: #ff0000;");
-            editProfileMessage.setText("Nothing has been changed");
-        } else if (!newPasswordField.getText().equals(confirmPasswordField.getText())) {
-            DialogBox.showDialogue("Error", "Passwords do not match", DialogBox.ERROR_DIALOG_BOX);
-            System.out.println("Line: " + 200);
-        } else if (!Objects.equals(Verify.md5(oldPasswordField.getText()), User.getPassword())) {
-            DialogBox.showDialogue("Error", "Incorrect password", DialogBox.ERROR_DIALOG_BOX);
-            System.out.println("Line: " + 202);
-        } else {
-            Connection.sendRequestCode(NetworkRequestCodes.EDIT_PROFILE_REQUEST);
-            Connection.sendPrimitiveObject(nameField.getText());
-            Connection.sendPrimitiveObject(Verify.md5(newPasswordField.getText()));
-            if (Connection.receiveRequestCode() == NetworkRequestCodes.UPDATE_EVENT_SUCCESSFUL) {
-                DialogBox.showDialogue("Success", "Profile updated successfully", DialogBox.SUCCESS_DIALOG_BOX);
-                profileEditView.setVisible(false);
+        String _currentPassword = Verify.md5(oldPasswordField.getText());
+        if (nameField.getText().equals("")) {
+            if (newPasswordField.getText().equals("") && confirmPasswordField.getText().equals("")) {
+                editProfileMessage.setStyle("-fx-text-fill: #000000;");
+                editProfileMessage.setText("Nothing has been changed");
+            } else if (newPasswordField.getText().equals(confirmPasswordField.getText())) {
+                assert _currentPassword != null;
+                if (_currentPassword.equals(User.getPassword())) {
+                    // System.out.println("CHANGE PASSWORD");
+                    Connection.sendRequestCode(NetworkRequestCodes.EDIT_PROFILE_REQUEST);
+                    Connection.sendPrimitiveObject("");
+                    Connection.sendPrimitiveObject(Verify.md5(newPasswordField.getText()));
+
+                    if (Connection.receiveRequestCode() == NetworkRequestCodes.UPDATE_EVENT_SUCCESSFUL) {
+                        DialogBox.showDialogue("Success", "Profile updated successfully", DialogBox.SUCCESS_DIALOG_BOX);
+                        onCancelEditProfileButton();
+                        User.setUser(User.getName(), User.getEmail(), Verify.md5(newPasswordField.getText()));
+                        this.init();
+                    } else {
+                        DialogBox.showDialogue("Error", "Profile update failed", DialogBox.ERROR_DIALOG_BOX);
+                    }
+                } else {
+                    editProfileMessage.setStyle("-fx-text-fill: #ff0000;");
+                    editProfileMessage.setText("Current password do not match");
+                }
             } else {
-                DialogBox.showDialogue("Error", "Profile update failed", DialogBox.ERROR_DIALOG_BOX);
+                editProfileMessage.setStyle("-fx-text-fill: #ff0000;");
+                editProfileMessage.setText("New passwords do not match");
+            }
+        } else {
+            if (newPasswordField.getText().equals("") && confirmPasswordField.getText().equals("")) {
+                assert _currentPassword != null;
+                if (_currentPassword.equals(User.getPassword())) {
+                    // System.out.println("CHANGE NAME");
+                    Connection.sendRequestCode(NetworkRequestCodes.EDIT_PROFILE_REQUEST);
+                    Connection.sendPrimitiveObject(nameField.getText());
+                    Connection.sendPrimitiveObject(User.getPassword());
+
+                    if (Connection.receiveRequestCode() == NetworkRequestCodes.UPDATE_EVENT_SUCCESSFUL) {
+                        DialogBox.showDialogue("Success", "Profile updated successfully", DialogBox.SUCCESS_DIALOG_BOX);
+                        onCancelEditProfileButton();
+                        User.setUser(nameField.getText(), User.getEmail(), User.getPassword());
+                        this.init();
+                    } else {
+                        DialogBox.showDialogue("Error", "Profile update failed", DialogBox.ERROR_DIALOG_BOX);
+                    }
+                } else {
+                    editProfileMessage.setStyle("-fx-text-fill: #ff0000;");
+                    editProfileMessage.setText("Current password do not match");
+                }
+            } else if (newPasswordField.getText().equals(confirmPasswordField.getText())) {
+                assert _currentPassword != null;
+                if (_currentPassword.equals(User.getPassword())) {
+                    //System.out.println("CHANGE NAME AND PASSWORD");
+                    Connection.sendRequestCode(NetworkRequestCodes.EDIT_PROFILE_REQUEST);
+                    Connection.sendPrimitiveObject(nameField.getText());
+                    Connection.sendPrimitiveObject(Verify.md5(newPasswordField.getText()));
+
+                    if (Connection.receiveRequestCode() == NetworkRequestCodes.UPDATE_EVENT_SUCCESSFUL) {
+                        DialogBox.showDialogue("Success", "Profile updated successfully", DialogBox.SUCCESS_DIALOG_BOX);
+                        onCancelEditProfileButton();
+                        User.setUser(nameField.getText(), User.getEmail(), Verify.md5(newPasswordField.getText()));
+                        this.init();
+                    } else {
+                        DialogBox.showDialogue("Error", "Profile update failed", DialogBox.ERROR_DIALOG_BOX);
+                    }
+                } else {
+                    editProfileMessage.setStyle("-fx-text-fill: #ff0000;");
+                    editProfileMessage.setText("Current password do not match");
+                }
+            } else {
+                editProfileMessage.setStyle("-fx-text-fill: #ff0000;");
+                editProfileMessage.setText("New passwords do not match");
             }
         }
     }
@@ -228,6 +280,10 @@ public class HomeActivityController extends Controller {
                 e.printStackTrace();
             }
         }
+    }
+
+    public void onSharedEventButton() {
+        makeCardView("shared");
     }
 }
 

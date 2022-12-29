@@ -197,4 +197,12 @@ public class User {
             System.out.println(e.getMessage());
         }
     }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }

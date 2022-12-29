@@ -83,6 +83,8 @@ public class Sequence {
         String password = user.receiveString();
         System.out.println("Updating event: " + name);
         Database.updateProfile(user.getEmail(), name, password);
+        user.setName(name);
+        user.setPassword(password);
         System.out.println("Event updated");
         if (Database.resultSet != null) {
             System.out.println("Sending data");

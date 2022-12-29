@@ -133,8 +133,10 @@ public class Database {
     public static void searchEvent(String email, String keyword) {
         try {
             establishConnection();
-        if (keyword.equals("")) {
+            if (keyword.equals("")) {
                 resultSet = connection.createStatement().executeQuery("SELECT * FROM events WHERE user_email LIKE '%" + email + "%'");
+            } else if (keyword.equals("shared")) {
+                resultSet = connection.createStatement().executeQuery("SELECT * FROM events WHERE user_email LIKE '%" + email + "%' AND ( event_from NOT LIKE '%no%')");
             } else {
                 resultSet = connection.createStatement().executeQuery("SELECT * FROM events WHERE user_email LIKE '%" + email + "%' AND ( event_name LIKE '%" + keyword + "%' OR event_description LIKE '%" + keyword + "%' OR event_category LIKE '%" + keyword + "%' OR event_date LIKE '%" + keyword + "%')");
             }
@@ -144,14 +146,13 @@ public class Database {
     }
 
     @DatabaseQuery
-    public static void updateProfile(String email, String newName, String newPassword){
+    public static void updateProfile(String email, String newName, String newPassword) {
         try {
             establishConnection();
-            if(!newName.equals("")){
-                System.out.println("new name="+newName);
-                connection.createStatement().executeUpdate("UPDATE users SET name = '" + newName + "' , password = '"+newPassword+"' WHERE email = '" + email + "'");
-            }
-            else{
+            if (!newName.equals("")) {
+                System.out.println("new name=" + newName);
+                connection.createStatement().executeUpdate("UPDATE users SET name = '" + newName + "' , password = '" + newPassword + "' WHERE email = '" + email + "'");
+            } else {
                 connection.createStatement().executeUpdate("UPDATE users SET password = '" + newPassword + "' WHERE email = '" + email + "'");
             }
         } catch (Exception e) {
@@ -161,16 +162,15 @@ public class Database {
     }
 
     @DatabaseQuery
-    public static void searchEvent(Event e){
+    public static void searchEvent(Event e) {
         try {
             establishConnection();
-            resultSet = connection.createStatement().executeQuery("SELECT * FROM events WHERE user_email LIKE '%" + e.user_email() + "%' AND event_name LIKE '%" + e.event_name() +  "%' AND event_date LIKE '%" + e.event_date() + "%'");
+            resultSet = connection.createStatement().executeQuery("SELECT * FROM events WHERE user_email LIKE '%" + e.user_email() + "%' AND event_name LIKE '%" + e.event_name() + "%' AND event_date LIKE '%" + e.event_date() + "%'");
         } catch (Exception ex) {
             System.err.println(ex.getMessage());
         }
 
     }
-
 
 
     public static void updateEvent(Event newEvent, String oldName, String oldDate) {
@@ -202,11 +202,10 @@ public class Database {
         String start_time = event.event_start_time().toString();
         String end_time = event.event_end_time().toString();
 
-        try{
+        try {
             establishConnection();
             connection.createStatement().executeUpdate("INSERT INTO events (user_email, event_name, event_description,  event_category, event_date, event_start_time, event_end_time, event_from) VALUES " + "('" + toEmail + "', '" + name + "', '" + description + "', '" + category + "', '" + date + "', '" + start_time + "', '" + end_time + "', '" + email + "')");
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println("Error while executing query: shareEvent [Database.java:116]");
             System.err.println("Possible reason: Database is not running, or SQL syntax is incorrect");
         }
