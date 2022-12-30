@@ -159,7 +159,7 @@
                     </DropShadow>
                 </effect>
             </Button>
-            <Button alignment="BASELINE_LEFT" contentDisplay="BOTTOM" maxHeight="30.0" maxWidth="250.0" minHeight="50.0" minWidth="250.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="250.0" styleClass="sideButtons" stylesheets="@../../../fxml-css/home-activity.css" text="Chat" textFill="#49599a">
+            <Button alignment="BASELINE_LEFT" contentDisplay="BOTTOM" disable="true" maxHeight="30.0" maxWidth="250.0" minHeight="50.0" minWidth="250.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="250.0" styleClass="sideButtons" stylesheets="@../../../fxml-css/home-activity.css" text="Chat" textFill="#49599a">
                 <padding>
                     <Insets left="35.0" />
                 </padding>
@@ -169,13 +169,6 @@
                 <cursor>
                     <Cursor fx:constant="HAND" />
                 </cursor>
-                <effect>
-                    <DropShadow offsetX="2.0" offsetY="2.0">
-                        <color>
-                            <Color red="0.5131579041481018" green="0.5131579041481018" blue="0.5131579041481018" />
-                        </color>
-                    </DropShadow>
-                </effect>
             </Button>
             <Button alignment="BASELINE_LEFT" contentDisplay="BOTTOM" maxHeight="30.0" maxWidth="250.0" minHeight="50.0" minWidth="250.0" mnemonicParsing="false" onAction="#onSharedEventButton" prefHeight="30.0" prefWidth="250.0" styleClass="sideButtons" stylesheets="@../../../fxml-css/home-activity.css" text="Shared Events" textFill="#49599a">
                 <padding>

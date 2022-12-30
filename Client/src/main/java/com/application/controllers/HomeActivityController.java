@@ -74,11 +74,9 @@ public class HomeActivityController extends Controller {
         }
     }
 
-
     public void onCreateEventButton() {
         Utility.createStage("create-event-activity.fxml");
     }
-
 
     public void onSignOutButton() {
         if (Sequence.signOutSequence()) {
