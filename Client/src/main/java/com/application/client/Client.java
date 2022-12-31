@@ -8,14 +8,13 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Vector;
 
 /**
  * Entry point of the Client Application. This class is responsible for loading the initial GUI
  */
 public class Client extends Application {
-    public static List<Event> alertEvent = new ArrayList<>();
+    public static Vector<Event> alertEvent = new Vector<>();
     public static boolean alertEventAdded = false;
 
 
@@ -39,8 +38,7 @@ public class Client extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Controller.class.getResource("sign-in-activity.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
-        // TODO: Add Application Name
-        stage.setTitle("Application Name");
+        stage.setTitle("MomentTap");
         stage.setScene(scene);
         stage.show();
         stage.setResizable(false);

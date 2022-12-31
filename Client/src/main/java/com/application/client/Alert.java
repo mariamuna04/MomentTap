@@ -2,14 +2,11 @@ package com.application.client;
 
 import com.application.serialShared.Event;
 import com.application.utility.Date;
-import com.application.utility.DialogBox;
 import com.application.utility.Time;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
-
-import java.io.IOException;
 
 import static java.lang.Thread.sleep;
 
@@ -19,6 +16,7 @@ public class Alert implements Runnable {
     public Alert() {
         isRunning = true;
     }
+
     @Override
     public void run() {
         while (true) {
@@ -27,23 +25,22 @@ public class Alert implements Runnable {
                     Date date = Date.parseDate(event.event_date());
                     Time time = event.event_start_time();
 
-                    if(Date.isCurrentDate(date) && Time.isCurrentTime(time)) {
+                    if (Date.isCurrentDate(date) && Time.isCurrentTime(time)) {
                         Client.alertEvent.remove(event);
                         Client.alertEventAdded = false;
-                        //DialogBox.showDialogue("Alert", "Event " + event.event_name() + " is starting now", DialogBox.SUCCESS_DIALOG_BOX);
                         Platform.runLater(() -> {
                             try {
                                 Stage st = new Stage();
                                 HBox root = new HBox();
                                 root.getChildren().add(new javafx.scene.control.Label("Event " + event.event_name() + " is starting now"));
-                                Scene scene = new Scene(root);
+                                Scene scene = new Scene(root, 300, 100);
                                 st.setScene(scene);
                                 st.setMaximized(true);
                                 st.setTitle("load");
                                 st.show();
                             } catch (Exception ex) {
                                 ex.printStackTrace();
-                                }
+                            }
                         });
                     }
                 }
