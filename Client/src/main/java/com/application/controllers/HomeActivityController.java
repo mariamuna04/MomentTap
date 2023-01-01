@@ -68,9 +68,6 @@ public class HomeActivityController extends Controller {
         profileViewName.setText(User.getName());
         profileViewEmail.setText(User.getEmail());
 
-        upcomingCount.setText(upcomingCount.getText() + "  " + User.sortedFutureEvents.size());
-        completedCount.setText(completedCount.getText() + "  " + User.sortedPastEvents.size());
-
         //personalCount.setText(personalCount.getText() + "  " + User.sortedPersonalEvents.size());
         //universityCount.setText(universityCount.getText() + "  " + User.sortedUniversityEvents.size());
         //workCount.setText(workCount.getText() + "  " + User.sortedWorkEvents.size());
@@ -168,6 +165,24 @@ public class HomeActivityController extends Controller {
 
             int sortedFutureEventsSize = User.sortedFutureEvents.size();
             int sortedPastEventsSize = User.sortedPastEvents.size();
+
+            upcomingCount.setText("Upcoming : " + sortedFutureEventsSize);
+            completedCount.setText("Completed : " + sortedPastEventsSize);
+
+            int universityCount = 0, personalCount = 0, workCount = 0, otherCount = 0;
+            for (Event event: User.events) {
+                switch (event.event_category()) {
+                    case "University" -> universityCount++;
+                    case "Personal" -> personalCount++;
+                    case "Work" -> workCount++;
+                    case "Others" -> otherCount++;
+                }
+            }
+            this.universityCount.setText("University : " + universityCount);
+            this.personalCount.setText("Personal : " + personalCount);
+            this.workCount.setText("Work : " + workCount);
+            this.otherCount.setText("Others : " + otherCount);
+
 
             for (int i = 0; i < sortedFutureEventsSize; i++) {
                 Event e = User.sortedFutureEvents.poll();
