@@ -19,7 +19,7 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="parent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.application.controllers.HomeActivityController">
+<Pane fx:id="parent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.application.controllers.HomeActivityController">
     <ImageView fitHeight="545.0" fitWidth="910.0" layoutY="61.0" pickOnBounds="true" preserveRatio="true">
         <Image url="@../../../fxml-images/home-activity-background.png" />
     </ImageView>
@@ -64,8 +64,8 @@
                 <Insets left="-3.0" top="2.0" />
             </GridPane.margin>
             <HBox alignment="CENTER" maxWidth="200.0" minWidth="200.0" prefWidth="200.0">
-                <ImageView fitHeight="40.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                    <Image url="@../../../fxml-images/brand-logo.png" />
+                <ImageView fitHeight="40.0" fitWidth="145.0" pickOnBounds="true" preserveRatio="true" translateY="2.0">
+                    <Image url="@../../../fxml-images/demo.png" />
                 </ImageView>
             </HBox>
             <HBox prefWidth="200.0" HBox.hgrow="ALWAYS" />
@@ -78,7 +78,7 @@
                     </DropShadow>
                 </effect>
                 <HBox alignment="CENTER" maxHeight="36.0" maxWidth="32.0" minHeight="32.0" minWidth="32.0" prefHeight="36.0" prefWidth="32.0" style="-fx-background-color: #fff; -fx-background-radius: 8 0 0 8;">
-                    <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true">
+                    <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" translateX="4.0">
                         <HBox.margin>
                             <Insets top="2.0" />
                         </HBox.margin>

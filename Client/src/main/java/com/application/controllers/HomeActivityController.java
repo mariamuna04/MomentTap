@@ -68,11 +68,6 @@ public class HomeActivityController extends Controller {
         profileViewName.setText(User.getName());
         profileViewEmail.setText(User.getEmail());
 
-        //personalCount.setText(personalCount.getText() + "  " + User.sortedPersonalEvents.size());
-        //universityCount.setText(universityCount.getText() + "  " + User.sortedUniversityEvents.size());
-        //workCount.setText(workCount.getText() + "  " + User.sortedWorkEvents.size());
-        //otherCount.setText(otherCount.getText() + "  " + User.sortedOtherEvents.size());
-
         if (future_events.getChildren().size() == 0 && past_events.getChildren().size() == 0) {
             onAllEventButtonListener();
         }
