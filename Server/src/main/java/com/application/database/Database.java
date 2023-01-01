@@ -41,7 +41,7 @@ public class Database {
      * Establish a connection to the database. This method is called when any query is executed.
      * If the connection is already established, it will not establish a new connection.
      */
-    private static void establishConnection() {
+    synchronized private static void establishConnection() {
         try {
             connection = DriverManager.getConnection(DATABASE_URL, DATABASE_USER, DATABASE_PASSWORD);
             System.out.println("Database Server Connected");
@@ -52,7 +52,7 @@ public class Database {
     }
 
     @DatabaseQuery
-    public static void findUser(String email, String password) {
+    synchronized public static void findUser(String email, String password) {
         try {
             establishConnection();
             resultSet = connection.createStatement().executeQuery("SELECT * FROM users WHERE email = '" + email + "' AND password = '" + password + "'");
@@ -64,7 +64,7 @@ public class Database {
     }
 
     @DatabaseQuery
-    public static void addUser(String name, String email, String password) {
+    synchronized public static void addUser(String name, String email, String password) {
         try {
             establishConnection();
             resultSet = connection.createStatement().executeQuery("SELECT * FROM users WHERE email = '" + email + "'");
@@ -81,7 +81,7 @@ public class Database {
     }
 
     @DatabaseQuery
-    public static String queryForName(String email) {
+    synchronized public static String queryForName(String email) {
         try {
             establishConnection();
             resultSet = connection.createStatement().executeQuery("SELECT name FROM users WHERE email = '" + email + "'");
@@ -97,7 +97,7 @@ public class Database {
 
 
     @DatabaseQuery
-    public static void addEvent(Event event) {
+    synchronized public static void addEvent(Event event) {
         String email = event.user_email();
         String name = event.event_name();
         String description = event.event_description();
@@ -118,7 +118,7 @@ public class Database {
     }
 
     @DatabaseQuery
-    public static void deleteEvent(String email, String name, String date) {
+    synchronized public static void deleteEvent(String email, String name, String date) {
         // delete event from database
         try {
             establishConnection();
@@ -130,7 +130,7 @@ public class Database {
     }
 
     @DatabaseQuery
-    public static void searchEvent(String email, String keyword) {
+    synchronized public static void searchEvent(String email, String keyword) {
         try {
             establishConnection();
             if (keyword.equals("")) {
@@ -146,7 +146,7 @@ public class Database {
     }
 
     @DatabaseQuery
-    public static void updateProfile(String email, String newName, String newPassword) {
+    synchronized public static void updateProfile(String email, String newName, String newPassword) {
         try {
             establishConnection();
             if (!newName.equals("")) {
@@ -162,7 +162,7 @@ public class Database {
     }
 
 
-    public static void updateEvent(Event newEvent, String oldName, String oldDate) {
+    synchronized public static void updateEvent(Event newEvent, String oldName, String oldDate) {
         String email = newEvent.user_email();
         String name = newEvent.event_name();
         String description = newEvent.event_description();
@@ -182,7 +182,7 @@ public class Database {
         }
     }
 
-    public static void shareEvent(Event event, String toEmail) {
+    synchronized public static void shareEvent(Event event, String toEmail) {
         String email = event.user_email();
         String name = event.event_name();
         String description = event.event_description();

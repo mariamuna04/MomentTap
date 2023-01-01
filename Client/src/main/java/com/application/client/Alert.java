@@ -35,7 +35,6 @@ public class Alert implements Runnable {
                                 root.getChildren().add(new javafx.scene.control.Label("Event " + event.event_name() + " is starting now"));
                                 Scene scene = new Scene(root, 300, 100);
                                 st.setScene(scene);
-                                st.setMaximized(true);
                                 st.setTitle("load");
                                 st.show();
                             } catch (Exception ex) {
@@ -49,6 +48,7 @@ public class Alert implements Runnable {
                 System.out.println("Alert thread is running");
                 sleep(3000);
             } catch (InterruptedException e) {
+                new Thread(new Alert()).start();
                 throw new RuntimeException(e);
             }
 
