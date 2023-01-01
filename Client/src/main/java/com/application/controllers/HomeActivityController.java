@@ -24,6 +24,12 @@ import javafx.scene.layout.VBox;
 public class HomeActivityController extends Controller {
 
     public Pane graphicalCalendar;
+    public Label upcomingCount;
+    public Label completedCount;
+    public Label personalCount;
+    public Label universityCount;
+    public Label workCount;
+    public Label otherCount;
     @FXML
     private Pane parent;
     @FXML
@@ -62,12 +68,21 @@ public class HomeActivityController extends Controller {
         profileViewName.setText(User.getName());
         profileViewEmail.setText(User.getEmail());
 
+        upcomingCount.setText(upcomingCount.getText() + "  " + User.sortedFutureEvents.size());
+        completedCount.setText(completedCount.getText() + "  " + User.sortedPastEvents.size());
+
+        //personalCount.setText(personalCount.getText() + "  " + User.sortedPersonalEvents.size());
+        //universityCount.setText(universityCount.getText() + "  " + User.sortedUniversityEvents.size());
+        //workCount.setText(workCount.getText() + "  " + User.sortedWorkEvents.size());
+        //otherCount.setText(otherCount.getText() + "  " + User.sortedOtherEvents.size());
+
         if (future_events.getChildren().size() == 0 && past_events.getChildren().size() == 0) {
             onAllEventButtonListener();
         }
 
         graphicalCalendar.getChildren().removeAll(graphicalCalendar.getChildren());
         graphicalCalendar.getChildren().add(new GraphicalCalendar());
+
 
         if(!Alert.isRunning){
             new Thread(new Alert()).start();

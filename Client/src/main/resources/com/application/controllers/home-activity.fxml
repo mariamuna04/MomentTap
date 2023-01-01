@@ -334,7 +334,7 @@
 
     </Pane>
     <Pane fx:id="profileView" layoutX="421.0" layoutY="69.0" prefHeight="282.0" prefWidth="475.0"
-          style="-fx-background-color: #e1e4f4; -fx-background-radius: 10;" visible="false">
+          style="-fx-background-color: #e1e4f4; -fx-background-radius: 10;">
         <padding>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
         </padding>
@@ -396,33 +396,33 @@
                             <Insets bottom="10.0" top="10.0"/>
                         </VBox.margin>
                     </Label>
-                    <Label text="Upcoming Event(s)">
+                    <Label fx:id="upcomingCount" text="Upcoming Event(s)">
                         <font>
                             <Font name="Arial" size="13.0"/>
                         </font>
                     </Label>
-                    <Label text="Completed Event(s):">
+                    <Label fx:id="completedCount" text="Completed Event(s):">
                         <font>
                             <Font name="Arial" size="13.0"/>
                         </font>
                     </Label>
                     <Label/>
-                    <Label text="Personal Event(s):">
+                    <Label fx:id="personalCount" text="Personal Event(s):">
                         <font>
                             <Font name="Arial" size="13.0"/>
                         </font>
                     </Label>
-                    <Label text="University Event(s):">
+                    <Label fx:id="universityCount" text="University Event(s):">
                         <font>
                             <Font name="Arial" size="13.0"/>
                         </font>
                     </Label>
-                    <Label text="Work Event(s):">
+                    <Label fx:id="workCount" text="Work Event(s):">
                         <font>
                             <Font name="Arial" size="13.0"/>
                         </font>
                     </Label>
-                    <Label text="Other Event(s):">
+                    <Label fx:id="otherCount" text="Other Event(s):">
                         <font>
                             <Font name="Arial" size="13.0"/>
                         </font>

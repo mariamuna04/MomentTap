@@ -97,11 +97,9 @@ public class Alert implements Runnable {
                 }
             }
             try {
-                System.out.println("Alert thread is running");
                 sleep(3000);
-            } catch (InterruptedException e) {
-                new Thread(new Alert()).start();
-                throw new RuntimeException(e);
+            } catch (InterruptedException ignored) {
+
             }
 
         }
