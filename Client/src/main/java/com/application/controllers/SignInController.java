@@ -29,7 +29,6 @@ public class SignInController extends Controller {
             signInErrorLabel.setText("Email Format or Password Incorrect");
         }else if (Sequence.signInSequence(emailTextField.getText(), Verify.md5(passwordTextField.getText()))) {
             Utility.changeScene(parent, "home-activity.fxml");
-            // FIXME: If server is not running, it will show email already exists
         } else signInErrorLabel.setText("Invalid Email or Password");
     }
 
@@ -38,10 +37,6 @@ public class SignInController extends Controller {
     }
 
     public void onAboutUsListener() throws Exception {
-        // FIXME: Testing purpose
-        emailTextField.setText("admin@admin.com");
-        passwordTextField.setText(".");
-        onSignInListener();
-        //Utility.changeScene(parent, "about-us-activity.fxml");
+        Utility.changeScene(parent, "about-us-activity.fxml");
     }
 }
