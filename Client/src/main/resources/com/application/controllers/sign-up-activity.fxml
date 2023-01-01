@@ -7,6 +7,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -84,6 +85,13 @@
                             </color>
                         </DropShadow>
                     </effect>
+               <tooltip>
+                  <Tooltip consumeAutoHidingEvents="false" maxHeight="100.0" maxWidth="20.0" minHeight="100.0" minWidth="300.0" prefHeight="100.0" prefWidth="20.0" style="-fx-background-color: #FFFFFF; -fx-text-fill: #000;" text="Password Must Contain at least: one uppercase Letter, one digit and one special character" textAlignment="CENTER" wrapText="true">
+                     <font>
+                        <Font name="Arial Bold" size="13.0" />
+                     </font>
+                  </Tooltip>
+               </tooltip>
                 </PasswordField>
                 <Label fx:id="signUpErrorLabel" textFill="#ff3535">
                     <font>
