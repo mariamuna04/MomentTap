@@ -16,3 +16,5 @@ module com.application.client {
     exports com.application.serialShared;
     opens com.application.serialShared to javafx.fxml;
 }
+
+// Project Finished on Mon Jan 2 2023 15:30:00 GMT+0600 (Bangladesh Standard Time)
