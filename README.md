@@ -3,7 +3,7 @@
 
 
 ### Introducing
-MomentTrap, a place where you can keep track, remember and share all of your moments through user-friendly graphical user interface.
+MomentTap, a place where you can keep track, remember and share all of your moments through user-friendly graphical user interface.
 
 
 ### Features
